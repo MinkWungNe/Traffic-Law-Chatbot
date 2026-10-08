@@ -210,7 +210,7 @@ Dự án tuân thủ nghiêm ngặt chuẩn **PEP 8**:
 | Commit chuẩn chuyên nghiệp | Giải thích ý nghĩa |
 | :--- | :--- |
 | `feat(ingestion): them regex tach van ban theo dieu khoan` | Thêm tính năng tách điều khoản trong `text_splitter.py` |
-| `feat(rag): tich hop mo hinh vinallama offline qua ctransformers` | Nạp mô hình LLM vào `llm_engine.py` |
+| `feat(rag): tich hop mo hinh vinallama offline qua llamacpp` | Nạp mô hình LLM vào `llm_engine.py` |
 | `fix(api): xu ly loi timeout khi gui cau hoi dai` | Sửa lỗi endpoint `/api/chat` |
 | `feat(ui): them hop trich dan nguon luat expander` | Bổ sung hiển thị căn cứ pháp lý trong `app.py` |
 | `perf(rag): cache embeddings giup tang toc truy van len 2x` | Tối ưu hóa hiệu năng truy xuất |
@@ -233,7 +233,7 @@ Dự án tuân thủ nghiêm ngặt chuẩn **PEP 8**:
 *Bắt buộc phải tạo `venv` để tránh xung đột thư viện giữa các máy và bảo vệ môi trường Python hệ thống:*
 
 > [!IMPORTANT] **Yêu cầu phiên bản Python:**
-> Khuyến nghị sử dụng **Python 3.10 hoặc Python 3.11** (64-bit). Tránh sử dụng Python 3.12+ hoặc 3.13 vì một số thư viện C++ như `ctransformers`, `torch` chưa có gói wheel dựng sẵn trên Windows và rất dễ phát sinh lỗi khi cài đặt.
+> Khuyến nghị sử dụng **Python 3.10 hoặc Python 3.11** (64-bit). Tránh sử dụng Python 3.12+ hoặc 3.13 vì một số thư viện C++ như `llama-cpp-python`, `torch` chưa có gói wheel dựng sẵn trên Windows và rất dễ phát sinh lỗi khi cài đặt.
 
 1. Mở Terminal tại thư mục `Chatbot_AI_AnToanGiaoThong`:
    ```bash

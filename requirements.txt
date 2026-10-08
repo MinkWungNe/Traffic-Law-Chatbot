@@ -8,7 +8,7 @@ requests
 streamlit
 
 # AI / LLM & RAG
-ctransformers
+llama-cpp-python
 transformers
 torch
 sentence-transformers

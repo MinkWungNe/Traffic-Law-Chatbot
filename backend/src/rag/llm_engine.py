@@ -1,6 +1,6 @@
 """
 Module: llm_engine.py
-Mục đích: Khởi tạo và quản lý mô hình ngôn ngữ lớn cục bộ (VinaLlama .gguf) qua CTransformers / LlamaCpp.
+Mục đích: Khởi tạo và quản lý mô hình ngôn ngữ lớn cục bộ (VinaLlama .gguf) qua LlamaCpp / Transformers.
 Người phụ trách chính: Thành viên 2 (RAG Core Lead)
 """
 
@@ -36,10 +36,10 @@ class LLMEngine:
         """
         Nạp mô hình LLM vào bộ nhớ RAM / VRAM.
         Returns:
-            Any: Đối tượng mô hình (CTransformers hoặc LlamaCpp).
+            Any: Đối tượng mô hình (LlamaCpp hoặc HuggingFacePipeline).
         """
-        # TODO [Cơ bản]: Sử dụng CTransformers hoặc langchain_community.llms.CTransformers
-        # config={'max_new_tokens': self.max_new_tokens, 'temperature': self.temperature, 'context_length': self.context_length}
+        # TODO [Cơ bản]: Sử dụng langchain_community.llms.LlamaCpp
+        # config={'max_tokens': self.max_new_tokens, 'temperature': self.temperature, 'n_ctx': self.context_length}
         return self.model
 
     def generate(self, prompt: str) -> str:
