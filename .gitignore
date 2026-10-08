@@ -15,12 +15,15 @@ backend/models/*
 data/vectorstore/*
 backend/data/vectorstore/*
 backend/data/chroma_db/*
+!data/vectorstore/.gitkeep
 !backend/data/vectorstore/.gitkeep
 !backend/data/chroma_db/.gitkeep
 
 # Dữ liệu tạm hoặc cache sinh ra trong quá trình chạy
 *.log
+data/processed/*
 backend/data/processed/*
+!data/processed/.gitkeep
 !backend/data/processed/.gitkeep
 
 # ===============================
