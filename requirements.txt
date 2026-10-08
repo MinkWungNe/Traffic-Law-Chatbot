@@ -1,0 +1,31 @@
+# Framework & API Backend
+fastapi
+uvicorn[standard]
+pydantic
+requests
+
+# Frontend Web
+streamlit
+
+# AI / LLM & RAG
+ctransformers
+transformers
+torch
+sentence-transformers
+langchain
+langchain-community
+langchain-chroma
+
+# Vector Database
+chromadb
+faiss-cpu
+
+# Xử lý tài liệu & Dữ liệu
+pypdf
+python-docx
+openpyxl
+pandas
+
+# Hướng dẫn cài đặt:
+# Mở Terminal tại thư mục Chatbot_AI_AnToanGiaoThong và chạy:
+# pip install -r requirements.txt

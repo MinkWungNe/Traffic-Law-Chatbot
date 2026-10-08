@@ -1,0 +1,58 @@
+# ===============================
+# AI Models & Heavy Artifacts (>100MB)
+# ===============================
+*.gguf
+*.bin
+*.safetensors
+*.pt
+models/*
+backend/models/*
+!backend/models/.gitkeep
+
+# ===============================
+# Vector Database & Embeddings
+# ===============================
+data/vectorstore/*
+backend/data/vectorstore/*
+backend/data/chroma_db/*
+!backend/data/vectorstore/.gitkeep
+!backend/data/chroma_db/.gitkeep
+
+# Dữ liệu tạm hoặc cache sinh ra trong quá trình chạy
+*.log
+backend/data/processed/*
+!backend/data/processed/.gitkeep
+
+# ===============================
+# Python & Virtual Environments
+# ===============================
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# ===============================
+# Streamlit & Cache
+# ===============================
+.streamlit/
+*/.streamlit/
+
+# ===============================
+# Environment Variables & IDE
+# ===============================
+.env
+.env.local
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

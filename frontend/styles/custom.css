@@ -1,0 +1,21 @@
+/* CSS tùy biến cơ bản cho giao diện Streamlit Chatbot */
+.main {
+    padding-top: 1rem;
+}
+
+/* Tinh chỉnh khung chat */
+.stChatMessage {
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+/* Trích dẫn nguồn văn bản luật */
+.source-citation {
+    background-color: #f1f5f9;
+    border-left: 3px solid #0284c7;
+    padding: 8px 12px;
+    margin-top: 8px;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    color: #334155;
+}
