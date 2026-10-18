@@ -5,7 +5,7 @@
 *.bin
 *.safetensors
 *.pt
-models/*
+models/*.gguf
 backend/models/*
 !backend/models/.gitkeep
 
