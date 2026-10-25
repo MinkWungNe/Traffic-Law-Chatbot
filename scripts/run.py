@@ -118,7 +118,7 @@ def run_fullstack(py_exe: Path, npm_cmd: str, frontend_dir: Path):
         creationflags=creation_flags
     )
 
-    print(f"{GRAY}Đang chờ Backend ổn định trong 2 giây...{RESET}")
+    print(f"{GRAY}Đang chờ Backend khởi tạo trong 2 giây...{RESET}")
     time.sleep(2)
 
     print(f"\n{GREEN}{'='*80}{RESET}")
@@ -159,7 +159,6 @@ def run_frontend(npm_cmd: str, frontend_dir: Path):
         )
     except KeyboardInterrupt:
         pass
-    print(f"\n{GREEN}Giao diện Web đã dừng.{RESET}")
 
 
 def run_backend(py_exe: Path):
@@ -176,6 +175,22 @@ def run_backend(py_exe: Path):
     except KeyboardInterrupt:
         pass
     print(f"\n{GREEN}Máy chủ Backend đã dừng.{RESET}")
+
+
+def run_benchmark():
+    """Chạy chương trình đo lường benchmark trên terminal."""
+    try:
+        subprocess.run(["node", "evaluation/benchmark.js"], cwd=str(PROJECT_ROOT))
+    except KeyboardInterrupt:
+        pass
+
+
+def run_tests():
+    """Chạy bộ kiểm thử tự động trên terminal."""
+    try:
+        subprocess.run(["node", "evaluation/test_terminal.js"], cwd=str(PROJECT_ROOT))
+    except KeyboardInterrupt:
+        pass
 
 
 def main():
@@ -197,7 +212,7 @@ def main():
     while True:
         try:
             print_banner(venv_name)
-            choice = input("Nhập lựa chọn của bạn [1/2/3 hoặc 0]: ").strip()
+            choice = input("Nhập lựa chọn của bạn [1/2/3/4/5 hoặc 0]: ").strip()
 
             if choice == "1":
                 if not npm_cmd:
@@ -216,6 +231,12 @@ def main():
             elif choice == "3":
                 run_backend(py_exe)
                 break
+            elif choice == "4":
+                run_benchmark()
+                input("\nNhấn Enter để quay lại menu...")
+            elif choice == "5":
+                run_tests()
+                input("\nNhấn Enter để quay lại menu...")
             elif choice == "0":
                 print(f"\n{GRAY}Tạm biệt!{RESET}")
                 break
