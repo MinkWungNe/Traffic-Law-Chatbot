@@ -4,9 +4,6 @@ uvicorn[standard]
 pydantic
 requests
 
-# Frontend Web
-streamlit
-
 # AI / LLM & RAG
 llama-cpp-python
 transformers
@@ -26,6 +23,5 @@ python-docx
 openpyxl
 pandas
 
-# Hướng dẫn cài đặt:
-# Mở Terminal tại thư mục Chatbot_AI_AnToanGiaoThong và chạy:
-# pip install -r requirements.txt
+# Lưu ý: Giao diện Web (Frontend) đã chuyển sang Next.js, 
+# quản lý dependencies độc lập qua frontend/package.json (chạy 'cd frontend && npm install').

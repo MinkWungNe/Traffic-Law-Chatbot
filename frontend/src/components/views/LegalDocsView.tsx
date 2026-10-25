@@ -1,21 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { fetchLegalDocuments, LegalDocItem } from "@/lib/api";
 
-interface DocItem {
-  id: string;
-  category: "luat" | "nghi-dinh" | "thong-tu" | "quy-chuan";
-  typeLabel: string;
-  typeBadgeBg: string;
-  typeBadgeText: string;
-  title: string;
-  number: string;
-  date: string;
-  status: string;
-  desc: string;
-}
-
-const SAMPLE_DOCS: DocItem[] = [
+const SAMPLE_DOCS: LegalDocItem[] = [
   {
     id: "doc-1",
     category: "luat",
@@ -67,10 +55,23 @@ const SAMPLE_DOCS: DocItem[] = [
 ];
 
 export const LegalDocsView: React.FC = () => {
+  const [docs, setDocs] = useState<LegalDocItem[]>(SAMPLE_DOCS);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
-  const filteredDocs = SAMPLE_DOCS.filter((doc) => {
+  useEffect(() => {
+    let isMounted = true;
+    fetchLegalDocuments().then((res) => {
+      if (isMounted && res && res.length > 0) {
+        setDocs(res);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const filteredDocs = docs.filter((doc) => {
     const matchCat = activeCategory === "all" || doc.category === activeCategory;
     const matchSearch =
       !searchTerm ||

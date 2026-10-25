@@ -207,3 +207,91 @@ Căn cứ Luật Trật tự, an toàn giao thông đường bộ 2024 và các 
     ],
   };
 }
+
+export interface LegalDocItem {
+  id: string;
+  category: "luat" | "nghi-dinh" | "thong-tu" | "quy-chuan";
+  typeLabel: string;
+  typeBadgeBg: string;
+  typeBadgeText: string;
+  title: string;
+  number: string;
+  date: string;
+  status: string;
+  desc: string;
+}
+
+/**
+ * Lấy danh mục văn bản quy phạm pháp luật từ FastAPI (/api/documents)
+ */
+export async function fetchLegalDocuments(): Promise<LegalDocItem[]> {
+  try {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/documents`, {
+      method: "GET",
+      signal: AbortSignal.timeout(4000),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return (data.documents || []).map((doc: {
+        id: string;
+        category: "luat" | "nghi-dinh" | "thong-tu" | "quy-chuan";
+        type_label: string;
+        title: string;
+        number: string;
+        date: string;
+        status: string;
+        desc: string;
+      }) => ({
+        id: doc.id,
+        category: doc.category,
+        typeLabel: doc.type_label,
+        typeBadgeBg:
+          doc.category === "luat"
+            ? "bg-red-50 border-red-200"
+            : doc.category === "quy-chuan"
+            ? "bg-emerald-50 border-emerald-200"
+            : "bg-blue-50 border-blue-200",
+        typeBadgeText:
+          doc.category === "luat"
+            ? "text-red-700"
+            : doc.category === "quy-chuan"
+            ? "text-emerald-700"
+            : "text-blue-700",
+        title: doc.title,
+        number: doc.number,
+        date: doc.date,
+        status: doc.status,
+        desc: doc.desc,
+      }));
+    }
+  } catch (err) {
+    console.warn("Could not fetch documents from FastAPI backend:", err);
+  }
+  return [];
+}
+
+/**
+ * Tìm kiếm nhanh căn cứ pháp lý (/api/search)
+ */
+export async function searchLegalSources(query: string, topK = 3): Promise<Citation[]> {
+  try {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/search`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query, top_k: topK }),
+      signal: AbortSignal.timeout(10000),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return (data.sources || []).map((s: BackendSource) => ({
+        title: s.title,
+        snippet: s.snippet,
+        raw: s.snippet,
+        score: typeof s.score === "number" ? s.score : null,
+      }));
+    }
+  } catch (err) {
+    console.warn("Search API failed:", err);
+  }
+  return [];
+}

@@ -12,7 +12,7 @@ Toàn bộ hệ thống được mô phỏng như một **Văn phòng Luật sư
 [ Người dùng đặt câu hỏi trên Web ]
             │
             ▼
-[ BÀN LỄ TÂN (frontend/app.py - Streamlit) ] ────► Tiếp nhận câu hỏi, điều hướng, hiển thị câu trả lời & căn cứ pháp lý
+[ BÀN LỄ TÂN (frontend/ - Next.js & Tailwind CSS) ] ────► Tiếp nhận câu hỏi, điều hướng, hiển thị câu trả lời & căn cứ pháp lý
             │
             ▼ (Gửi yêu cầu HTTP REST API: /api/chat)
 [ PHÒNG TIẾP NHẬN (backend/src/api/) ]          ────► Kiểm tra tính hợp lệ dữ liệu (chat_schema.py)
@@ -71,17 +71,24 @@ Chatbot_AI_AnToanGiaoThong/
 │       └── utils/                   <-- CÔNG CỤ TIỆN ÍCH DÙNG CHUNG
 │           └── text_cleaner.py      <-- Class TextCleaner: làm sạch tiếng Việt, bóc tách số hiệu luật
 │
-└── frontend/                        <-- GIAO DIỆN WEB NGƯỜI DÙNG (Streamlit thuần Python)
-    ├── app.py                       <-- Ứng dụng chat Web chính (giao diện hỏi đáp thời gian thực)
-    ├── pages/
-    │   ├── 1_Tra_Cuu_Luat.py        <-- Trang tra cứu nhanh văn bản và điều khoản pháp luật
-    │   └── 2_Danh_Gia.py            <-- Dashboard trực quan hóa điểm số Benchmark
-    ├── components/
-    │   ├── sidebar.py               <-- Thanh công cụ cấu hình tham số (Top-K, Model, Xóa chat)
-    │   └── chat_box.py              <-- Component hiển thị tin nhắn và trích dẫn luật
-    ├── assets/                      <-- Ảnh đại diện, biểu tượng
-    └── styles/
-        └── custom.css               <-- Tùy biến kiểu dáng hiển thị
+└── frontend/                        <-- GIAO DIỆN WEB NGƯỜI DÙNG HIỆN ĐẠI (Next.js, TypeScript, Tailwind CSS)
+    ├── public/                      <-- Tài nguyên tĩnh (Logo, favicon, icons)
+    ├── src/
+    │   ├── app/                     <-- Next.js App Router (layout.tsx, page.tsx, globals.css)
+    │   ├── components/              <-- Các UI Component chính
+    │   │   ├── chat/                <-- ChatDock, MessageBubble, ChatScrollArea, StarterCards
+    │   │   ├── layout/              <-- Sidebar điều hướng & trạng thái kết nối Backend
+    │   │   ├── views/               <-- Màn hình chức năng: LegalDocsView, FAQView, LoginView
+    │   │   └── ambient/             <-- Hiệu ứng trống đồng Đông Sơn nền chuyển động
+    │   ├── lib/
+    │   │   └── api.ts               <-- API Client gọi FastAPI (/api/chat, /api/health) kèm timeout 60s
+    │   ├── stores/
+    │   │   └── useChatStore.ts      <-- Quản lý State toàn cục qua Zustand (tin nhắn, kết nối API)
+    │   ├── types/
+    │   │   └── chat.ts              <-- Định nghĩa kiểu dữ liệu (ChatMessage, Citation)
+    │   └── hooks/                   <-- Custom Hooks điều phối Spotlight Border
+    ├── package.json                 <-- Quản lý dependencies Node.js (React 19, Next.js, Zustand)
+    └── .env.local                   <-- Cấu hình URL máy chủ Backend (http://127.0.0.1:8000)
 ```
 
 ---
@@ -105,7 +112,7 @@ Chatbot_AI_AnToanGiaoThong/
 | :--- | :--- | :--- | :--- |
 | **Phân hệ 1: Data Ingestion**<br>👤 *Vinh* `feature/data-ingestion` | `src/ingestion/`<br>`src/utils/`<br>`data/` | - Đọc trích xuất file Word/PDF trong `document_loader.py`.<br>- Tách văn bản chuẩn theo Điều/Khoản trong `text_splitter.py`.<br>- Làm sạch chuỗi và bóc tách số hiệu luật trong `text_cleaner.py`. | - Tự động bóc tách metadata (Chương, Mục, Thẩm quyền xử phạt).<br>- Nhận diện cấu trúc bảng biểu mức phạt tiền.<br>- Phát hiện cảnh báo điều khoản hết hiệu lực. |
 | **Phân hệ 2: RAG Core & Vector DB**<br>👤 *Chí* `feature/rag-core` | `src/rag/`<br>`models/`<br>`src/ingestion/vector_builder.py` | - Nhúng vector và lưu trữ ChromaDB trong `vector_builder.py`.<br>- Nạp và cấu hình VinaLlama cục bộ trong `llm_engine.py`.<br>- Ghép Prompt và sinh phản hồi chuẩn luật trong `rag_pipeline.py`. | - Tích hợp Re-ranking (Cross-Encoder / BGE-Reranker).<br>- Áp dụng kỹ thuật HyDE (Hypothetical Document Embeddings).<br>- Tối ưu hóa GPU Offloading (cuBLAS) tăng tốc độ sinh token. |
-| **Phân hệ 3: API & Web Frontend**<br>👤 *Quân* `feature/api-ui` | `src/api/`<br>`frontend/` | - Vận hành FastAPI REST Server trong `main.py` & `chat_routes.py`.<br>- Hoàn thiện giao diện Chat Web Streamlit trong `frontend/app.py`.<br>- Hoàn thiện thanh Sidebar cấu hình trong `components/sidebar.py`. | - Quản lý lịch sử hội thoại nhiều lượt (Multi-turn chat memory).<br>- Caching câu hỏi phổ biến để phản hồi dưới 0.1s.<br>- Tính năng xuất nội dung tư vấn ra tệp PDF/Word. |
+| **Phân hệ 3: API & Web Frontend**<br>👤 *Quân* `feature/api-ui` | `backend/src/api/`<br>`frontend/` | - Vận hành FastAPI REST Server trong `main.py` & `chat_routes.py`.<br>- Phát triển giao diện Web Next.js hiện đại trong `frontend/`.<br>- Kết nối API FastAPI với thanh Dock Chat, trích dẫn luật và tra cứu. | - Quản lý lịch sử hội thoại nhiều lượt (Multi-turn chat memory).<br>- Caching câu hỏi phổ biến để phản hồi dưới 0.1s.<br>- Tính năng xuất nội dung tư vấn ra tệp PDF/Word. |
 | **Phân hệ 4: Evaluation & Testing**<br>👤 *Thắng* `feature/evaluation` | `evaluation/`<br>`backend/tests/`<br>`frontend/pages/`<br>`docs/` | - Đọc tập 734 câu hỏi kiểm thử trong `benchmark_runner.py`.<br>- Đo lường chỉ số Recall@K, Hit-rate trên tập câu hỏi.<br>- Xây dựng trang hiển thị báo cáo trong `pages/2_Danh_Gia.py`. | - Đánh giá chuyên sâu bằng RAGAS (Faithfulness, Relevance).<br>- Viết kịch bản kiểm thử tải đồng thời (Stress testing API).<br>- Xây dựng trang tra cứu nhanh luật trong `pages/1_Tra_Cuu_Luat.py`. |
 
 ---
@@ -227,54 +234,99 @@ Dự án tuân thủ nghiêm ngặt chuẩn **PEP 8**:
 
 ---
 
-## 🚀 HƯỚNG DẪN KHỞI CHẠY HỆ THỐNG
+## 🚀 HƯỚNG DẪN CÀI ĐẶT & KHỞI CHẠY HỆ THỐNG
 
-### Bước 1: Khởi tạo và kích hoạt Môi trường ảo (Virtual Environment - `venv`)
-*Bắt buộc phải tạo `venv` để tránh xung đột thư viện giữa các máy và bảo vệ môi trường Python hệ thống:*
+### 📋 Yêu cầu môi trường tiền đề (Prerequisites)
+1. **Python:** Phiên bản 3.10 – 3.13 (64-bit).
+2. **Node.js & npm:** Phiên bản Node.js LTS (khuyến nghị **>= 18.x** hoặc **>= 20.x**) để chạy giao diện Next.js.  
+   *(Tải Node.js chính thức tại: [nodejs.org](https://nodejs.org/))*.
 
-> [!IMPORTANT] **Yêu cầu phiên bản Python:**
-> Khuyến nghị sử dụng **Python 3.10 hoặc Python 3.11** (64-bit). Tránh sử dụng Python 3.12+ hoặc 3.13 vì một số thư viện C++ như `llama-cpp-python`, `torch` chưa có gói wheel dựng sẵn trên Windows và rất dễ phát sinh lỗi khi cài đặt.
+---
 
-1. Mở Terminal tại thư mục `Chatbot_AI_AnToanGiaoThong`:
+### 🌟 CÁCH 1: KHỞI CHẠY NHANH BẰNG SCRIPT ĐIỀU PHỐI (Khuyên dùng)
+
+Dự án cung cấp script khởi chạy tự động [scripts/run.py](file:///d:/Traffic-Law-Chatbot/scripts/run.py) đa nền tảng (Windows/Linux/macOS), giải quyết triệt để lỗi xung đột tiến trình và tự động hóa toàn bộ việc thiết lập:
+
+* **Tự động nhận diện môi trường ảo Python:** Tự tìm và kích hoạt `venv` hoặc `.venv`.
+* **Tự động kiểm tra & cài đặt thư viện Frontend (`node_modules`):** Nếu bạn mới clone dự án về mà chưa chạy `npm install`, script sẽ **tự động phát hiện thư mục `node_modules` bị thiếu và tự chạy `npm install`** giúp bạn.
+
+#### Các bước thực hiện:
+1. Mở Terminal tại thư mục gốc dự án (`Traffic-Law-Chatbot`).
+2. Chạy lệnh:
+   ```bash
+   python scripts/run.py
+   ```
+3. Menu tương tác sẽ hiển thị:
+   ```text
+   ================================================================================
+             🚦 CHATBOT AI TƯ VẤN PHÁP LUẬT AN TOÀN GIAO THÔNG 🚦
+   ================================================================================
+     [!] Môi trường Python: [venv]
+   ================================================================================
+
+     [1] Khởi chạy TOÀN BỘ hệ thống (FastAPI Backend :8000 + Next.js UI :3000)
+     [2] Chỉ chạy GIAO DIỆN WEB (Next.js Frontend trên port 3000)
+     [3] Chỉ chạy MÁY CHỦ API (FastAPI Backend trên port 8000)
+     [0] Thoát
+   ================================================================================
+   ```
+4. **Nhập phím `1`** và bấm Enter:
+   * Cửa sổ FastAPI Backend sẽ tự động bật trên cổng **`8000`** (Tài liệu API: `http://localhost:8000/docs`).
+   * Giao diện Web Next.js sẽ tự động khởi động trên cổng **`3000`** (Truy cập: `http://localhost:3000`).
+
+---
+
+### 🛠️ CÁCH 2: CÀI ĐẶT & KHỞI CHẠY THỦ CÔNG TỪNG PHÂN HỆ
+
+Dành cho nhà phát triển muốn debug riêng lẻ từng terminal:
+
+#### Bước 1: Thiết lập môi trường Python & Cài đặt thư viện Backend
+1. Tạo môi trường ảo tại thư mục gốc dự án:
    ```bash
    python -m venv venv
    ```
 2. Kích hoạt môi trường ảo:
-   - **Trên Windows (PowerShell):**
+   * **Windows (PowerShell):**
      ```powershell
      .\venv\Scripts\Activate.ps1
      ```
-     *(Nếu gặp lỗi script execution, chạy lệnh: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`)*
-   - **Trên Windows (CMD):**
+   * **Windows (CMD):**
      ```cmd
      .\venv\Scripts\activate.bat
      ```
-   - **Trên macOS / Linux:**
+   * **macOS / Linux:**
      ```bash
      source venv/bin/activate
      ```
-   *(Khi kích hoạt thành công, đầu dòng lệnh trong Terminal sẽ có chữ `(venv)`)*
+3. Cài đặt thư viện Python:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### Bước 2: Cài đặt thư viện phụ thuộc
-Khi môi trường `(venv)` đã được kích hoạt:
+#### Bước 2: Cài đặt thư viện Frontend (Next.js)
+Mở terminal và di chuyển vào thư mục `frontend`:
 ```bash
-pip install -r requirements.txt
+cd frontend
+npm install
+```
+*(Cấu hình kết nối API mặc định đã được thiết lập sẵn trong file `.env.local` trỏ đến `http://127.0.0.1:8000`)*.
+
+#### Bước 3: Chạy kiểm thử tự động bộ khung Backend
+```bash
+$env:PYTHONPATH="."
+python backend/tests/test_rag.py
 ```
 
-### Bước 3: Chạy kiểm thử tự động bộ khung
+#### Bước 4: Khởi chạy máy chủ FastAPI Backend
 ```bash
-python -m backend.tests.test_rag
+uvicorn backend.src.api.main:app --host 127.0.0.1 --port 8000 --reload
 ```
+*Tài liệu Swagger API trực quan tại:* `http://localhost:8000/docs`
 
-### Bước 4: Khởi chạy máy chủ Backend FastAPI
+#### Bước 5: Khởi chạy giao diện Web Next.js Frontend
+Mở một cửa sổ Terminal mới:
 ```bash
-uvicorn backend.src.api.main:app --reload --port 8000
+cd frontend
+npm run dev
 ```
-Truy cập tài liệu API trực quan tại: `http://localhost:8000/docs`
-
-### Bước 5: Khởi chạy giao diện Web Streamlit
-Mở thêm một cửa sổ Terminal mới (nhớ kích hoạt lại `venv`) và chạy:
-```bash
-streamlit run frontend/app.py
-```
-Giao diện ứng dụng sẽ tự động mở trên trình duyệt tại: `http://localhost:8501`
+*Truy cập giao diện Web chính thức tại:* `http://localhost:3000`
