@@ -43,7 +43,16 @@ dist/
 *.egg-info/
 
 # ===============================
-# Streamlit & Cache
+# Node.js & Next.js Frontend
+# ===============================
+node_modules/
+*/node_modules/
+.next/
+*/.next/
+*.tsbuildinfo
+
+# ===============================
+# Streamlit & Cache (Legacy)
 # ===============================
 .streamlit/
 */.streamlit/
