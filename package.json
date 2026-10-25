@@ -1,0 +1,23 @@
+{
+  "name": "traffic-law-chatbot-terminal",
+  "version": "1.0.0",
+  "description": "Chatbot AI Tư Vấn Luật An Toàn Giao Thông - Terminal Testing & CLI Client",
+  "main": "evaluation/terminal_chat.js",
+  "scripts": {
+    "start": "node evaluation/terminal_chat.js",
+    "chat": "node evaluation/terminal_chat.js",
+    "test": "node evaluation/test_terminal.js",
+    "benchmark": "node evaluation/benchmark.js",
+    "benchmark:quick": "node evaluation/benchmark.js --samples 30",
+    "benchmark:full": "node evaluation/benchmark.js --full"
+  },
+  "keywords": [
+    "traffic-law",
+    "rag",
+    "benchmark",
+    "terminal",
+    "cli"
+  ],
+  "author": "Thành viên 4 (Evaluation Lead)",
+  "license": "ISC"
+}

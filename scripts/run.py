@@ -1,8 +1,7 @@
 """
 Script: run.py
 Mục đích: Bộ khởi chạy hệ thống Chatbot AI Tư Vấn Pháp Luật An Toàn Giao Thông.
-Thay thế hoàn toàn cho run.bat, giải quyết triệt để vấn đề "Terminate batch job"
-và hỗ trợ đa nền tảng (Windows/Linux/macOS) với trải nghiệm mượt mà.
+Hỗ trợ kiểm thử và tương tác trực tiếp trên Terminal bằng Node.js thay thế Streamlit cũ.
 """
 
 import os
@@ -60,17 +59,19 @@ def print_banner(venv_name: str):
     print(f"{CYAN}{'='*80}{RESET}")
     print(f"{BOLD}{YELLOW}          🚦 CHATBOT AI TƯ VẤN PHÁP LUẬT AN TOÀN GIAO THÔNG 🚦{RESET}")
     print(f"{CYAN}{'='*80}{RESET}")
-    print(f"{GREEN}  [!] Môi trường ảo đang sử dụng:{RESET} {BOLD}[{venv_name}]{RESET}")
+    print(f"{GREEN}  [!] Môi trường ảo Python:{RESET} {BOLD}[{venv_name}]{RESET}")
     print(f"{CYAN}{'='*80}{RESET}\n")
-    print(f"  {BOLD}[1]{RESET} {GREEN}Khởi chạy TOÀN BỘ hệ thống{RESET} (FastAPI Backend + Streamlit Web UI)")
-    print(f"  {BOLD}[2]{RESET} Chỉ chạy {CYAN}GIAO DIỆN WEB{RESET} (Streamlit Frontend)")
-    print(f"  {BOLD}[3]{RESET} Chỉ chạy {BLUE}MÁY CHỦ API{RESET} (FastAPI Backend trên port 8000)")
+    print(f"  {BOLD}[1]{RESET} {GREEN}Khởi chạy TOÀN BỘ hệ thống{RESET} (FastAPI Backend + Node.js Terminal Chat)")
+    print(f"  {BOLD}[2]{RESET} Chạy {CYAN}TERMINAL CHATBOT{RESET} (Giao diện dòng lệnh Node.js CLI)")
+    print(f"  {BOLD}[3]{RESET} Chạy {BLUE}MÁY CHỦ API{RESET} (FastAPI Backend trên port 8000)")
+    print(f"  {BOLD}[4]{RESET} Chạy {YELLOW}KIỂM THỬ ĐÁNH GIÁ BENCHMARK{RESET} (683 câu trên Terminal)")
+    print(f"  {BOLD}[5]{RESET} Chạy {CYAN}BỘ UNIT TEST TỰ ĐỘNG{RESET} (Kiểm tra toàn diện trên Terminal)")
     print(f"  {BOLD}[0]{RESET} {GRAY}Thoát{RESET}\n")
     print(f"{CYAN}{'='*80}{RESET}")
 
 
 def run_fullstack(py_exe: Path):
-    """Khởi chạy cả FastAPI Backend và Streamlit Frontend."""
+    """Khởi chạy cả FastAPI Backend và Node.js Terminal Chat."""
     print(f"\n{YELLOW}{'='*80}{RESET}")
     print(f"{BOLD}Đang khởi động FastAPI Backend trên port 8000...{RESET}")
     print(f"{YELLOW}{'='*80}{RESET}")
@@ -83,18 +84,11 @@ def run_fullstack(py_exe: Path):
         creationflags=creation_flags
     )
 
-    print(f"{GRAY}Đang chờ Backend ổn định trong 2 giây...{RESET}")
+    print(f"{GRAY}Đang chờ Backend khởi tạo trong 2 giây...{RESET}")
     time.sleep(2)
 
-    print(f"\n{GREEN}{'='*80}{RESET}")
-    print(f"{BOLD}Đang khởi động Streamlit Web UI trên port 8501...{RESET}")
-    print(f"{GREEN}{'='*80}{RESET}\n")
-
     try:
-        subprocess.run(
-            [str(py_exe), "-m", "streamlit", "run", str(PROJECT_ROOT / "frontend" / "app.py")],
-            cwd=str(PROJECT_ROOT)
-        )
+        subprocess.run(["node", "evaluation/terminal_chat.js"], cwd=str(PROJECT_ROOT))
     except KeyboardInterrupt:
         pass
     finally:
@@ -108,19 +102,12 @@ def run_fullstack(py_exe: Path):
         print(f"{GREEN}Hệ thống đã dừng an toàn.{RESET}")
 
 
-def run_frontend(py_exe: Path):
-    """Chỉ khởi chạy giao diện Web Streamlit."""
-    print(f"\n{GREEN}{'='*80}{RESET}")
-    print(f"{BOLD}Đang khởi chạy Streamlit Web UI (Chế độ độc lập)...{RESET}")
-    print(f"{GREEN}{'='*80}{RESET}\n")
+def run_terminal_chat():
+    """Khởi chạy giao diện Terminal Chatbot bằng Node.js."""
     try:
-        subprocess.run(
-            [str(py_exe), "-m", "streamlit", "run", str(PROJECT_ROOT / "frontend" / "app.py")],
-            cwd=str(PROJECT_ROOT)
-        )
+        subprocess.run(["node", "evaluation/terminal_chat.js"], cwd=str(PROJECT_ROOT))
     except KeyboardInterrupt:
         pass
-    print(f"\n{GREEN}Giao diện Web đã dừng.{RESET}")
 
 
 def run_backend(py_exe: Path):
@@ -139,6 +126,22 @@ def run_backend(py_exe: Path):
     print(f"\n{GREEN}Máy chủ Backend đã dừng.{RESET}")
 
 
+def run_benchmark():
+    """Chạy chương trình đo lường benchmark trên terminal."""
+    try:
+        subprocess.run(["node", "evaluation/benchmark.js"], cwd=str(PROJECT_ROOT))
+    except KeyboardInterrupt:
+        pass
+
+
+def run_tests():
+    """Chạy bộ kiểm thử tự động trên terminal."""
+    try:
+        subprocess.run(["node", "evaluation/test_terminal.js"], cwd=str(PROJECT_ROOT))
+    except KeyboardInterrupt:
+        pass
+
+
 def main():
     py_exe, venv_name = find_python_interpreter()
 
@@ -150,17 +153,23 @@ def main():
     while True:
         try:
             print_banner(venv_name)
-            choice = input("Nhập lựa chọn của bạn [1/2/3 hoặc 0]: ").strip()
+            choice = input("Nhập lựa chọn của bạn [1/2/3/4/5 hoặc 0]: ").strip()
 
             if choice == "1":
                 run_fullstack(py_exe)
                 break
             elif choice == "2":
-                run_frontend(py_exe)
+                run_terminal_chat()
                 break
             elif choice == "3":
                 run_backend(py_exe)
                 break
+            elif choice == "4":
+                run_benchmark()
+                input("\nNhấn Enter để quay lại menu...")
+            elif choice == "5":
+                run_tests()
+                input("\nNhấn Enter để quay lại menu...")
             elif choice == "0":
                 print(f"\n{GRAY}Tạm biệt!{RESET}")
                 break
