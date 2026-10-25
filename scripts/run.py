@@ -1,13 +1,14 @@
 """
 Script: run.py
 Mục đích: Bộ khởi chạy hệ thống Chatbot AI Tư Vấn Pháp Luật An Toàn Giao Thông.
-Thay thế hoàn toàn cho run.bat, giải quyết triệt để vấn đề "Terminate batch job"
-và hỗ trợ đa nền tảng (Windows/Linux/macOS) với trải nghiệm mượt mà.
+Khởi chạy đồng bộ FastAPI Backend (port 8000) và Next.js Frontend (port 3000).
+Hỗ trợ đa nền tảng (Windows/Linux/macOS) với trải nghiệm mượt mà.
 """
 
 import os
 import sys
 import time
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -26,6 +27,26 @@ RED = "\033[91m"
 GRAY = "\033[90m"
 BOLD = "\033[1m"
 RESET = "\033[0m"
+
+
+def get_frontend_dir() -> Path:
+    """
+    Tự động định vị thư mục frontend:
+    Ưu tiên frontend, hỗ trợ cả trường hợp người dùng để tên frontend-next.
+    """
+    candidates = [
+        PROJECT_ROOT / "frontend",
+        PROJECT_ROOT / "frontend-next",
+    ]
+    for d in candidates:
+        if (d / "package.json").exists():
+            return d
+    return PROJECT_ROOT / "frontend"
+
+
+def find_npm_executable() -> str | None:
+    """Tự động phát hiện npm executable trên Windows, Linux và macOS."""
+    return shutil.which("npm.cmd") or shutil.which("npm")
 
 
 def find_python_interpreter() -> tuple[Path, str]:
@@ -54,25 +75,39 @@ def find_python_interpreter() -> tuple[Path, str]:
     return Path(sys.executable), "System Python"
 
 
+def ensure_node_modules(npm_cmd: str, frontend_dir: Path):
+    """Tự động cài đặt node_modules nếu người dùng chưa chạy npm install."""
+    if not (frontend_dir / "node_modules").exists():
+        print(f"\n{YELLOW}[!] Chưa tìm thấy 'node_modules'. Đang tự động cài đặt thư viện frontend...{RESET}")
+        try:
+            subprocess.run([npm_cmd, "install"], cwd=str(frontend_dir), check=True)
+            print(f"{GREEN}[✓] Cài đặt dependencies frontend thành công.{RESET}\n")
+        except Exception as e:
+            print(f"{RED}[!] Lỗi khi chạy npm install: {e}{RESET}")
+
+
 def print_banner(venv_name: str):
     """In giao diện tiêu đề và menu lựa chọn."""
     os.system("cls" if os.name == "nt" else "clear")
     print(f"{CYAN}{'='*80}{RESET}")
     print(f"{BOLD}{YELLOW}          🚦 CHATBOT AI TƯ VẤN PHÁP LUẬT AN TOÀN GIAO THÔNG 🚦{RESET}")
     print(f"{CYAN}{'='*80}{RESET}")
-    print(f"{GREEN}  [!] Môi trường ảo đang sử dụng:{RESET} {BOLD}[{venv_name}]{RESET}")
+    print(f"{GREEN}  [!] Môi trường Python:{RESET} {BOLD}[{venv_name}]{RESET}")
     print(f"{CYAN}{'='*80}{RESET}\n")
-    print(f"  {BOLD}[1]{RESET} {GREEN}Khởi chạy TOÀN BỘ hệ thống{RESET} (FastAPI Backend + Streamlit Web UI)")
-    print(f"  {BOLD}[2]{RESET} Chỉ chạy {CYAN}GIAO DIỆN WEB{RESET} (Streamlit Frontend)")
+    print(f"  {BOLD}[1]{RESET} {GREEN}Khởi chạy TOÀN BỘ hệ thống{RESET} (FastAPI Backend :8000 + Next.js UI :3000)")
+    print(f"  {BOLD}[2]{RESET} Chỉ chạy {CYAN}GIAO DIỆN WEB{RESET} (Next.js Frontend trên port 3000)")
     print(f"  {BOLD}[3]{RESET} Chỉ chạy {BLUE}MÁY CHỦ API{RESET} (FastAPI Backend trên port 8000)")
     print(f"  {BOLD}[0]{RESET} {GRAY}Thoát{RESET}\n")
     print(f"{CYAN}{'='*80}{RESET}")
 
 
-def run_fullstack(py_exe: Path):
-    """Khởi chạy cả FastAPI Backend và Streamlit Frontend."""
+def run_fullstack(py_exe: Path, npm_cmd: str, frontend_dir: Path):
+    """Khởi chạy cả FastAPI Backend và Next.js Frontend."""
+    ensure_node_modules(npm_cmd, frontend_dir)
+
     print(f"\n{YELLOW}{'='*80}{RESET}")
     print(f"{BOLD}Đang khởi động FastAPI Backend trên port 8000...{RESET}")
+    print(f"{CYAN}Tài liệu Swagger UI: http://localhost:8000/docs{RESET}")
     print(f"{YELLOW}{'='*80}{RESET}")
 
     # Trên Windows, khởi chạy Backend ở một cửa sổ console riêng biệt
@@ -87,13 +122,14 @@ def run_fullstack(py_exe: Path):
     time.sleep(2)
 
     print(f"\n{GREEN}{'='*80}{RESET}")
-    print(f"{BOLD}Đang khởi động Streamlit Web UI trên port 8501...{RESET}")
+    print(f"{BOLD}Đang khởi động Next.js Web UI trên port 3000...{RESET}")
+    print(f"{CYAN}Truy cập giao diện tại: http://localhost:3000{RESET}")
     print(f"{GREEN}{'='*80}{RESET}\n")
 
     try:
         subprocess.run(
-            [str(py_exe), "-m", "streamlit", "run", str(PROJECT_ROOT / "frontend" / "app.py")],
-            cwd=str(PROJECT_ROOT)
+            [npm_cmd, "run", "dev"],
+            cwd=str(frontend_dir)
         )
     except KeyboardInterrupt:
         pass
@@ -108,15 +144,18 @@ def run_fullstack(py_exe: Path):
         print(f"{GREEN}Hệ thống đã dừng an toàn.{RESET}")
 
 
-def run_frontend(py_exe: Path):
-    """Chỉ khởi chạy giao diện Web Streamlit."""
+def run_frontend(npm_cmd: str, frontend_dir: Path):
+    """Chỉ khởi chạy giao diện Web Next.js."""
+    ensure_node_modules(npm_cmd, frontend_dir)
+
     print(f"\n{GREEN}{'='*80}{RESET}")
-    print(f"{BOLD}Đang khởi chạy Streamlit Web UI (Chế độ độc lập)...{RESET}")
+    print(f"{BOLD}Đang khởi chạy Next.js Web UI (Chế độ độc lập)...{RESET}")
+    print(f"{CYAN}Truy cập giao diện tại: http://localhost:3000{RESET}")
     print(f"{GREEN}{'='*80}{RESET}\n")
     try:
         subprocess.run(
-            [str(py_exe), "-m", "streamlit", "run", str(PROJECT_ROOT / "frontend" / "app.py")],
-            cwd=str(PROJECT_ROOT)
+            [npm_cmd, "run", "dev"],
+            cwd=str(frontend_dir)
         )
     except KeyboardInterrupt:
         pass
@@ -141,6 +180,14 @@ def run_backend(py_exe: Path):
 
 def main():
     py_exe, venv_name = find_python_interpreter()
+    npm_cmd = find_npm_executable()
+    frontend_dir = get_frontend_dir()
+
+    if not npm_cmd:
+        print(f"\n{RED}[!] CẢNH BÁO: Không tìm thấy 'npm' trong biến môi trường PATH!{RESET}")
+        print(f"{YELLOW}Vui lòng cài đặt Node.js (phiên bản khuyến nghị >= 18.x hoặc 20.x) để chạy giao diện Next.js.{RESET}")
+        print(f"{GRAY}Bạn có thể tải Node.js tại: https://nodejs.org/{RESET}\n")
+        input("Nhấn Enter để tiếp tục (chỉ có thể chọn chạy Backend)...")
 
     # Nếu đang chạy bằng python hệ thống nhưng có venv, tự động chuyển sang chạy bằng venv python
     current_exe = Path(sys.executable).resolve()
@@ -153,10 +200,18 @@ def main():
             choice = input("Nhập lựa chọn của bạn [1/2/3 hoặc 0]: ").strip()
 
             if choice == "1":
-                run_fullstack(py_exe)
+                if not npm_cmd:
+                    print(f"\n{RED}[!] Không thể khởi chạy giao diện vì thiếu npm/Node.js!{RESET}")
+                    time.sleep(2)
+                    continue
+                run_fullstack(py_exe, npm_cmd, frontend_dir)
                 break
             elif choice == "2":
-                run_frontend(py_exe)
+                if not npm_cmd:
+                    print(f"\n{RED}[!] Không thể khởi chạy giao diện vì thiếu npm/Node.js!{RESET}")
+                    time.sleep(2)
+                    continue
+                run_frontend(npm_cmd, frontend_dir)
                 break
             elif choice == "3":
                 run_backend(py_exe)
