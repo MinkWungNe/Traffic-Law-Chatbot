@@ -4,9 +4,6 @@ uvicorn[standard]
 pydantic
 requests
 
-# Frontend Web
-streamlit
-
 # AI / LLM & RAG
 llama-cpp-python
 transformers
@@ -27,5 +24,5 @@ openpyxl
 pandas
 
 # Hướng dẫn cài đặt:
-# Mở Terminal tại thư mục Chatbot_AI_AnToanGiaoThong và chạy:
+# Mở Terminal tại thư mục dự án và chạy:
 # pip install -r requirements.txt
