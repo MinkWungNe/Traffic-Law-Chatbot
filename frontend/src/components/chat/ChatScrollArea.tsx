@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from "react";
 import { useChatStore } from "@/stores/useChatStore";
 import { MessageBubble } from "./MessageBubble";
 import { StarterCards } from "./StarterCards";
+import { Loader2 } from "lucide-react";
 
 export const ChatScrollArea: React.FC = () => {
   const { messages, sendMessage, isLoading } = useChatStore();
@@ -46,7 +47,7 @@ export const ChatScrollArea: React.FC = () => {
                   <img src="/assets/Chatbot_Logo.svg" alt="" className="w-full h-full object-contain filter invert brightness-0" />
                 </div>
                 <div className="bg-white border border-slate-200/80 rounded-2xl px-4 py-2.5 shadow-xs flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[18px] animate-spin">progress_activity</span>
+                  <Loader2 size={16} className="animate-spin text-accent-red shrink-0" />
                   <span>VinaLaw đang tra cứu căn cứ pháp luật...</span>
                 </div>
               </div>

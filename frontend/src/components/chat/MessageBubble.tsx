@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ChatMessage } from "@/types/chat";
 import { useChatStore } from "@/stores/useChatStore";
+import { User, BookOpen, Copy, Check, ThumbsUp, ThumbsDown } from "lucide-react";
 
 interface MessageBubbleProps {
   message: ChatMessage;
@@ -27,7 +28,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
           )}
         </div>
         <div className="w-8 h-8 rounded-full bg-slate-200 border border-slate-300 flex items-center justify-center shrink-0 text-slate-600 font-semibold text-[13px]">
-          <span className="material-symbols-outlined text-[18px]">person</span>
+          <User size={18} className="shrink-0" />
         </div>
       </div>
     );
@@ -79,7 +80,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
         {message.sources && message.sources.length > 0 && (
           <div className="flex flex-col gap-2 pt-3 border-t border-slate-100">
             <div className="text-[11.5px] font-bold text-slate-400 tracking-wider uppercase flex items-center gap-1.5">
-              <span className="material-symbols-outlined text-[15px] text-primary-navy">menu_book</span>
+              <BookOpen size={15} className="text-primary-navy shrink-0" />
               Căn cứ pháp lý nguyên văn
             </div>
             <div className="flex flex-col gap-2">
@@ -113,9 +114,11 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
                 className="p-1.5 rounded-md hover:bg-slate-100 hover:text-slate-700 transition-colors flex items-center justify-center cursor-pointer"
                 title="Sao chép"
               >
-                <span className="material-symbols-outlined text-[17px]">
-                  {copied ? "check" : "content_copy"}
-                </span>
+                {copied ? (
+                  <Check size={16} className="text-emerald-600 shrink-0" />
+                ) : (
+                  <Copy size={16} className="shrink-0" />
+                )}
               </button>
               <button
                 type="button"
@@ -125,7 +128,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
                 }`}
                 title="Hữu ích"
               >
-                <span className="material-symbols-outlined text-[17px]">thumb_up</span>
+                <ThumbsUp size={16} className="shrink-0" />
               </button>
               <button
                 type="button"
@@ -135,7 +138,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
                 }`}
                 title="Chưa hài lòng"
               >
-                <span className="material-symbols-outlined text-[17px]">thumb_down</span>
+                <ThumbsDown size={16} className="shrink-0" />
               </button>
             </div>
             {message.timestamp && <span>{message.timestamp}</span>}

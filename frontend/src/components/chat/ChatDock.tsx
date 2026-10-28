@@ -2,9 +2,13 @@
 
 import React from "react";
 import { useChatStore } from "@/stores/useChatStore";
+import { Paperclip, ImagePlus, ArrowUp } from "lucide-react";
 
 export const ChatDock: React.FC = () => {
-  const { sendMessage, inputText, setInputText, isLoading } = useChatStore();
+  const {
+    inputText, setInputText,
+    sendMessage, isLoading,
+  } = useChatStore();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +41,7 @@ export const ChatDock: React.FC = () => {
               className="p-1.5 rounded-full text-slate-500 hover:text-primary-navy hover:bg-slate-100 transition-colors flex items-center justify-center shrink-0 cursor-pointer"
               title="Đính kèm tệp"
             >
-              <span className="material-symbols-outlined text-[20px]">attach_file</span>
+              <Paperclip size={18} className="shrink-0" />
             </button>
 
             {/* Nút tải ảnh hiện trường */}
@@ -47,7 +51,7 @@ export const ChatDock: React.FC = () => {
               className="p-1.5 rounded-full text-slate-500 hover:text-primary-navy hover:bg-slate-100 transition-colors flex items-center justify-center shrink-0 cursor-pointer"
               title="Tải ảnh hiện trường"
             >
-              <span className="material-symbols-outlined text-[20px]">add_photo_alternate</span>
+              <ImagePlus size={18} className="shrink-0" />
             </button>
 
             {/* Ô nhập câu hỏi */}
@@ -67,7 +71,7 @@ export const ChatDock: React.FC = () => {
               className="w-8 h-8 rounded-full bg-accent-red hover:bg-red-700 disabled:opacity-30 text-white flex items-center justify-center transition-transform hover:scale-105 shrink-0 shadow-xs cursor-pointer"
               title="Gửi câu hỏi"
             >
-              <span className="material-symbols-outlined text-[17px]">arrow_upward</span>
+              <ArrowUp size={16} strokeWidth={2.5} className="shrink-0" />
             </button>
           </div>
         </form>

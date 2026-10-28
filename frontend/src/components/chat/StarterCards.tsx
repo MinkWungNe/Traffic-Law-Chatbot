@@ -2,6 +2,7 @@
 
 import React from "react";
 import { StarterCardItem } from "@/types/chat";
+import { Gauge, WineOff, Camera, Signpost, ArrowRight } from "lucide-react";
 
 interface StarterCardsProps {
   onSelectPrompt: (prompt: string) => void;
@@ -10,7 +11,7 @@ interface StarterCardsProps {
 const STARTER_CARDS: StarterCardItem[] = [
   {
     id: "card-speed",
-    icon: "speed",
+    icon: Gauge,
     title: "Vi phạm tốc độ",
     description: "Mức phạt chạy quá tốc độ 10-20km/h...",
     prompt:
@@ -22,7 +23,7 @@ const STARTER_CARDS: StarterCardItem[] = [
   },
   {
     id: "card-alcohol",
-    icon: "no_drinks",
+    icon: WineOff,
     title: "Nồng độ cồn & Ma túy",
     description: "Mức phạt kịch khung & tước GPLX...",
     prompt:
@@ -34,7 +35,7 @@ const STARTER_CARDS: StarterCardItem[] = [
   },
   {
     id: "card-fine",
-    icon: "videocam",
+    icon: Camera,
     title: "Phạt nguội & Đăng kiểm",
     description: "Cách kiểm tra lỗi phạt nguội chưa...",
     prompt:
@@ -46,7 +47,7 @@ const STARTER_CARDS: StarterCardItem[] = [
   },
   {
     id: "card-signs",
-    icon: "traffic",
+    icon: Signpost,
     title: "Quy chuẩn biển báo & Làn đ...",
     description: "Biển cấm rẽ trái có cấm quay đầu...",
     prompt:
@@ -61,37 +62,37 @@ const STARTER_CARDS: StarterCardItem[] = [
 export const StarterCards: React.FC<StarterCardsProps> = ({ onSelectPrompt }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-w-2xl mx-auto w-full mt-7">
-      {STARTER_CARDS.map((card) => (
-        <button
-          key={card.id}
-          onClick={() => onSelectPrompt(card.prompt)}
-          className="starter-card spotlight-border group relative bg-white border border-subtle rounded-xl p-3 text-left transition-all cursor-pointer shadow-xs"
-          style={{ "--glow-color": card.glowColor } as React.CSSProperties}
-        >
-          <div className="relative z-10 flex items-center gap-3.5 w-full min-w-0">
-            <div
-              className={`w-10 h-10 rounded-full border flex items-center justify-center shrink-0 ${card.iconBg}`}
-            >
-              <span className={`material-symbols-outlined text-[20px] ${card.iconColor}`}>
-                {card.icon}
-              </span>
+      {STARTER_CARDS.map((card) => {
+        const Icon = card.icon;
+        return (
+          <button
+            key={card.id}
+            onClick={() => onSelectPrompt(card.prompt)}
+            className="starter-card spotlight-border group relative bg-white border border-subtle rounded-xl p-3 text-left transition-all cursor-pointer shadow-xs"
+            style={{ "--glow-color": card.glowColor, "--border-width": "1.25px" } as React.CSSProperties}
+          >
+            <div className="relative z-10 flex items-center gap-3.5 w-full min-w-0">
+              <div
+                className={`w-10 h-10 rounded-full border flex items-center justify-center shrink-0 ${card.iconBg}`}
+              >
+                <Icon size={20} className={card.iconColor} />
+              </div>
+              <div className="flex flex-col min-w-0 flex-1 pr-1">
+                <span className="text-[13.5px] font-bold text-slate-900 truncate leading-snug group-hover:text-primary-navy transition-colors">
+                  {card.title}
+                </span>
+                <span className="text-[12px] text-slate-400 font-normal truncate mt-0.5 leading-tight">
+                  {card.description}
+                </span>
+              </div>
+              <ArrowRight
+                size={18}
+                className={`text-slate-400 ${card.hoverArrowColor} group-hover:translate-x-0.5 transition-all shrink-0`}
+              />
             </div>
-            <div className="flex flex-col min-w-0 flex-1 pr-1">
-              <span className="text-[13.5px] font-bold text-slate-900 truncate leading-snug group-hover:text-primary-navy transition-colors">
-                {card.title}
-              </span>
-              <span className="text-[12px] text-slate-400 font-normal truncate mt-0.5 leading-tight">
-                {card.description}
-              </span>
-            </div>
-            <span
-              className={`material-symbols-outlined text-[18px] text-slate-400 ${card.hoverArrowColor} group-hover:translate-x-0.5 transition-all shrink-0`}
-            >
-              arrow_forward
-            </span>
-          </div>
-        </button>
-      ))}
+          </button>
+        );
+      })}
     </div>
   );
 };

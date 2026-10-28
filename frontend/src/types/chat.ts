@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+
 export interface Citation {
   title: string;
   snippet?: string;
@@ -26,7 +28,7 @@ export interface UserProfile {
 
 export interface StarterCardItem {
   id: string;
-  icon: string;
+  icon: LucideIcon;
   title: string;
   description: string;
   prompt: string;

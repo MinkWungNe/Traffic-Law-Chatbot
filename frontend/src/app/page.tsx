@@ -29,8 +29,8 @@ export default function Home() {
 
       {/* Cột Phải: Viewport chính với kiến trúc 3 tầng xếp lớp (3-Layer Viewport Stacking) */}
       <section className="flex-1 h-screen relative overflow-hidden flex flex-col min-w-0">
-        {/* Layer 0: Họa tiết Trống đồng Đông Sơn 90% xoay độc lập 120s */}
-        {activeTab === "chat" && <DongSonAmbient />}
+        {/* Layer 0: Họa tiết Trống đồng Đông Sơn 90% xoay độc lập 120s nền chung cho mọi tab */}
+        <DongSonAmbient />
 
         {/* Nội dung chính theo Tab */}
         {activeTab === "chat" && (

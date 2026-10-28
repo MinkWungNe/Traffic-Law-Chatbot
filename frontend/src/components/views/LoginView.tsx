@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useChatStore } from "@/stores/useChatStore";
+import { AtSign, Lock, Eye, EyeOff, Loader2, ArrowRight } from "lucide-react";
 
 export const LoginView: React.FC = () => {
   const { setActiveTab, setUserProfile } = useChatStore();
@@ -128,9 +129,7 @@ export const LoginView: React.FC = () => {
                 className="spotlight-border relative flex items-center h-[42px] rounded-xl bg-white shadow-xs border border-slate-200"
                 style={{ "--glow-color": "#B5B5B5" } as React.CSSProperties}
               >
-                <span className="material-symbols-outlined absolute left-3.5 text-slate-400 text-[18px] pointer-events-none z-10">
-                  alternate_email
-                </span>
+                <AtSign size={18} className="absolute left-3.5 text-slate-400 pointer-events-none z-10 shrink-0" />
                 <input
                   id="emailInput"
                   type="email"
@@ -164,9 +163,7 @@ export const LoginView: React.FC = () => {
                 className="spotlight-border relative flex items-center h-[42px] rounded-xl bg-white shadow-xs border border-slate-200"
                 style={{ "--glow-color": "#B5B5B5" } as React.CSSProperties}
               >
-                <span className="material-symbols-outlined absolute left-3.5 text-slate-400 text-[18px] pointer-events-none z-10">
-                  lock
-                </span>
+                <Lock size={18} className="absolute left-3.5 text-slate-400 pointer-events-none z-10 shrink-0" />
                 <input
                   id="passInput"
                   type={showPassword ? "text" : "password"}
@@ -179,11 +176,9 @@ export const LoginView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-2 p-1 rounded-lg text-slate-400 hover:text-slate-700 transition-colors z-20 cursor-pointer flex"
+                  className="absolute right-2 p-1 rounded-lg text-slate-400 hover:text-slate-700 transition-colors z-20 cursor-pointer flex items-center justify-center"
                 >
-                  <span className="material-symbols-outlined text-[18px]">
-                    {showPassword ? "visibility_off" : "visibility"}
-                  </span>
+                  {showPassword ? <EyeOff size={18} className="shrink-0" /> : <Eye size={18} className="shrink-0" />}
                 </button>
               </div>
             </div>
@@ -207,11 +202,11 @@ export const LoginView: React.FC = () => {
               className="w-full h-[42px] rounded-xl bg-accent-red hover:bg-red-700 text-white font-semibold text-[14px] shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer mt-1"
             >
               {isSubmitting ? (
-                <span className="material-symbols-outlined text-[18px] animate-spin">progress_activity</span>
+                <Loader2 size={18} className="animate-spin shrink-0" />
               ) : (
                 <>
                   <span>Đăng nhập</span>
-                  <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                  <ArrowRight size={18} className="shrink-0" />
                 </>
               )}
             </button>

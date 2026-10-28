@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useChatStore } from "@/stores/useChatStore";
+import { Search, X, ChevronDown, AlertTriangle, Bot } from "lucide-react";
 
 interface FAQItem {
   id: string;
@@ -83,7 +84,7 @@ export const FAQView: React.FC = () => {
         {/* Search & Filters */}
         <div className="bg-white rounded-xl p-4 shadow-sm border border-subtle flex flex-col gap-4">
           <div className="relative flex items-center">
-            <span className="material-symbols-outlined absolute left-4 text-slate-400 text-[22px]">search</span>
+            <Search size={20} className="absolute left-4 text-slate-400 shrink-0 pointer-events-none" />
             <input
               type="text"
               value={searchTerm}
@@ -95,9 +96,9 @@ export const FAQView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSearchTerm("")}
-                className="absolute right-3 p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full cursor-pointer"
+                className="absolute right-3 p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full cursor-pointer flex items-center justify-center"
               >
-                <span className="material-symbols-outlined text-[18px]">close</span>
+                <X size={16} className="shrink-0" />
               </button>
             )}
           </div>
@@ -146,20 +147,19 @@ export const FAQView: React.FC = () => {
                     </span>
                     <span className="font-bold text-slate-900 text-[14.5px]">{faq.question}</span>
                   </div>
-                  <span
-                    className={`material-symbols-outlined text-slate-400 text-[20px] transition-transform ${
+                  <ChevronDown
+                    size={18}
+                    className={`text-slate-400 transition-transform shrink-0 ${
                       isExpanded ? "rotate-180 text-primary-navy" : ""
                     }`}
-                  >
-                    expand_more
-                  </span>
+                  />
                 </button>
 
                 {isExpanded && (
                   <div className="px-5 pb-5 pt-1 border-t border-slate-100 flex flex-col gap-3 text-[13.5px] leading-relaxed text-slate-700">
                     <p>{faq.answer}</p>
                     <div className="p-3 rounded-lg bg-amber-50/60 border border-amber-200/80 text-amber-900 font-medium text-[12.5px] flex items-center gap-2">
-                      <span className="material-symbols-outlined text-[18px] text-amber-600 shrink-0">warning</span>
+                      <AlertTriangle size={16} className="text-amber-600 shrink-0" />
                       <span>{faq.penaltySummary}</span>
                     </div>
                     <div className="text-[12px] text-slate-500 italic">Căn cứ: {faq.lawCite}</div>
@@ -173,7 +173,7 @@ export const FAQView: React.FC = () => {
                         }}
                         className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary-navy hover:bg-blue-900 text-white font-medium text-[12px] shadow-xs cursor-pointer transition-colors"
                       >
-                        <span className="material-symbols-outlined text-[15px]">smart_toy</span>
+                        <Bot size={15} className="shrink-0" />
                         <span>Hỏi sâu hơn về tình huống này</span>
                       </button>
                     </div>

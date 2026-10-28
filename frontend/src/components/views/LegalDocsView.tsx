@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { fetchLegalDocuments, LegalDocItem } from "@/lib/api";
+import { Search, X, FileQuestion } from "lucide-react";
 
 const SAMPLE_DOCS: LegalDocItem[] = [
   {
@@ -96,7 +97,7 @@ export const LegalDocsView: React.FC = () => {
         {/* Search Bar & Filter */}
         <div className="bg-white rounded-xl p-4 shadow-sm border border-subtle flex flex-col gap-4">
           <div className="relative flex items-center">
-            <span className="material-symbols-outlined absolute left-4 text-slate-400 text-[22px]">search</span>
+            <Search size={20} className="absolute left-4 text-slate-400 shrink-0 pointer-events-none" />
             <input
               type="text"
               value={searchTerm}
@@ -108,9 +109,9 @@ export const LegalDocsView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSearchTerm("")}
-                className="absolute right-3 p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full cursor-pointer"
+                className="absolute right-3 p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full cursor-pointer flex items-center justify-center"
               >
-                <span className="material-symbols-outlined text-[18px]">close</span>
+                <X size={16} className="shrink-0" />
               </button>
             )}
           </div>
@@ -163,8 +164,8 @@ export const LegalDocsView: React.FC = () => {
             </div>
           ))}
           {filteredDocs.length === 0 && (
-            <div className="text-center py-12 text-slate-400">
-              <span className="material-symbols-outlined text-[48px] mb-2 text-slate-300">search_off</span>
+            <div className="text-center py-12 text-slate-400 flex flex-col items-center">
+              <FileQuestion size={44} className="mb-2 text-slate-300" />
               <p>Không tìm thấy văn bản phù hợp với từ khóa.</p>
             </div>
           )}
