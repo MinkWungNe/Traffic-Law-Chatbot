@@ -487,10 +487,16 @@ class BenchmarkRunner:
                 "question": query,  # Nội dung câu hỏi
                 "ground_truth_answer": item["ground_truth_answer"],  # Câu trả lời chuẩn
                 "ground_truth_citations": item["ground_truth_citations"],  # Căn cứ pháp lý chuẩn
-                "retrieved_docs": retrieved_docs,  # Danh sách tài liệu RAG truy xuất được
+                "retrieved_docs": retrieved_docs,
+                "retrieved_sources": [
+                    doc.get("title", "") if isinstance(doc, dict) else str(doc)
+                    for doc in retrieved_docs
+                ],  # Danh sách tài liệu RAG truy xuất được
                 "hit": metrics["hit"],  # Chỉ số Hit của câu
                 "recall": round(metrics["recall"], 4),  # Chỉ số Recall (làm tròn 4 số)
-                "rank": metrics["first_rank"],  # Rank đầu tiên tìm thấy tài liệu đúng
+                "rank": metrics["first_rank"],
+                "first_rank": metrics["first_rank"],
+                "is_passed": metrics["hit"] > 0,  # Rank đầu tiên tìm thấy tài liệu đúng
                 "reciprocal_rank": round(metrics["reciprocal_rank"], 4),  # Chỉ số MRR (làm tròn 4 số)
                 "matched_citations": metrics["matched_citations"],  # Căn cứ đã đối sánh được
                 "status": "Đạt" if metrics["hit"] > 0 else "Chưa đạt"  # Trạng thái: "Đạt" nếu Hit > 0

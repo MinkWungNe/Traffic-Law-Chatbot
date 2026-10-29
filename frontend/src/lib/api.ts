@@ -1,9 +1,21 @@
-import { Citation } from "@/types/chat";
+import { Citation, UserProfile, SessionItem, AuditLogItem } from "@/types/chat";
+import { getAuthToken } from "@/stores/useAuthStore";
 
 export const BACKEND_BASE_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8000";
 
 const DEFAULT_TIMEOUT_MS = Number(process.env.NEXT_PUBLIC_API_TIMEOUT_MS) || 60000;
+
+function getAuthHeaders(): Record<string, string> {
+  const token = getAuthToken();
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+  return headers;
+}
 
 export interface BackendSource {
   title: string;
@@ -15,6 +27,7 @@ export interface ChatApiResponse {
   query?: string;
   answer: string;
   sources: Citation[];
+  sessionId?: string;
   isFallback: boolean;
   error?: string;
 }
@@ -56,12 +69,15 @@ export async function checkBackendHealth(): Promise<HealthCheckResult> {
 
 /**
  * Gửi câu hỏi đến FastAPI backend (/api/chat).
- * Tự động chuyển sang offline fallback nếu backend chưa khởi chạy hoặc gặp lỗi kết nối.
+ * Tự động gắn token và session_id nếu đã đăng nhập.
+ * Hỗ trợ AbortSignal để hủy truy vấn ngay lập tức khi người dùng bấm dừng.
  */
 export async function queryChatApi(
   query: string,
+  sessionId?: string | null,
   topK = 3,
-  temperature = 0.2
+  temperature = 0.2,
+  signal?: AbortSignal
 ): Promise<ChatApiResponse> {
   const trimmed = query.trim();
   if (trimmed.length < 2) {
@@ -73,26 +89,43 @@ export async function queryChatApi(
     };
   }
 
+  if (signal?.aborted) {
+    throw new DOMException("The operation was aborted", "AbortError");
+  }
+
   try {
+    const timeoutSignal = AbortSignal.timeout(DEFAULT_TIMEOUT_MS);
+    let fetchSignal: AbortSignal;
+    if (signal && typeof AbortSignal.any === "function") {
+      fetchSignal = AbortSignal.any([signal, timeoutSignal]);
+    } else if (signal) {
+      fetchSignal = signal;
+    } else {
+      fetchSignal = timeoutSignal;
+    }
+
     const res = await fetch(`${BACKEND_BASE_URL}/api/chat`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify({
         query: trimmed,
+        session_id: sessionId || null,
         top_k: topK,
         temperature,
       }),
-      signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
+      signal: fetchSignal,
     });
+
+    if (signal?.aborted) {
+      throw new DOMException("The operation was aborted", "AbortError");
+    }
 
     if (res.ok) {
       const data = await res.json();
       const sources: Citation[] = (data.sources || []).map((s: BackendSource) => ({
         title: s.title,
         snippet: s.snippet,
-        raw: s.snippet, // Đảm bảo tính tương thích ngược cho cả template hiển thị cũ và mới
+        raw: s.snippet,
         score: typeof s.score === "number" ? s.score : null,
       }));
 
@@ -100,6 +133,7 @@ export async function queryChatApi(
         query: data.query || trimmed,
         answer: data.answer || "",
         sources,
+        sessionId: data.session_id,
         isFallback: false,
       };
     }
@@ -114,12 +148,10 @@ export async function queryChatApi(
         error: detailMsg,
       };
     }
-
-    if (res.status === 500) {
-      const errData = await res.json().catch(() => null);
-      console.warn("Backend 500 error:", errData);
+  } catch (err: any) {
+    if (signal?.aborted || err?.name === "AbortError") {
+      throw err;
     }
-  } catch (err) {
     console.warn("FastAPI backend offline or timeout, switching to offline fallback:", err);
   }
 
@@ -208,6 +240,235 @@ Căn cứ Luật Trật tự, an toàn giao thông đường bộ 2024 và các 
   };
 }
 
+// ==============================================================================
+// CÁC HÀM XÁC THỰC & HỒ SƠ TÀI KHOẢN (AUTH API)
+// ==============================================================================
+export const authApi = {
+  async register(email: string, password: string): Promise<{ access_token: string; user: UserProfile }> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || "Đăng ký không thành công.");
+    }
+    return res.json();
+  },
+
+  async login(email: string, password: string): Promise<{ access_token: string; user: UserProfile }> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || "Đăng nhập không thành công.");
+    }
+    return res.json();
+  },
+
+  async getMe(): Promise<UserProfile> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/auth/me`, {
+      method: "GET",
+      headers: getAuthHeaders(),
+    });
+    if (!res.ok) {
+      throw new Error("Không thể lấy thông tin người dùng.");
+    }
+    return res.json();
+  },
+
+  async changePassword(oldPassword: string, newPassword: string): Promise<{ message: string }> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/auth/change-password`, {
+      method: "POST",
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ old_password: oldPassword, new_password: newPassword }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || "Đổi mật khẩu không thành công.");
+    }
+    return res.json();
+  },
+};
+
+// ==============================================================================
+// CÁC HÀM QUẢN LÝ PHIÊN TRÒ CHUYỆN (SESSION API)
+// ==============================================================================
+export const sessionApi = {
+  async listSessions(): Promise<SessionItem[]> {
+    try {
+      const res = await fetch(`${BACKEND_BASE_URL}/api/sessions`, {
+        method: "GET",
+        headers: getAuthHeaders(),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        return data.sessions || [];
+      }
+    } catch (e) {
+      console.warn("Không thể tải danh sách phiên từ backend:", e);
+    }
+    return [];
+  },
+
+  async createSession(title?: string): Promise<SessionItem> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/sessions`, {
+      method: "POST",
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ title: title || "Cuộc trò chuyện mới" }),
+    });
+    if (!res.ok) {
+      throw new Error("Không thể tạo phiên trò chuyện mới.");
+    }
+    return res.json();
+  },
+
+  async getSessionDetail(sessionId: string): Promise<{
+    id: string;
+    title: string;
+    is_pinned: boolean;
+    messages: Array<{
+      id: string;
+      role: "user" | "bot";
+      content: string;
+      sources?: Citation[];
+      timestamp?: string;
+    }>;
+  }> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/sessions/${sessionId}`, {
+      method: "GET",
+      headers: getAuthHeaders(),
+    });
+    if (!res.ok) {
+      throw new Error("Không thể tải chi tiết phiên trò chuyện.");
+    }
+    return res.json();
+  },
+
+  async updateSession(
+    sessionId: string,
+    data: { title?: string; is_pinned?: boolean }
+  ): Promise<SessionItem> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/sessions/${sessionId}`, {
+      method: "PATCH",
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      throw new Error("Cập nhật phiên trò chuyện thất bại.");
+    }
+    return res.json();
+  },
+
+  async deleteSession(sessionId: string): Promise<void> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/sessions/${sessionId}`, {
+      method: "DELETE",
+      headers: getAuthHeaders(),
+    });
+    if (!res.ok) {
+      throw new Error("Xóa phiên trò chuyện thất bại.");
+    }
+  },
+};
+
+// ==============================================================================
+// CÁC HÀM QUẢN TRỊ VIÊN ADMIN (ADMIN API)
+// ==============================================================================
+export const adminApi = {
+  async listUsers(page = 1, limit = 20, search = ""): Promise<{ users: UserProfile[]; total: number }> {
+    const query = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+    });
+    if (search.trim()) {
+      query.append("search", search.trim());
+    }
+
+    const res = await fetch(`${BACKEND_BASE_URL}/api/admin/users?${query.toString()}`, {
+      method: "GET",
+      headers: getAuthHeaders(),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || "Không thể tải danh sách người dùng.");
+    }
+    return res.json();
+  },
+
+  async updateUserStatus(userId: string, isActive: boolean, reason?: string): Promise<{ message: string }> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/admin/users/${userId}/status`, {
+      method: "PATCH",
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ is_active: isActive, reason }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || "Cập nhật trạng thái người dùng thất bại.");
+    }
+    return res.json();
+  },
+
+  async resetUserPassword(userId: string, newPassword: string): Promise<{ message: string }> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/admin/users/${userId}/reset-password`, {
+      method: "POST",
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ new_password: newPassword }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || "Đặt lại mật khẩu thất bại.");
+    }
+    return res.json();
+  },
+
+  async deleteUser(userId: string): Promise<{ message: string }> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/admin/users/${userId}`, {
+      method: "DELETE",
+      headers: getAuthHeaders(),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || "Xóa người dùng thất bại.");
+    }
+    return res.json();
+  },
+
+  async listAuditLogs(page = 1, limit = 30, action = ""): Promise<{ logs: AuditLogItem[]; total: number }> {
+    const query = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+    });
+    if (action.trim()) {
+      query.append("action", action.trim());
+    }
+
+    const res = await fetch(`${BACKEND_BASE_URL}/api/admin/audit-logs?${query.toString()}`, {
+      method: "GET",
+      headers: getAuthHeaders(),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || "Không thể tải nhật ký kiểm toán.");
+    }
+    return res.json();
+  },
+};
+
+// ==============================================================================
+// VĂN BẢN PHÁP LUẬT
+// ==============================================================================
+export interface RelatedDocItem {
+  relationType: "goc" | "sua_doi";
+  relationLabel: string;
+  title: string;
+  number: string;
+  sourceUrl: string;
+}
+
 export interface LegalDocItem {
   id: string;
   category: "luat" | "nghi-dinh" | "thong-tu" | "quy-chuan";
@@ -219,11 +480,11 @@ export interface LegalDocItem {
   date: string;
   status: string;
   desc: string;
+  sourceUrl?: string;
+  isConsolidated?: boolean;
+  relatedDocs?: RelatedDocItem[];
 }
 
-/**
- * Lấy danh mục văn bản quy phạm pháp luật từ FastAPI (/api/documents)
- */
 export async function fetchLegalDocuments(): Promise<LegalDocItem[]> {
   try {
     const res = await fetch(`${BACKEND_BASE_URL}/api/documents`, {
@@ -241,6 +502,15 @@ export async function fetchLegalDocuments(): Promise<LegalDocItem[]> {
         date: string;
         status: string;
         desc: string;
+        source_url?: string;
+        is_consolidated?: boolean;
+        related_docs?: Array<{
+          relation_type: "goc" | "sua_doi";
+          relation_label: string;
+          title: string;
+          number: string;
+          source_url: string;
+        }>;
       }) => ({
         id: doc.id,
         category: doc.category,
@@ -250,18 +520,31 @@ export async function fetchLegalDocuments(): Promise<LegalDocItem[]> {
             ? "bg-red-50 border-red-200"
             : doc.category === "quy-chuan"
             ? "bg-emerald-50 border-emerald-200"
+            : doc.category === "thong-tu"
+            ? "bg-purple-50 border-purple-200"
             : "bg-blue-50 border-blue-200",
         typeBadgeText:
           doc.category === "luat"
             ? "text-red-700"
             : doc.category === "quy-chuan"
             ? "text-emerald-700"
+            : doc.category === "thong-tu"
+            ? "text-purple-700"
             : "text-blue-700",
         title: doc.title,
         number: doc.number,
         date: doc.date,
         status: doc.status,
         desc: doc.desc,
+        sourceUrl: doc.source_url || "",
+        isConsolidated: !!doc.is_consolidated,
+        relatedDocs: (doc.related_docs || []).map((r) => ({
+          relationType: r.relation_type,
+          relationLabel: r.relation_label,
+          title: r.title,
+          number: r.number,
+          sourceUrl: r.source_url,
+        })),
       }));
     }
   } catch (err) {
@@ -270,9 +553,6 @@ export async function fetchLegalDocuments(): Promise<LegalDocItem[]> {
   return [];
 }
 
-/**
- * Tìm kiếm nhanh căn cứ pháp lý (/api/search)
- */
 export async function searchLegalSources(query: string, topK = 3): Promise<Citation[]> {
   try {
     const res = await fetch(`${BACKEND_BASE_URL}/api/search`, {

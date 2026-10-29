@@ -61,6 +61,16 @@ class SearchResponse(BaseModel):
     total: int = Field(default=0, description="Tổng số trích dẫn tìm thấy")
     sources: List[SourceDocument] = Field(default=[], description="Danh sách các đoạn luật trích xuất")
 
+class RelatedDocItem(BaseModel):
+    """
+    Thông tin văn bản thành phần trong văn bản hợp nhất (văn bản gốc hoặc văn bản sửa đổi, bổ sung).
+    """
+    relation_type: str = Field(..., description="Loại quan hệ: 'goc' (Văn bản gốc) hoặc 'sua_doi' (Văn bản sửa đổi, bổ sung)")
+    relation_label: str = Field(..., description="Nhãn hiển thị, ví dụ: 'Văn bản gốc', 'Văn bản sửa đổi, bổ sung'")
+    title: str = Field(..., description="Tên văn bản")
+    number: str = Field(..., description="Số hiệu văn bản")
+    source_url: str = Field(..., description="Đường dẫn tra cứu trên vbpl.vn")
+
 class LegalDocItem(BaseModel):
     """
     Cấu trúc mô tả một văn bản quy phạm pháp luật trong cơ sở dữ liệu.
@@ -73,6 +83,9 @@ class LegalDocItem(BaseModel):
     date: str = Field(..., description="Ngày ban hành hoặc có hiệu lực")
     status: str = Field(..., description="Tình trạng hiệu lực")
     desc: str = Field(..., description="Mô tả tóm tắt nội dung quy định")
+    source_url: Optional[str] = Field(default="", description="Đường dẫn trực tiếp đến văn bản trên vbpl.vn")
+    is_consolidated: bool = Field(default=False, description="Đánh dấu là văn bản hợp nhất")
+    related_docs: List[RelatedDocItem] = Field(default=[], description="Danh sách văn bản gốc và văn bản sửa đổi, bổ sung")
 
 class LegalDocsListResponse(BaseModel):
     """

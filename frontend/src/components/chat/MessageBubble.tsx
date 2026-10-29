@@ -41,11 +41,42 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const followUpChips = [
+  const defaultFallbackChips = [
     "Quy trình nộp phạt nguội online như thế nào?",
     "Biển phụ nào thì xe máy được rẽ phải khi đèn đỏ?",
     "Thủ tục nộp phạt và nhận lại bằng lái xe bị tạm giữ?",
   ];
+
+  const getContextualFollowUps = (): string[] => {
+    const text = message.content.toLowerCase();
+    const suggestions: string[] = [];
+
+    if (text.includes("nồng độ cồn") || text.includes("rượu") || text.includes("bia")) {
+      suggestions.push("Mức phạt nồng độ cồn đối với xe máy?");
+      suggestions.push("Mức phạt nồng độ cồn đối với ô tô?");
+      suggestions.push("Có bị tước giấy phép lái xe khi vi phạm nồng độ cồn không?");
+    } else if (text.includes("tốc độ") || text.includes("chạy quá tốc độ")) {
+      suggestions.push("Vượt quá tốc độ từ 10 - 20 km/h bị phạt bao nhiêu?");
+      suggestions.push("Chạy quá tốc độ bao nhiêu km/h thì bị tước bằng lái?");
+      suggestions.push("Quy định tốc độ tối đa cho phép trong khu đông dân cư?");
+    } else if (text.includes("đèn đỏ") || text.includes("đèn vàng") || text.includes("tín hiệu")) {
+      suggestions.push("Biển phụ nào thì xe máy được rẽ phải khi đèn đỏ?");
+      suggestions.push("Vượt đèn vàng có bị xử phạt như vượt đèn đỏ?");
+      suggestions.push("Lỗi không chấp hành hiệu lệnh đèn tín hiệu bị phạt bao nhiêu?");
+    } else if (text.includes("mũ bảo hiểm") || text.includes("nón bảo hiểm")) {
+      suggestions.push("Không đội mũ bảo hiểm bị phạt bao nhiêu tiền?");
+      suggestions.push("Chở người ngồi sau không đội mũ bảo hiểm bị phạt ai?");
+      suggestions.push("Cài quai mũ bảo hiểm không đúng quy cách có bị phạt?");
+    } else if (text.includes("giấy phép") || text.includes("bằng lái") || text.includes("gplx")) {
+      suggestions.push("Thủ tục nộp phạt và nhận lại bằng lái xe bị tạm giữ?");
+      suggestions.push("Không mang giấy phép lái xe khác không có giấy phép lái xe thế nào?");
+      suggestions.push("Bị tước giấy phép lái xe có được thi lại không?");
+    }
+
+    return suggestions.length >= 2 ? suggestions.slice(0, 3) : defaultFallbackChips;
+  };
+
+  const followUpChips = getContextualFollowUps();
 
   return (
     <div className="flex items-start gap-3 w-full max-w-3xl">
@@ -55,10 +86,15 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
       </div>
 
       <div className="flex-1 bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col gap-4 text-[13.5px] leading-relaxed">
-        {/* Header với Live API / Offline Badge */}
+        {/* Header với Live API / Offline Badge / Stopped Badge */}
         <div className="flex items-center justify-between border-b border-slate-100 pb-2">
           <span className="font-semibold text-primary-navy text-[13px]">VinaLaw Assistant</span>
-          {message.isFallback === false ? (
+          {message.isStopped ? (
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+              Đã dừng phản hồi
+            </span>
+          ) : message.isFallback === false ? (
             <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               FastAPI RAG Live
@@ -72,7 +108,9 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
         </div>
 
         {/* Markdown Response Content */}
-        <div className="prose prose-slate max-w-none text-slate-800 text-[13.5px] leading-relaxed [&>h3]:text-[15px] [&>h3]:font-bold [&>h3]:text-primary-navy [&>h3]:mb-2 [&>h4]:text-[14px] [&>h4]:font-bold [&>h4]:text-slate-900 [&>h4]:mt-3 [&>h4]:mb-1 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:my-2 [&>p]:my-2 [&>blockquote]:border-l-4 [&>blockquote]:border-primary-navy [&>blockquote]:pl-3 [&>blockquote]:italic [&>blockquote]:text-slate-600">
+        <div className={`prose prose-slate max-w-none text-[13.5px] leading-relaxed [&>h3]:text-[15px] [&>h3]:font-bold [&>h3]:text-primary-navy [&>h3]:mb-2 [&>h4]:text-[14px] [&>h4]:font-bold [&>h4]:text-slate-900 [&>h4]:mt-3 [&>h4]:mb-1 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:my-2 [&>p]:my-2 [&>blockquote]:border-l-4 [&>blockquote]:border-primary-navy [&>blockquote]:pl-3 [&>blockquote]:italic [&>blockquote]:text-slate-600 ${
+          message.isStopped ? "text-slate-500 italic" : "text-slate-800"
+        }`}>
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{message.content}</ReactMarkdown>
         </div>
 
@@ -91,8 +129,11 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
                     <div className="flex items-center justify-between gap-2">
                       <span className="font-semibold text-slate-900 text-[12.5px]">{src.title}</span>
                       {typeof src.score === "number" && (
-                        <span className="text-[10.5px] font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded shrink-0">
-                          Độ khớp: {Math.round(src.score * 100)}%
+                        <span
+                          className="text-[10.5px] font-medium text-slate-500 bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded shrink-0 font-mono"
+                          title="Độ khớp với câu hỏi"
+                        >
+                          Độ khớp: {Math.min(100, Math.max(0, Math.round(src.score > 1 ? src.score : src.score * 100)))}%
                         </span>
                       )}
                     </div>
@@ -104,60 +145,67 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
           </div>
         )}
 
-        {/* Action Toolbar & Follow-up Chips */}
-        <div className="flex flex-col gap-2.5 pt-2 border-t border-slate-100">
-          <div className="flex items-center justify-between text-slate-400 text-[12px]">
-            <div className="flex items-center gap-1">
-              <button
-                type="button"
-                onClick={handleCopy}
-                className="p-1.5 rounded-md hover:bg-slate-100 hover:text-slate-700 transition-colors flex items-center justify-center cursor-pointer"
-                title="Sao chép"
-              >
-                {copied ? (
-                  <Check size={16} className="text-emerald-600 shrink-0" />
-                ) : (
-                  <Copy size={16} className="shrink-0" />
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={() => setLiked(liked === true ? null : true)}
-                className={`p-1.5 rounded-md hover:bg-slate-100 transition-colors flex items-center justify-center cursor-pointer ${
-                  liked === true ? "text-emerald-600" : "hover:text-slate-700"
-                }`}
-                title="Hữu ích"
-              >
-                <ThumbsUp size={16} className="shrink-0" />
-              </button>
-              <button
-                type="button"
-                onClick={() => setLiked(liked === false ? null : false)}
-                className={`p-1.5 rounded-md hover:bg-slate-100 transition-colors flex items-center justify-center cursor-pointer ${
-                  liked === false ? "text-red-600" : "hover:text-slate-700"
-                }`}
-                title="Chưa hài lòng"
-              >
-                <ThumbsDown size={16} className="shrink-0" />
-              </button>
+        {/* Action Toolbar & Follow-up Chips (chỉ hiển thị khi câu trả lời hoàn tất, không bị dừng) */}
+        {!message.isStopped ? (
+          <div className="flex flex-col gap-2.5 pt-2 border-t border-slate-100">
+            <div className="flex items-center justify-between text-slate-400 text-[12px]">
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  className="p-1.5 rounded-md hover:bg-slate-100 hover:text-slate-700 transition-colors flex items-center justify-center cursor-pointer"
+                  title="Sao chép"
+                >
+                  {copied ? (
+                    <Check size={16} className="text-emerald-600 shrink-0" />
+                  ) : (
+                    <Copy size={16} className="shrink-0" />
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLiked(liked === true ? null : true)}
+                  className={`p-1.5 rounded-md hover:bg-slate-100 transition-colors flex items-center justify-center cursor-pointer ${
+                    liked === true ? "text-emerald-600" : "hover:text-slate-700"
+                  }`}
+                  title="Hữu ích"
+                >
+                  <ThumbsUp size={16} className="shrink-0" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLiked(liked === false ? null : false)}
+                  className={`p-1.5 rounded-md hover:bg-slate-100 transition-colors flex items-center justify-center cursor-pointer ${
+                    liked === false ? "text-red-600" : "hover:text-slate-700"
+                  }`}
+                  title="Chưa hài lòng"
+                >
+                  <ThumbsDown size={16} className="shrink-0" />
+                </button>
+              </div>
+              {message.timestamp && <span>{message.timestamp}</span>}
             </div>
+
+            {/* Follow-up chips */}
+            <div className="flex flex-wrap items-center gap-2 pt-0.5">
+              <span className="text-[11.5px] font-medium text-slate-500">Hỏi tiếp:</span>
+              {followUpChips.map((chip, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => sendMessage(chip)}
+                  className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-[11.5px] text-slate-700 transition-colors cursor-pointer"
+                >
+                  {chip}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between text-slate-400 text-[11px] pt-1 border-t border-slate-100">
+            <span>Phản hồi đã kết thúc theo lệnh dừng</span>
             {message.timestamp && <span>{message.timestamp}</span>}
           </div>
-
-          {/* Follow-up chips */}
-          <div className="flex flex-wrap items-center gap-2 pt-0.5">
-            <span className="text-[11.5px] font-medium text-slate-500">Hỏi tiếp:</span>
-            {followUpChips.map((chip, idx) => (
-              <button
-                key={idx}
-                onClick={() => sendMessage(chip)}
-                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-[11.5px] text-slate-700 transition-colors cursor-pointer"
-              >
-                {chip}
-              </button>
-            ))}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

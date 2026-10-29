@@ -5,7 +5,8 @@
   --color-accent-red: #DC2626;
   --color-canvas: #F8FAFD;
   --color-surface: #FFFFFF;
-  --color-sidebar: #0F172A;
+  --color-sidebar: #ecf0f6;
+  --color-sidebar-border: #D5DFEB;
   --color-subtle: #E2E8F0;
   --color-text-main: #0F172A;
   --color-text-muted: #64748B;
@@ -18,7 +19,8 @@
   --accent-red: #DC2626;
   --bg-canvas: #F8FAFD;
   --bg-surface: #FFFFFF;
-  --bg-sidebar: #0F172A;
+  --bg-sidebar: #ecf0f6;
+  --border-sidebar: #D5DFEB;
   --border-subtle: #E2E8F0;
   --text-main: #0F172A;
   --text-muted: #64748B;

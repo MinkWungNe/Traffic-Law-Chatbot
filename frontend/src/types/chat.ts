@@ -17,13 +17,37 @@ export interface ChatMessage {
   sources?: Citation[];
   timestamp?: string;
   isFallback?: boolean;
+  isStopped?: boolean;
 }
 
 export interface UserProfile {
-  username: string;
-  fullName?: string;
-  avatar?: string;
-  token?: string;
+  id: string;
+  email: string;
+  role: "admin" | "user";
+  is_active: boolean;
+  created_at?: string;
+}
+
+export interface SessionItem {
+  id: string;
+  title: string;
+  is_pinned: boolean;
+  created_at: string;
+  updated_at: string;
+  message_count: number;
+}
+
+export interface AuditLogItem {
+  id: string;
+  actor_id?: string | null;
+  actor_email: string;
+  action: string;
+  target_id?: string | null;
+  target_email?: string | null;
+  details?: Record<string, any> | null;
+  ip_address?: string | null;
+  user_agent?: string | null;
+  created_at: string;
 }
 
 export interface StarterCardItem {

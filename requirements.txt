@@ -1,8 +1,21 @@
 # Framework & API Backend
 fastapi
 uvicorn[standard]
-pydantic
+pydantic[email]
+email-validator
 requests
+
+# Co so du lieu & ORM
+sqlalchemy[asyncio]>=2.0.0
+greenlet
+asyncpg
+aiosqlite
+
+# Mat ma, Bao mat & Xac thuc
+argon2-cffi
+cryptography
+pyjwt
+python-multipart
 
 # AI / LLM & RAG
 llama-cpp-python
@@ -17,11 +30,11 @@ langchain-chroma
 chromadb
 faiss-cpu
 
-# Xử lý tài liệu & Dữ liệu
+# Xu ly tai lieu & Du lieu
 pypdf
 python-docx
 openpyxl
 pandas
 
-# Lưu ý: Giao diện Web (Frontend) đã chuyển sang Next.js, 
-# quản lý dependencies độc lập qua frontend/package.json (chạy 'cd frontend && npm install').
+# Luu y: Giao dien Web (Frontend) da chuyen sang Next.js, 
+# quan ly dependencies doc lap qua frontend/package.json (chay 'cd frontend && npm install').

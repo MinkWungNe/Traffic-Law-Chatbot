@@ -36,7 +36,7 @@ export const ChatScrollArea: React.FC = () => {
           </div>
         ) : (
           /* Danh sách tin nhắn hội thoại */
-          <div className="flex flex-col gap-6 pt-4">
+          <div className="flex flex-col gap-6 pt-4 pb-30">
             {messages.map((msg) => (
               <MessageBubble key={msg.id} message={msg} />
             ))}

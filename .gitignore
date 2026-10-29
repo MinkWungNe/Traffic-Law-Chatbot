@@ -21,6 +21,8 @@ backend/data/chroma_db/*
 
 # Dữ liệu tạm hoặc cache sinh ra trong quá trình chạy
 *.log
+*.db
+data/*.db
 data/processed/*
 backend/data/processed/*
 !data/processed/.gitkeep

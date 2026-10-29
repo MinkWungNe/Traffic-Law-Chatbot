@@ -3,6 +3,7 @@ Script: run.py
 Mục đích: Bộ khởi chạy hệ thống Chatbot AI Tư Vấn Pháp Luật An Toàn Giao Thông.
 Khởi chạy đồng bộ FastAPI Backend (port 8000) và Next.js Frontend (port 3000).
 Hỗ trợ đa nền tảng (Windows/Linux/macOS) với trải nghiệm mượt mà.
+Tự động khởi tạo file cấu hình môi trường (.env) và cài đặt node_modules nếu thiếu.
 """
 
 import os
@@ -75,6 +76,32 @@ def find_python_interpreter() -> tuple[Path, str]:
     return Path(sys.executable), "System Python"
 
 
+def ensure_env_files(frontend_dir: Path):
+    """
+    Tự động kiểm tra và khởi tạo file .env và frontend/.env.local từ các file template .env.example.
+    Giúp bất kỳ ai khi clone dự án về có thể chạy ngay lập tức mà không cần cấu hình thủ công.
+    """
+    # 1. Kiểm tra .env ở thư mục gốc
+    root_env = PROJECT_ROOT / ".env"
+    root_env_example = PROJECT_ROOT / ".env.example"
+    if not root_env.exists() and root_env_example.exists():
+        try:
+            shutil.copy(root_env_example, root_env)
+            print(f"{GREEN}[✓] Đã tự động tạo file cấu hình '.env' từ '.env.example'{RESET}")
+        except Exception as e:
+            print(f"{YELLOW}[!] Không thể tự động tạo '.env': {e}{RESET}")
+
+    # 2. Kiểm tra frontend/.env.local
+    fe_env = frontend_dir / ".env.local"
+    fe_env_example = frontend_dir / ".env.example"
+    if not fe_env.exists() and fe_env_example.exists():
+        try:
+            shutil.copy(fe_env_example, fe_env)
+            print(f"{GREEN}[✓] Đã tự động tạo file cấu hình 'frontend/.env.local' từ '.env.example'{RESET}")
+        except Exception as e:
+            print(f"{YELLOW}[!] Không thể tự động tạo 'frontend/.env.local': {e}{RESET}")
+
+
 def ensure_node_modules(npm_cmd: str, frontend_dir: Path):
     """Tự động cài đặt node_modules nếu người dùng chưa chạy npm install."""
     if not (frontend_dir / "node_modules").exists():
@@ -103,6 +130,7 @@ def print_banner(venv_name: str):
 
 def run_fullstack(py_exe: Path, npm_cmd: str, frontend_dir: Path):
     """Khởi chạy cả FastAPI Backend và Next.js Frontend."""
+    ensure_env_files(frontend_dir)
     ensure_node_modules(npm_cmd, frontend_dir)
 
     print(f"\n{YELLOW}{'='*80}{RESET}")
@@ -110,7 +138,6 @@ def run_fullstack(py_exe: Path, npm_cmd: str, frontend_dir: Path):
     print(f"{CYAN}Tài liệu Swagger UI: http://localhost:8000/docs{RESET}")
     print(f"{YELLOW}{'='*80}{RESET}")
 
-    # Trên Windows, khởi chạy Backend ở một cửa sổ console riêng biệt
     creation_flags = subprocess.CREATE_NEW_CONSOLE if os.name == "nt" else 0
     backend_proc = subprocess.Popen(
         [str(py_exe), "-m", "uvicorn", "backend.src.api.main:app", "--reload", "--port", "8000"],
@@ -134,7 +161,6 @@ def run_fullstack(py_exe: Path, npm_cmd: str, frontend_dir: Path):
     except KeyboardInterrupt:
         pass
     finally:
-        # Tự động dọn dẹp và tắt luôn tiến trình Backend khi tắt ứng dụng
         print(f"\n{YELLOW}Đang đóng toàn bộ hệ thống...{RESET}")
         try:
             backend_proc.terminate()
@@ -146,6 +172,7 @@ def run_fullstack(py_exe: Path, npm_cmd: str, frontend_dir: Path):
 
 def run_frontend(npm_cmd: str, frontend_dir: Path):
     """Chỉ khởi chạy giao diện Web Next.js."""
+    ensure_env_files(frontend_dir)
     ensure_node_modules(npm_cmd, frontend_dir)
 
     print(f"\n{GREEN}{'='*80}{RESET}")
@@ -161,8 +188,10 @@ def run_frontend(npm_cmd: str, frontend_dir: Path):
         pass
 
 
-def run_backend(py_exe: Path):
+def run_backend(py_exe: Path, frontend_dir: Path):
     """Chỉ khởi chạy máy chủ FastAPI Backend."""
+    ensure_env_files(frontend_dir)
+
     print(f"\n{BLUE}{'='*80}{RESET}")
     print(f"{BOLD}Đang khởi chạy FastAPI Backend trên cổng 8000...{RESET}")
     print(f"{CYAN}Tài liệu Swagger UI: http://localhost:8000/docs{RESET}")
@@ -198,6 +227,9 @@ def main():
     npm_cmd = find_npm_executable()
     frontend_dir = get_frontend_dir()
 
+    # Tự động đảm bảo các file .env tồn tại trước khi khởi chạy
+    ensure_env_files(frontend_dir)
+
     if not npm_cmd:
         print(f"\n{RED}[!] CẢNH BÁO: Không tìm thấy 'npm' trong biến môi trường PATH!{RESET}")
         print(f"{YELLOW}Vui lòng cài đặt Node.js (phiên bản khuyến nghị >= 18.x hoặc 20.x) để chạy giao diện Next.js.{RESET}")
@@ -229,7 +261,7 @@ def main():
                 run_frontend(npm_cmd, frontend_dir)
                 break
             elif choice == "3":
-                run_backend(py_exe)
+                run_backend(py_exe, frontend_dir)
                 break
             elif choice == "4":
                 run_benchmark()

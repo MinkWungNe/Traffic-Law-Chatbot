@@ -1,0 +1,452 @@
+[
+  {
+    "id": "doc-01",
+    "category": "luat",
+    "type_label": "Luật",
+    "title": "Văn bản hợp nhất - Luật Trật tự, an toàn giao thông đường bộ",
+    "number": "Số 36/2024/QH15 (SĐBS: Luật 118/2025/QH15)",
+    "date": "01/01/2025",
+    "status": "Đang có hiệu lực (Hợp nhất)",
+    "desc": "Quy tắc chung khi tham gia giao thông, điều kiện phương tiện, người lái xe, tín hiệu giao thông đường bộ, và cơ chế trừ điểm, phục hồi điểm giấy phép lái xe.",
+    "source_url": "",
+    "is_consolidated": true,
+    "related_docs": [
+      {
+        "relation_type": "goc",
+        "relation_label": "Văn bản gốc",
+        "title": "Luật Trật tự, an toàn giao thông đường bộ 2024",
+        "number": "Số 36/2024/QH15",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/luat-so-36-2024-qh15-42555.htm"
+      },
+      {
+        "relation_type": "sua_doi",
+        "relation_label": "Văn bản sửa đổi, bổ sung",
+        "title": "Luật sửa đổi, bổ sung một số điều của Luật Trật tự, an toàn giao thông đường bộ",
+        "number": "Số 118/2025/QH15",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/luat-so-118-2025-qh15-468680.htm"
+      }
+    ]
+  },
+  {
+    "id": "doc-02",
+    "category": "luat",
+    "type_label": "Bộ luật",
+    "title": "Văn bản hợp nhất - Bộ luật Hình sự (Các tội xâm phạm an toàn giao thông)",
+    "number": "Số 01/VBHN-VPQH (Gốc: 100/2015/QH13, SĐBS: 12/2017/QH14)",
+    "date": "01/01/2018",
+    "status": "Đang có hiệu lực (Hợp nhất)",
+    "desc": "Quy định truy cứu trách nhiệm hình sự với hành vi vi phạm quy định tham gia giao thông đường bộ (Điều 260), giao xe cho người không đủ điều kiện (Điều 264), cản trở giao thông.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/van-ban-hop-nhat-so-01-vbhn-vpqh-24866.htm",
+    "is_consolidated": true,
+    "related_docs": [
+      {
+        "relation_type": "goc",
+        "relation_label": "Văn bản gốc",
+        "title": "Bộ luật Hình sự năm 2015",
+        "number": "Số 100/2015/QH13",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/luat-so-100-2015-qh13-18442.htm"
+      },
+      {
+        "relation_type": "sua_doi",
+        "relation_label": "Văn bản sửa đổi, bổ sung",
+        "title": "Luật sửa đổi, bổ sung một số điều của Bộ luật Hình sự số 100/2015/QH13",
+        "number": "Số 12/2017/QH14",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/luat-so-12-2017-qh14-24289/18538.htm"
+      }
+    ]
+  },
+  {
+    "id": "doc-03",
+    "category": "luat",
+    "type_label": "Bộ luật",
+    "title": "Bộ luật Dân sự 2015 (Trách nhiệm bồi thường thiệt hại do nguồn nguy hiểm cao độ)",
+    "number": "Số 91/2015/QH13",
+    "date": "01/01/2017",
+    "status": "Đang có hiệu lực",
+    "desc": "Quy định tại Điều 601 về trách nhiệm bồi thường thiệt hại ngoài hợp đồng của chủ sở hữu, người chiếm hữu, sử dụng phương tiện giao thông vận tải cơ giới khi xảy ra tai nạn giao thông.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/luat-so-91-2015-qh13-18397.htm",
+    "is_consolidated": false,
+    "related_docs": []
+  },
+  {
+    "id": "doc-04",
+    "category": "luat",
+    "type_label": "Luật",
+    "title": "Văn bản hợp nhất - Luật Xử lý vi phạm hành chính",
+    "number": "Số 20/VBHN-VPQH (Gốc: 15/2012/QH13, SĐBS: 67/2020/QH14)",
+    "date": "01/01/2022",
+    "status": "Đang có hiệu lực (Hợp nhất)",
+    "desc": "Nguyên tắc xử phạt vi phạm hành chính, thẩm quyền xử phạt của các lực lượng, thủ tục lập biên bản, mức phạt tiền và biện pháp ngăn chặn như tạm giữ tang vật, phương tiện giao thông.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/van-ban-hop-nhat-so-20-vbhn-vpqh-38891.htm",
+    "is_consolidated": true,
+    "related_docs": [
+      {
+        "relation_type": "goc",
+        "relation_label": "Văn bản gốc",
+        "title": "Luật Xử lý vi phạm hành chính năm 2012",
+        "number": "Số 15/2012/QH13",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/luat-so-15-2012-qh13-915/11323.htm"
+      },
+      {
+        "relation_type": "sua_doi",
+        "relation_label": "Văn bản sửa đổi, bổ sung",
+        "title": "Luật sửa đổi, bổ sung một số điều của Luật Xử lý vi phạm hành chính",
+        "number": "Số 67/2020/QH14",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/nghi-quyet-so-67-2020-qh14-32691/33729.htm"
+      }
+    ]
+  },
+  {
+    "id": "doc-05",
+    "category": "luat",
+    "type_label": "Luật",
+    "title": "Luật Phòng, chống tác hại của rượu, bia 2019",
+    "number": "Số 44/2019/QH14",
+    "date": "01/01/2020",
+    "status": "Đang có hiệu lực",
+    "desc": "Quy định cấm tuyệt đối tại Khoản 6 Điều 5 đối với hành vi điều khiển phương tiện tham gia giao thông đường bộ mà trong máu hoặc hơi thở có nồng độ cồn.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/luat-so-44-2019-qh14-29251.htm",
+    "is_consolidated": false,
+    "related_docs": []
+  },
+  {
+    "id": "doc-06",
+    "category": "luat",
+    "type_label": "Luật",
+    "title": "Luật Đường bộ 2024",
+    "number": "Số 35/2024/QH15",
+    "date": "01/01/2025",
+    "status": "Đang có hiệu lực",
+    "desc": "Quy định về quy hoạch, đầu tư, xây dựng, quản lý, vận hành khai thác, bảo trì và bảo vệ kết cấu hạ tầng đường bộ; vận tải đường bộ và dịch vụ hỗ trợ vận tải.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/luat-so-35-2024-qh15-42568.htm",
+    "is_consolidated": false,
+    "related_docs": []
+  },
+  {
+    "id": "doc-07",
+    "category": "luat",
+    "type_label": "Luật",
+    "title": "Luật Đường sắt (Quy tắc giao cắt đường bộ - đường sắt)",
+    "number": "Số 95/2025/QH15",
+    "date": "01/07/2025",
+    "status": "Đang có hiệu lực",
+    "desc": "Quy tắc an toàn tại điểm giao cắt cùng mức giữa đường bộ và đường sắt, thứ tự ưu tiên của phương tiện giao thông đường sắt và hành lang an toàn đường ngang.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/luat-so-95-2025-qh15-45582.htm",
+    "is_consolidated": false,
+    "related_docs": []
+  },
+  {
+    "id": "doc-08",
+    "category": "luat",
+    "type_label": "Luật",
+    "title": "Văn bản hợp nhất - Luật Đo lường (Kiểm định thiết bị kỹ thuật CSGT)",
+    "number": "Số 04/2011/QH13 (SĐBS: Luật 35/2018/QH14)",
+    "date": "01/01/2019",
+    "status": "Đang có hiệu lực (Hợp nhất)",
+    "desc": "Quy định về kiểm định, hiệu chuẩn phương tiện đo lường chuyên dụng của lực lượng CSGT (máy đo nồng độ cồn, phương tiện đo tốc độ có ghi hình ảnh, cân tải trọng).",
+    "source_url": "",
+    "is_consolidated": true,
+    "related_docs": [
+      {
+        "relation_type": "goc",
+        "relation_label": "Văn bản gốc",
+        "title": "Luật Đo lường năm 2011",
+        "number": "Số 04/2011/QH13",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/luat-so-04-2011-qh13-7028.htm"
+      },
+      {
+        "relation_type": "sua_doi",
+        "relation_label": "Văn bản sửa đổi, bổ sung",
+        "title": "Luật sửa đổi, bổ sung một số điều của 37 Luật có liên quan đến quy hoạch",
+        "number": "Số 35/2018/QH14",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/nghi-quyet-so-35-2018-qh14-27813.htm"
+      }
+    ]
+  },
+  {
+    "id": "doc-09",
+    "category": "luat",
+    "type_label": "Luật",
+    "title": "Văn bản hợp nhất - Luật Cảnh vệ (Quyền ưu tiên xe CSGT dẫn đoàn)",
+    "number": "Số 13/2017/QH14 (SĐBS: Luật 40/2024 và Luật 118/2025)",
+    "date": "01/01/2025",
+    "status": "Đang có hiệu lực (Hợp nhất)",
+    "desc": "Quy định về đối tượng cảnh vệ, biện pháp cảnh vệ khi di chuyển và quyền ưu tiên của đoàn xe có xe Cảnh sát giao thông dẫn đường.",
+    "source_url": "",
+    "is_consolidated": true,
+    "related_docs": [
+      {
+        "relation_type": "goc",
+        "relation_label": "Văn bản gốc",
+        "title": "Luật Cảnh vệ năm 2017",
+        "number": "Số 13/2017/QH14",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/luat-so-13-2017-qh14-24273.htm"
+      },
+      {
+        "relation_type": "sua_doi",
+        "relation_label": "Văn bản sửa đổi, bổ sung",
+        "title": "Luật sửa đổi, bổ sung một số điều của Luật Cảnh vệ",
+        "number": "Số 40/2024/QH15",
+        "source_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2024/9/40-2024-qh15.pdf"
+      },
+      {
+        "relation_type": "sua_doi",
+        "relation_label": "Văn bản sửa đổi, bổ sung",
+        "title": "Luật sửa đổi, bổ sung một số điều của Luật Cảnh vệ và Luật Trật tự, ATGTĐB",
+        "number": "Số 118/2025/QH15",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/luat-so-118-2025-qh15-468680.htm"
+      }
+    ]
+  },
+  {
+    "id": "doc-10",
+    "category": "nghi-dinh",
+    "type_label": "Nghị định",
+    "title": "Văn bản hợp nhất - Nghị định xử phạt VPHC trật tự, an toàn giao thông đường bộ; trừ điểm GPLX",
+    "number": "Số 168/2024/NĐ-CP (SĐBS: NĐ 238/2026/NĐ-CP)",
+    "date": "01/01/2025",
+    "status": "Đang có hiệu lực (Hợp nhất)",
+    "desc": "Quy định chi tiết hành vi vi phạm, khung tiền phạt, hình thức xử phạt bổ sung (tịch thu phương tiện) và quy chế trừ điểm giấy phép lái xe theo Luật 36/2024/QH15.",
+    "source_url": "",
+    "is_consolidated": true,
+    "related_docs": [
+      {
+        "relation_type": "goc",
+        "relation_label": "Văn bản gốc",
+        "title": "Nghị định quy định xử phạt VPHC trật tự, an toàn giao thông đường bộ; trừ điểm, phục hồi điểm GPLX",
+        "number": "Số 168/2024/NĐ-CP",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-168-2024-nd-cp-43733.htm"
+      },
+      {
+        "relation_type": "sua_doi",
+        "relation_label": "Văn bản sửa đổi, bổ sung",
+        "title": "Nghị định sửa đổi, bổ sung một số điều của Nghị định số 168/2024/NĐ-CP",
+        "number": "Số 238/2026/NĐ-CP",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-238-2026-nd-cp-469913/66580.htm"
+      }
+    ]
+  },
+  {
+    "id": "doc-11",
+    "category": "nghi-dinh",
+    "type_label": "Nghị định",
+    "title": "Nghị định về phương tiện, thiết bị kỹ thuật nghiệp vụ & quy trình phạt nguội",
+    "number": "Số 61/2026/NĐ-CP",
+    "date": "01/03/2026",
+    "status": "Đang có hiệu lực",
+    "desc": "Quy định danh mục, tiêu chuẩn kỹ thuật thiết bị camera giám sát giao thông và quy trình thu thập dữ liệu điện tử phục vụ xử phạt vi phạm hành chính (phạt nguội).",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-61-2026-nd-cp-468978.htm",
+    "is_consolidated": false,
+    "related_docs": []
+  },
+  {
+    "id": "doc-12",
+    "category": "nghi-dinh",
+    "type_label": "Nghị định",
+    "title": "Nghị định xử phạt vi phạm hành chính trong lĩnh vực an ninh, trật tự, an toàn xã hội",
+    "number": "Số 282/2025/NĐ-CP",
+    "date": "01/01/2026",
+    "status": "Đang có hiệu lực",
+    "desc": "Xử phạt các hành vi gây mất trật tự công cộng, đua xe trái phép, cổ vũ đua xe và cản trở, chống đối người thi hành công vụ trong kiểm soát trật tự giao thông.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-282-2025-nd-cp-46543/59667.htm",
+    "is_consolidated": false,
+    "related_docs": []
+  },
+  {
+    "id": "doc-13",
+    "category": "nghi-dinh",
+    "type_label": "Nghị định",
+    "title": "Nghị định xử phạt vi phạm hành chính trong hoạt động đường bộ",
+    "number": "Số 336/2025/NĐ-CP",
+    "date": "01/01/2026",
+    "status": "Đang có hiệu lực",
+    "desc": "Quy định xử phạt đối với các hành vi vi phạm thi công công trình đường bộ không phép, không cắm biển cảnh báo nguy hiểm, xe chở quá tải trọng, quá khổ giới hạn cầu đường.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-336-2025-nd-cp-467811/60657.htm",
+    "is_consolidated": false,
+    "related_docs": []
+  },
+  {
+    "id": "doc-14",
+    "category": "nghi-dinh",
+    "type_label": "Nghị định",
+    "title": "Nghị định xử phạt vi phạm hành chính trong lĩnh vực giao thông đường sắt",
+    "number": "Số 81/2026/NĐ-CP",
+    "date": "01/07/2026",
+    "status": "Đang có hiệu lực",
+    "desc": "Xử phạt hành vi không chấp hành biển báo, đèn tín hiệu tại đường ngang, vượt rào chắn đường sắt và dừng đỗ phương tiện trong phạm vi an toàn đường sắt.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-81-2026-nd-cp-469163/63642.htm",
+    "is_consolidated": false,
+    "related_docs": []
+  },
+  {
+    "id": "doc-15",
+    "category": "nghi-dinh",
+    "type_label": "Nghị định",
+    "title": "Văn bản hợp nhất - Nghị định quy định về hoạt động vận tải đường bộ",
+    "number": "Số 58/2026/VBHN-BXD (Gốc: 158/2024/NĐ-CP, SĐBS: 218/2026/NĐ-CP)",
+    "date": "01/01/2026",
+    "status": "Đang có hiệu lực (Hợp nhất)",
+    "desc": "Điều kiện kinh doanh vận tải hành khách, hàng hóa bằng xe ô tô; quy chuẩn lắp đặt thiết bị giám sát hành trình (GPS) và camera ghi hình người lái xe trên cabin.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/van-ban-hop-nhat-so-58-vbhn-bxd-470058/66656.htm",
+    "is_consolidated": true,
+    "related_docs": [
+      {
+        "relation_type": "goc",
+        "relation_label": "Văn bản gốc",
+        "title": "Nghị định quy định về hoạt động vận tải đường bộ",
+        "number": "Số 158/2024/NĐ-CP",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-158-2024-nd-cp-43540.htm"
+      },
+      {
+        "relation_type": "sua_doi",
+        "relation_label": "Văn bản sửa đổi, bổ sung",
+        "title": "Nghị định sửa đổi, bổ sung một số điều của Nghị định số 158/2024/NĐ-CP",
+        "number": "Số 218/2026/NĐ-CP",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-218-2026-nd-cp-469823.htm"
+      }
+    ]
+  },
+  {
+    "id": "doc-16",
+    "category": "thong-tu",
+    "type_label": "Thông tư",
+    "title": "Thông tư quy định công tác tuần tra, kiểm soát, xử lý vi phạm của CSGT",
+    "number": "Số 73/2024/TT-BCA",
+    "date": "01/01/2025",
+    "status": "Đang có hiệu lực",
+    "desc": "Quy định quyền hạn, trang phục, phương tiện nghiệp vụ của CSGT khi thực hiện tuần tra và 4 trường hợp CSGT được quyền dừng phương tiện giao thông để kiểm soát.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/thong-tu-so-73-2024-tt-bca-43336/53041.htm",
+    "is_consolidated": false,
+    "related_docs": []
+  },
+  {
+    "id": "doc-17",
+    "category": "thong-tu",
+    "type_label": "Thông tư",
+    "title": "Văn bản hợp nhất - Thông tư quy định về cấp, thu hồi đăng ký xe, biển số định danh",
+    "number": "Số 79/2024/TT-BCA (SĐBS: TT 13/2025 và TT 51/2025)",
+    "date": "01/01/2025",
+    "status": "Đang có hiệu lực (Hợp nhất)",
+    "desc": "Quy định quy trình cấp biển số định danh cá nhân/tổ chức, thủ tục đăng ký xe trực tuyến, chuyển nhượng phương tiện, thu hồi biển số và chứng nhận đăng ký xe.",
+    "source_url": "",
+    "is_consolidated": true,
+    "related_docs": [
+      {
+        "relation_type": "goc",
+        "relation_label": "Văn bản gốc",
+        "title": "Thông tư quy định về cấp, thu hồi đăng ký xe, biển số xe cơ giới",
+        "number": "Số 79/2024/TT-BCA",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/thong-tu-so-79-2024-tt-bca-43337.htm"
+      },
+      {
+        "relation_type": "sua_doi",
+        "relation_label": "Văn bản sửa đổi, bổ sung",
+        "title": "Thông tư sửa đổi, bổ sung một số điều của Thông tư số 79/2024/TT-BCA",
+        "number": "Số 13/2025/TT-BCA",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/thong-tu-so-13-2025-tt-bca-44372/55293.htm"
+      },
+      {
+        "relation_type": "sua_doi",
+        "relation_label": "Văn bản sửa đổi, bổ sung",
+        "title": "Thông tư sửa đổi, bổ sung danh mục biểu mẫu đăng ký xe ban hành kèm Thông tư 79/2024/TT-BCA",
+        "number": "Số 51/2025/TT-BCA",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/thong-tu-so-51-2025-tt-bca-45356.htm"
+      }
+    ]
+  },
+  {
+    "id": "doc-18",
+    "category": "thong-tu",
+    "type_label": "Thông tư",
+    "title": "Thông tư quy định về sát hạch, cấp giấy phép lái xe; cấp GPLX quốc tế",
+    "number": "Số 108/2026/TT-BCA",
+    "date": "01/03/2026",
+    "status": "Đang có hiệu lực",
+    "desc": "Quy định quy trình đào tạo, nội dung bài sát hạch lý thuyết và thực hành lái xe; thẩm quyền quản lý, cấp đổi GPLX và cấp GPLX quốc tế do Bộ Công an đảm nhiệm.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/thong-tu-so-108-2026-tt-bca-470055.htm",
+    "is_consolidated": false,
+    "related_docs": []
+  },
+  {
+    "id": "doc-19",
+    "category": "thong-tu",
+    "type_label": "Thông tư",
+    "title": "Thông tư quy định về tốc độ và khoảng cách an toàn của xe cơ giới tham gia giao thông",
+    "number": "Số 38/2024/TT-BGTVT",
+    "date": "01/01/2025",
+    "status": "Đang có hiệu lực",
+    "desc": "Tốc độ tối đa cho phép của xe ô tô, mô tô trong khu vực đông dân cư (60km/h có dải phân cách giữa, 50km/h đường 2 chiều không có dải phân cách) và khoảng cách an toàn tương ứng.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/thong-tu-so-38-2024-tt-bgtvt-43378.htm",
+    "is_consolidated": false,
+    "related_docs": []
+  },
+  {
+    "id": "doc-20",
+    "category": "quy-chuan",
+    "type_label": "Quy chuẩn",
+    "title": "Quy chuẩn kỹ thuật quốc gia về báo hiệu đường bộ (QCVN 41:2024/BGTVT)",
+    "number": "Thông tư 51/2024/TT-BGTVT",
+    "date": "01/01/2025",
+    "status": "Đang có hiệu lực",
+    "desc": "Quy định chi tiết về kích thước, hình dáng, màu sắc, vị trí lắp đặt và ý nghĩa hiệu lực của hệ thống biển báo hiệu, vạch sơn kẻ đường, đèn tín hiệu giao thông đường bộ.",
+    "source_url": "https://congbao.chinhphu.vn/van-ban/thong-tu-so-51-2024-tt-bgtvt-43387/53152.htm",
+    "is_consolidated": false,
+    "related_docs": []
+  },
+  {
+    "id": "doc-21",
+    "category": "thong-tu",
+    "type_label": "Thông tư",
+    "title": "Văn bản hợp nhất - Thông tư quy định quy trình điều tra, giải quyết tai nạn giao thông",
+    "number": "Số 72/2024/TT-BCA (Sửa đổi bởi TT 13/2025/TT-BCA)",
+    "date": "01/01/2025",
+    "status": "Đang có hiệu lực (Hợp nhất)",
+    "desc": "Quy trình tiếp nhận tin báo, tổ chức bảo vệ và khám nghiệm hiện trường TNGT, thu thập chứng cứ, dấu vết phương tiện và kết luận nguyên nhân lỗi của vụ việc.",
+    "source_url": "",
+    "is_consolidated": true,
+    "related_docs": [
+      {
+        "relation_type": "goc",
+        "relation_label": "Văn bản gốc",
+        "title": "Thông tư quy định quy trình điều tra, giải quyết tai nạn giao thông của Cảnh sát giao thông",
+        "number": "Số 72/2024/TT-BCA",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/thong-tu-so-72-2024-tt-bca-43281/52935.htm"
+      },
+      {
+        "relation_type": "sua_doi",
+        "relation_label": "Văn bản sửa đổi, bổ sung",
+        "title": "Thông tư sửa đổi, bổ sung một số điều của Thông tư số 72/2024/TT-BCA",
+        "number": "Số 13/2025/TT-BCA",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/thong-tu-so-13-2025-tt-bca-44372/55293.htm"
+      }
+    ]
+  },
+  {
+    "id": "doc-22",
+    "category": "thong-tu",
+    "type_label": "Thông tư",
+    "title": "Văn bản hợp nhất - Thông tư quy định thực hiện dân chủ trong công tác bảo đảm TTATGT",
+    "number": "Số 67/2019/TT-BCA (Sửa đổi bởi TT 46/2024/TT-BCA)",
+    "date": "15/11/2024",
+    "status": "Đang có hiệu lực (Hợp nhất)",
+    "desc": "Quy định những nội dung Công an nhân dân phải công khai và quyền hạn của công dân được giám sát, sử dụng thiết bị ghi âm, ghi hình khi làm việc với CSGT theo khuôn khổ pháp luật.",
+    "source_url": "",
+    "is_consolidated": true,
+    "related_docs": [
+      {
+        "relation_type": "goc",
+        "relation_label": "Văn bản gốc",
+        "title": "Thông tư ban hành quy định thực hiện dân chủ trong công tác bảo đảm trật tự, an toàn giao thông",
+        "number": "Số 67/2019/TT-BCA",
+        "source_url": "https://congan.lamdong.gov.vn/UpLoaded/Files/thong-tu/bca/TT-67.2019.pdf"
+      },
+      {
+        "relation_type": "sua_doi",
+        "relation_label": "Văn bản sửa đổi, bổ sung",
+        "title": "Thông tư sửa đổi, bổ sung một số điều của Thông tư số 67/2019/TT-BCA (quy định về giám sát, ghi âm ghi hình)",
+        "number": "Số 46/2024/TT-BCA",
+        "source_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2024/9/46-bca.signed.pdf"
+      }
+    ]
+  }
+]
