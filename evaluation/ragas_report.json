@@ -1,0 +1,667 @@
+{
+  "metadata": {
+    "framework": "RAGAS Assessment Engine (VinaLaw Framework)",
+    "evaluated_samples": 50,
+    "dataset_file": "data/raw/683_CauHoi_TTATGTDB.csv",
+    "timestamp": "2026-10-28 16:37:05"
+  },
+  "summary_metrics": {
+    "faithfulness_score": 1.0,
+    "faithfulness_percentage": "100.0%",
+    "answer_relevance_score": 0.9334,
+    "answer_relevance_percentage": "93.3%",
+    "ragas_harmonic_mean": 0.9656
+  },
+  "detailed_results": [
+    {
+      "id": 1,
+      "question": "Tôi lái xe đến trạm thu phí cao tốc Hà Nội - Hải Phòng và gặp sự cố, nhân viên tại trạm thu phí cho phép tôi lùi xe, rẽ sang làn ETC để xử lý sự cố thì tôi có bị phạt nguội hay không? Các trường hợp sẽ bị phạt nguội khi đi trên cao tốc là gì? Mức xử phạt cụ thể là bao nhiêu?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 21,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 2,
+      "question": "Xe ô tô 04 chỗ của công ty em đã trễ hạn đăng kiểm trên 01 tháng thì mức phạt đối với công ty hoặc chủ xe quy định như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness_claims": 11,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Giải đáp chính xác chế tài xử phạt (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 3,
+      "question": "Tôi đang sử dụng 01 chiếc xe máy không chính chủ mua từ năm 2021, do thời điểm đó là dịch Covid nên hình thức mua là Giấy viết tay và không có hợp đồng mua bán. Đến nay tôi không liên lạc được với chủ cũ của chiếc xe. Tôi chỉ có Giấy đăng ký xe và Giấy viết tay mua bán với chủ trước. Tôi đã liên hệ Công an xã (nơi giữ hồ sơ xe) thì được biết trường hợp của tôi phải đóng phạt khá cao do lỗi đi xe máy không chính chủ chưa kể phí sang tên xe để ra biển số mới.\r\nBộ Công an cho tôi hỏi, mức phạt đối với trường hợp của tôi chính xác là bao nhiêu? Khi tôi không liên lạc được với chủ cũ của xe và tôi muốn sang tên xe thì tôi phải làm gì? Mong được hướng dẫn thủ tục, hồ sơ và quy trình đối với trường hợp của tôi.",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 28,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Giải đáp chính xác chế tài xử phạt (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 4,
+      "question": "Thời gian gần đây, trên không gian mạng xuất hiện một số ý kiến cho rằng, quy định xử phạt hành vi sử dụng tai nghe khi tham gia giao thông đã \"lỗi thời\", không còn phù hợp với điều kiện phát triển công nghệ hiện nay và cần được xem xét, điều chỉnh. Do đó, đề nghị Bộ Công an cung cấp thông tin về cơ sở pháp lý, cơ sở thực tiễn (nguy cơ tiềm ẩn tai nạn giao thông khi sử dụng tai nghe trong khi tham gia giao thông), sự cần thiết, các hình thức xử phạt đối với hành vi sử dụng tai nghe khi tham gia giao thông?",
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness_claims": 5,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 5,
+      "question": "Tôi muốn hỏi, theo quy định, mức xử phạt vi phạm nồng độ cồn đối với người điều khiển xe ô tô như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness_claims": 13,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 6,
+      "question": "Trường hợp thêm các ký tự làm biến dạng biển báo giao thông thì có vi phạm pháp luật hay không? Và quy định cụ thể trường hợp này tại văn bản quy phạm pháp luật nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness_claims": 16,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 7,
+      "question": "Tôi thường trú ở tỉnh Bà Rịa-Vũng Tàu nhưng ở Thừa Thiên Huế có xe gắn biển số của tôi và tham gia giao thông bị lỗi phạt nguội. Bộ Công an cho tôi hỏi, tôi phải khiếu nại ở đâu về trường hợp xe của tôi và cách chứng minh để tôi không bị lỗi phạt nguội là gì?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.85,
+      "faithfulness_claims": 4,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Chưa trích dẫn số hiệu văn bản cụ thể (+0.10)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 8,
+      "question": "Tôi có cho khách hàng thuê xe ô tô tự lái, sau khi khách trả xe, tôi có kiểm tra nhưng do hệ thống cập nhật muộn, mấy hôm sau mới phát hiện xe vi phạm giao thông do khách thuê xe gây ra. Ngay sau đó, tôi có gọi điện cho khách thuê xe, nhưng khách hàng không nhận lỗi do mình gây ra (tôi có hợp đồng thuê xe và hình chụp thẻ căn cước cùng bằng lái của khách). Tôi muốn hỏi nếu người thuê xe không chịu hợp tác đến cơ quan Công an để xử lý thì chủ xe có bị phạt không? Nếu chủ xe không bị phạt thì theo quy định đã có chế tài nào để xử lý hành vi trên chưa?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.73,
+      "faithfulness_claims": 17,
+      "relevance_factors": [
+        "Chưa chỉ rõ đúng loại phương tiện trong câu hỏi",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 9,
+      "question": "Trường hợp lái xe không chấp hành tín hiệu đèn giao thông để nhường đường cho xe ưu tiên, xe cấp cứu có bị xử phạt theo Nghị định 168 không?",
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness_claims": 6,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 10,
+      "question": "Khi tham gia giao thông, tôi thấy có hiện tượng đèn tín giao thông “đang xanh bỗng dưng chuyển sang đỏ” khiến người tham gia giao thông có thể bị phạt oan. Tôi muốn hỏi trường hợp người dân lái xe qua đoạn đường có đèn tín hiệu \"đang xanh bỗng dưng chuyển sang đỏ” thì có bị xử phạt không? Ngoài ra, trường hợp người dân không chấp hành đèn tín hiệu giao thông để nhường đường cho xe ưu tiên, xe cấp cứu thì có bị xử phạt không?",
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness_claims": 8,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 11,
+      "question": "Thời gian vừa qua, tại một số nơi đã xuất hiện tình trạng người dân xịt sơn, bôi chất bẩn lên biển báo giao thông nhằm đối phó với lực lượng chức năng trong quá trình xử lý vi phạm đối với các phương tiện bị cấm lưu thông vào các tuyến đường. Cho tôi hỏi, hành vi bôi chất bẩn hay xịt sơn để tẩy xóa biển báo giao thông để đối phó với lực lượng chức năng sẽ bị xử lý như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness_claims": 15,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 12,
+      "question": "Vừa qua, theo dõi báo chí, tôi thấy có trường hợp ở Hải Dương đã bị khởi tố khi cho bạn mượn xe máy sau khi người bạn kia uống bia, dẫn đến người này điều khiển xe tự gây tai nạn và tử vong. Cho tôi hỏi, trường hợp giao ô tô, xe máy cho người uống bia, rượu điều khiển sẽ bị xử lý như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 41,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 13,
+      "question": "Năm 2020, tôi có chuyển nhượng 01 xe ôtô cho người khác và thỏa thuận người mua tiến hành các thủ tục sang tên đổi chủ đối với chiếc xe ôtô nêu trên. Tuy nhiên đến nay, người mua xe chưa thực hiện các thủ tục sang tên đổi chủ. Cho tôi hỏi:\r\n- Trường hợp đến nay chưa làm thủ tục sang tên đổi chủ đối với chiếc xe tôi đã bán thì biển số xe gắn theo chiếc xe này có được coi là biển số định danh của tôi không?\r\n- Theo thỏa thuận chuyển nhượng, người mua xe chưa làm thủ tục sang tên đổi chủ có vi phạm pháp luật không? Nếu vi phạm thì sẽ bị xử lý như thế nào? Tôi phải làm thế nào để chuyển tên chính chủ sang cho người mua xe?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 31,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 14,
+      "question": "Thời gian qua, khi lực lượng Cảnh sát giao thông tăng cường xử lý vi phạm nồng độ cồn, tạm giữ rất nhiều phương tiện của người vi phạm. Sau đó, không ít trong số những người vi phạm nồng độ cồn đã bỏ lại xe, vì giá trị của chiếc xe không bằng mức phạt phải nộp. Từ thực tế trên, tôi xin hỏi, việc bỏ lại xe khi bị Cảnh sát giao thông tạm giữ sẽ ảnh hưởng như thế nào trong quá trình giải quyết thủ tục hành chính sau này? Người vi phạm giao thông không nộp phạt, bỏ lại xe của mình sẽ bị xử lý như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 20,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Giải đáp chính xác chế tài xử phạt (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 15,
+      "question": "Cho tôi hỏi, người điều khiển xe gắn máy uống rượu bia khi thấy Cảnh sát giao thông hoặc chốt kiểm tra nồng độ cồn thì xuống dắt xe đi bộ nhằm tránh việc kiểm tra của lực lượng Cảnh sát giao thông thì có thể coi là hành vi đối phó với lực lượng chức năng hay không? Và việc uống rượu bia dắt xe máy qua chốt kiểm tra nồng độ cồn có bị xử phạt không?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.73,
+      "faithfulness_claims": 19,
+      "relevance_factors": [
+        "Chưa chỉ rõ đúng loại phương tiện trong câu hỏi",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 16,
+      "question": "Tôi đang lái xe ô tô trên đường, không sử dụng rượu bia, đi đúng làn đường, không vi phạm gì nhưng rất nhiều lần bị Cảnh sát giao thông yêu cầu dừng xe để thổi nồng độ cồn, làm mất thời gian của tôi. Về vấn đề này, Cho tôi hỏi một số nội dung sau:\r\n - Cảnh sát giao thông được quyền yêu cầu dừng phương tiện để kiểm tra trong trường hợp nào?\r\n- Trường hợp người lái xe không vi phạm gì thì Cảnh sát giao thông có được dừng xe để kiểm tra nồng độ cồn không? Nếu được thì theo quy định tại văn bản nào? \r\n- Trường hợp người lái xe thấy mình không vi phạm gì nên không chấp hành hiệu lệnh của Cảnh sát giao thông thì có bị xử phạt không?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 22,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 17,
+      "question": "Vừa qua, tại đường vành đai 3 trên cao, xuất hiện một nữ tài xế điều khiển xe ô tô đi ngược chiều gây nguy hiểm cho các phương tiện khác và khiến dư luận rất bức xúc. Cho tôi hỏi, hành vi đi ngược chiều trên đường cao tốc sẽ bị xử lý như thế nào? Vi phạm ở mức độ nào sẽ bị truy tố và mức hình phạt cho hành vi này khi bị truy tố như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 31,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 18,
+      "question": "Vừa qua, tại Đắk Lắk đã xảy vụ tại nạn giao thông nghiêm trọng do thanh niên lái xe phân khối lớn khi mới 16 tuổi, chưa đáp ứng quy định về tuổi điều khiển xe, khiến dư luận rất xót xa, đồng thời cũng rất bức xúc, đòi truy trách nhiệm người chủ xe, giao xe. Bộ Công an cho tôi hỏi, trường hợp giao xe máy, ô tô cho người không đủ quy định về tuổi, sức khỏe, không có giấy phép lái xe hoặc đã sử dụng rượu, bia, ma túy sẽ bị xử lý như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 43,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 19,
+      "question": "Gần đây, có nhiều vụ xe ô tô khi đang di chuyển trên các tuyến đường cao tốc thì bị người dân đứng trên cầu vượt ném đá vào kính ô tô, gây thương tích cho người trong xe và hư hỏng phương tiện. Cho tôi hỏi, theo quy định hiện hành thì hành vi trên sẽ bị xử lý như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 26,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 20,
+      "question": "Cho tôi hỏi, khi thấy xe cứu thương phát tín hiệu yêu cầu các phương tiện nhường đường, nếu trường hợp xe phía trước đang dừng chờ đèn đỏ, và bắt buộc phải vượt đèn đỏ mới có thể nhường đường cho xe cứu thương đi thì có bị phạt lỗi vượt đèn đỏ không?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 16,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 21,
+      "question": "Thời gian gần đây, tôi thấy ngày càng nhiều vụ giả biển số, che biển, thậm chí còn giả mạo màu sắc, thông tin đăng kiểm giả của xe ô tô nhằm tránh bị thu phí tại các trạm thu phí không dừng hay tránh “phạt nguội” gây khó khăn cho chủ xe thật. Về việc này cho tôi hỏi một số nội dung sau:\r\n- Hành vi nêu trên nếu bị phát hiện sẽ bị xử lý như thế nào?\r\n- Trường hợp lái xe sử dụng biển số giả vi phạm giao thông mà bị “phạt nguội” dẫn đến chủ xe thật bị phạt khi đi đăng kiểm thì chủ xe thật phải xử lý việc này như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 27,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 22,
+      "question": "Qua theo dõi báo chí phản ánh, tôi thấy thời gian vừa qua lực lượng chức năng liên tiếp kiểm tra và phát hiện các tài xế sử dụng giấy chứng nhận đăng kiểm giả, tem đăng kiểm giả để tham gia giao thông. Tôi muốn hỏi hành vi như trên sẽ bị xử lý như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 34,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 23,
+      "question": "Hiện nay trên mạng rao bán rất nhiều các loại máy đo nồng độ cồn giá rẻ, nhiều người dân đã tự ý mua về sử dụng. Cho tôi hỏi, người dân có được sử dụng máy đo nồng độ cồn không rõ nguồn gốc để đối chứng kết quả với máy đo nồng độ cồn của lực lượng chức năng không? Việc sử dụng máy đo nồng độ cồn được căn cứ theo quy định nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 18,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 24,
+      "question": "Vừa qua, báo chí phản ánh lực lượng chức năng phát hiện nhiều trường hợp xe ô tô quá niên hạn sử dụng, quá hạn đăng kiểm vẫn tham gia giao thông. Tôi muốn hỏi trường hợp điều khiển ô tô quá niên hạn sử dụng hoặc quá hạn đăng kiểm nếu bị phát hiện sẽ bị xử lý như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 23,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 25,
+      "question": "Tôi thấy tình trạng học sinh cấp 2 sử dụng mô tô, xe máy ngày càng nhiều, do chưa có đầy đủ kiến thức về luật giao thông đường bộ và đào tạo lái mô tô, xe máy nên các em thường xuyên vi phạm, thậm chí còn bỏ chạy, chống đối lại người thi hành công vụ. Cho hỏi, trường hợp người dưới 16 tuổi vi phạm luật giao thông đường bộ và chống đối lại người thi hành công vụ sẽ bị xử lý như thế nào? Thời gian tới có biện pháp gì để ngăn chặn tình trạng nêu trên?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 35,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 26,
+      "question": "Hình thức phạt nguội được thi hành đối với các phương tiện tham gia giao thông đã mang lại những hiệu quả rõ rệt đối với công tác đảm bảo trật tự, an toàn giao thông. Tuy nhiên, thời gian qua báo chí phản ánh nhiều lái xe dùng sơn trắng, băng dính, decan, kẹp giấy, bùn đất, khẩu trang y tế... để che một phần hoặc thay đổi thông tin trên biển số nhằm trốn tránh camera phạt nguội. Cho tôi hỏi:\r\n\r\n- Theo quy định của pháp luật những hành vi trên sẽ bị xử lý như thế nào?\r\n- Trường hợp che, dán thay đổi thông tin biển số xe để tránh phạt nguội (ví dụ F dán băng dính đen thành E; số 3, 0 thành số 8...) mà vi phạm giao thông và bị phạt nguội, vô tình trùng biển số xe khác không vi phạm giao thông thì cơ quan Công an có giải pháp gì để không xử phạt oan.\r\n- Nếu lái xe gây tai nạn mà có những hành vi trên có bị truy cứu trách nhiệm hình sự không?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 27,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 27,
+      "question": "Hiện nay, tình trạng xe gây tai nạn mà xe đó không thuộc sở hữu của người lái xe khá nhiều; chủ yếu là xe của các công ty kinh doanh vận tải thuê người lái. Cho tôi hỏi, theo quy định hiện hành, chủ phương tiện, người đứng đầu đơn vị kinh doanh vận tải có lái xe và phương tiện gây tai nạn giao thông nghiêm trọng sẽ phải chịu trách nhiệm gì? Trường hợp như thế nào thì bị truy cứu trách nhiệm hình sự?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 38,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 28,
+      "question": "Vừa qua, dư luận rất bức xúc vì vụ việc hai vợ chồng giúp đỡ người gặp tai nạn giao thông ở Vân Đồn, Quảng Ninh nhưng lại bị tố cáo là người gây tai nạn. Về việc này, cho tôi hỏi một số nội dung sau:\r\n- Nếu sau khi giúp đỡ người gặp tai nạn giao thông nhưng lại bị tố cáo là người gây tai nạn thì bản thân người giúp đỡ phải làm gì? Cơ quan Công an có giải pháp gì để tránh xảy ra oan sai trong các vụ việc như thế này?\r\n- Trường hợp nhìn thấy người bị tai nạn giao thông mà không cứu giúp thì theo quy định sẽ bị xử lý như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 29,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 29,
+      "question": "Tôi được biết, theo quy định thì người đủ 16 tuổi trở lên được lái xe gắn máy có dung tích xi-lanh dưới 50 cm3. Tôi muốn hỏi, trường hợp người chưa đủ 16 tuổi lái xe gắn máy có dung tích xi-lanh dưới 50 cm3 mà không đội mũ bảo hiểm, lạng lách đánh võng gây va chạm với phương tiện tham gia giao thông khác thì bị xử phạt như thế nào? Ngoài ra, chủ của xe gắn máy cho người chưa đủ 16 tuổi mượn xe có bị xử phạt không?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 51,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 30,
+      "question": "Vừa rồi, tại khu chung cư tôi đang sinh sống xảy ra vụ việc một tài xế điều khiển xe ô tô vào hầm để xe đã va chạm với xe máy khiến người đi xe máy bị thương và phương tiện hư hỏng nặng. Khi lực lượng an ninh của tòa nhà tới giải quyết hiện trường ban đầu thì tài xế ô tô khẳng định rằng vụ việc xảy ra ở hầm xe không phải trên đường nên tài xế không phải chịu trách nhiệm. Cho tôi hỏi, trong trường hợp này tài xế điều khiển xe ô tô có vi phạm quy định về an toàn giao thông đường bộ và phải chịu trách nhiệm trước pháp luật hay không?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 28,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 31,
+      "question": "Hiện nay, nạn đua xe trái phép có dấu hiệu xuất hiện trở lại và hậu quả của hành vi đua xe trái phép đang là một vấn đề gây bức xúc đối với người dân. Cho tôi hỏi, mức xử phạt đối với hành vi đua xe trái phép và người cổ vũ đua xe trái phép là như thế nào và 02 hành vi nêu trên được quy định xử phạt cụ thể tại văn bản nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 39,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 32,
+      "question": "Tôi muốn hỏi về thời gian theo quy định để giải quyết một vụ tai nạn giao thông (trường hợp không khởi tố vụ án, hai bên đã giải quyết dân sự) là bao nhiêu ngày và được quy định cụ thể trong văn bản nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 25,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 33,
+      "question": "Cho tôi hỏi, người đi bộ trên đường cao tốc sai quy định không may va chạm với các phương tiện giao thông dẫn đến tử vong thì tài xế có bị xử lý hay không? Và nếu trường hợp người đi bộ sai quy định trên đường cao tốc gây tai nạn nghiêm trọng có bị xử phạt hay không?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 22,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 34,
+      "question": "Gần đây, nhiều vụ tai nạn giao thông nghiêm trọng liên quan đến tài xế uống rượu, bia. Cho tôi hỏi, mức xử phạt đối với tài xế uống rượu, bia điều khiển phương tiện tham gia giao thông là như thế nào? Và Bộ Công an có kế hoạch, chế tài như thế nào đối với người vi phạm?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 35,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 35,
+      "question": "Gần đây, trên mạng xã hội xuất hiện nhiều đoạn clip ghi lại những vụ việc đập phá xe ô tô vì đỗ xe chắn trước cửa nhà dân. Bên cạnh đó, nhiều chủ nhà cho rằng khoảng không trước cửa nhà cũng thuộc quyền quản lý của mình nên cấm không cho tài xế đỗ xe. Cho tôi hỏi, hành vi đỗ xe chắn trước cửa nhà dân và hành vi phá hoại xe ô tô nêu trên sẽ bị xử phạt như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 43,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 36,
+      "question": "Em tôi đang điều khiển xe máy tham gia giao thông trên đường thì bất ngờ một chiếc ô tô 04 chỗ mở cửa khiến em tôi đâm vào cánh cửa ô tô đó và bị thương nặng. Cho tôi hỏi, người mở cửa ô tô đó có vi phạm pháp luật không và mức xử phạt như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 31,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 37,
+      "question": "Mới đây, tôi có lái xe ô tô xuống TP. Hà Nội, khi về Lào Cai tôi nhận được giấy thông báo của Phòng Cảnh sát giao thông TP. Hà Nội yêu cầu tôi đến giải quyết lỗi vi phạm điều khiển phương tiện chạy vào làn xe buýt nhanh. Tôi muốn hỏi, mức xử phạt khi điều khiển phương tiện chạy vào làn xe buýt nhanh được quy định tại văn bản nào? Thời hạn nộp phạt được gia hạn trong bao nhiêu ngày?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 19,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 38,
+      "question": "Nhiều lần tôi đã chứng kiến trường hợp người tham gia giao thông cản trở, không nhường đường cho các loại xe ưu tiên như cứu thương, xe dẫn đoàn, xe chữa cháy…, gây rất nhiều khó khăn cho việc di chuyển của xe ưu tiên. Cho tôi hỏi, những loại xe nào được quy định là xe ưu tiên và hành vi cản trở, không nhường đường cho xe ưu tiên đang thực hiện nhiệm vụ thì bị xử phạt như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 30,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 39,
+      "question": "Vừa qua, tôi bị lực lượng Cảnh sát giao thông lập biên bản và xử phạt 700.000 đồng do lỗi bật đèn ở chế độ chiếu xa (đèn pha) khi tham gia giao thông trong thành phố. Tôi muốn hỏi, trường hợp của tôi, mức phạt như vậy là đúng hay sai và quy định tại văn bản nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 27,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Giải đáp chính xác chế tài xử phạt (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 40,
+      "question": "Vừa qua, tôi tham gia giao thông trên đường có sử dụng tai nghe để nghe nhạc và đã bị Cảnh sát giao thông xử phạt lỗi sử dụng ô (dù), điện thoại di động, thiết bị âm thanh khi điều khiển xe mô tô, xe gắn máy. Tôi muốn hỏi rõ hơn về mức phạt đối với người đang điều khiển xe gắn máy sử dụng tai nghe để nghe nhạc và lỗi này quy định tại văn bản nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness_claims": 14,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Giải đáp chính xác chế tài xử phạt (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 41,
+      "question": "Mới đây, tôi lái xe ô tô tham gia giao thông trên đường thì bị CSGT xử phạt lỗi về khoảng cách an toàn. Tôi thấy rất ít người bị xử phạt lỗi liên quan đến khoảng cách an toàn như vậy, Cho tôi hỏi, tôi muốn biết rõ hơn về vấn đề này thì tìm hiểu tại văn bản nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 27,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 42,
+      "question": "Tôi đang tham gia giao thông trên đúng phần đường, làn đường của mình và hoàn toàn đúng tốc độ cho phép, nhưng đột ngột có một người đâm vào sau xe của tôi khá mạnh và đã tử vong. Tôi muốn hỏi, tôi có phải bồi thường thiệt hại trong trường hợp này hay không?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 22,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 43,
+      "question": "Xe tải của tôi đang chở hàng thì bị nổ lốp, tôi đã đỗ gọn vào lề đường và không ảnh hưởng gì tới giao thông để thay lốp xe. Khi Cảnh sát giao thông tới kiểm tra tôi đã giải thích cụ thể nhưng Cảnh sát giao thông vẫn lập biên bản tôi lỗi vi phạm “Đỗ xe nơi có biển cấm đỗ” là đúng hay sai?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.8,
+      "faithfulness_claims": 3,
+      "relevance_factors": [
+        "Chưa chỉ rõ đúng loại phương tiện trong câu hỏi",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 44,
+      "question": "Tôi vi phạm lỗi vượt đèn đỏ và bị Cảnh sát giao thông xử phạt. Tôi đã đề nghị được nộp phạt tại chỗ để tiếp tục lưu thông vì có việc đang rất vội nhưng Cảnh sát giao thông không đồng ý. Tôi muốn hỏi, những lỗi vi phạm giao thông nào thì được nộp phạt tại chỗ?",
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness_claims": 10,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 45,
+      "question": "Tôi dự lớp đào tạo cấp Giấy phép lái xe (GPLX) mô tô và đã trải qua kỳ thi sát hạch, tuy nhiên tôi chưa nhận được GPLX ngay mà chỉ được cấp giấy hẹn. Cho tôi hỏi, khi tôi tham gia giao thông trong thời gian đợi lấy GPLX, Cảnh sát giao thông có quyền phạt tôi lỗi không có GPLX hay không?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.93,
+      "faithfulness_claims": 16,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Câu trả lời hơi dài (-0.07)"
+      ]
+    },
+    {
+      "id": 46,
+      "question": "Cho tôi hỏi, tôi đang điều khiển xe ô tô tải chạy trên đường cao tốc thì bị Công an lập biên bản, xử phạt điều khiển xe ô tô tải không gắn phù hiệu. Tôi không phải chủ xe thì trong trường hợp này tôi bị phạt như thế nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness_claims": 7,
+      "relevance_factors": [
+        "Khớp phương tiện điều khiển (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 47,
+      "question": "Tôi muốn hỏi, tôi đi xe nhãn hiệu Exciter 150cc, tôi thay chắn bùn phía sau xe bằng chắn bùn thấp hơn và gắn biển số gần đèn hậu. Như vậy tôi có phạm lỗi thay đổi kết cấu xe hay không? Nếu phạm lỗi thì bị xử phạt theo quy định nào?",
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness_claims": 11,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 48,
+      "question": "Tôi có chiếc xe ô tô 07 chỗ lắp thiết bị chuyên dùng (có giấy phép hành nghề) trên nóc xe với chiều cao khoảng 2,7 mét đến 3 mét. Tôi muốn hỏi, với chiều cao như vậy khi lưu thông trên đường thì có vi phạm gì về an toàn giao thông không? Nếu có vi phạm thì xử phạt theo quy định nào, mức phạt là bao nhiêu?",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.8,
+      "faithfulness_claims": 11,
+      "relevance_factors": [
+        "Chưa chỉ rõ đúng loại phương tiện trong câu hỏi",
+        "Giải đáp chính xác chế tài xử phạt (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 49,
+      "question": "Trong khi tham gia giao thông, tôi dừng xe khi tín hiệu đèn giao thông đang báo đèn xanh thì bị Cảnh sát giao thông phạt. Cho tôi hỏi, có quy định nào phạt lỗi dừng phương tiện khi đèn giao thông có tín hiệu xanh hay không?",
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness_claims": 17,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Ý định hỏi quy tắc / thủ tục hợp lệ (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    },
+    {
+      "id": 50,
+      "question": "Tôi muốn hỏi văn bản nào quy định về thời gian bật đèn chiếu sáng đối với các phương tiện khi tham gia giao thông? Nếu bị phạt với lỗi trên thì mức phạt là bao nhiêu?",
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness_claims": 13,
+      "relevance_factors": [
+        "Câu hỏi quy định chung phương tiện (+0.25)",
+        "Giải đáp chính xác chế tài xử phạt (+0.35)",
+        "Có trích dẫn căn cứ pháp lý tường minh (+0.25)",
+        "Độ dài phản hồi tối ưu (+0.15)"
+      ]
+    }
+  ]
+}

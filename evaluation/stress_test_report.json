@@ -1,0 +1,214 @@
+{
+  "metadata": {
+    "framework": "Async Concurrency Stress Engine",
+    "target_endpoint": "/api/chat",
+    "execution_mode": "in_memory_asgi",
+    "concurrency": 10,
+    "total_requests": 30,
+    "duration_seconds": 11.8,
+    "timestamp": "2026-10-28 16:38:27"
+  },
+  "summary_metrics": {
+    "success_rate_percentage": "100.0%",
+    "successful_requests": 30,
+    "failed_requests": 0,
+    "throughput_rps": 2.54,
+    "latency_min_ms": 5.68,
+    "latency_avg_ms": 2723.59,
+    "latency_median_p50_ms": 4050.15,
+    "latency_p90_ms": 4110.43,
+    "latency_p95_ms": 4111.59,
+    "latency_p99_ms": 4120.27,
+    "latency_max_ms": 4123.64
+  },
+  "cache_performance": {
+    "cache_hit_rate_percentage": "33.33%",
+    "cached_requests": 10,
+    "uncached_requests": 20,
+    "avg_cached_latency_ms": 11.18,
+    "avg_uncached_latency_ms": 4079.8,
+    "speedup_factor": 364.9
+  },
+  "raw_samples": [
+    {
+      "request_id": 1,
+      "query": "Quy định mức phạt vượt đèn đỏ đối với xe máy?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4123.64,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 2,
+      "query": "Mức phạt nồng độ cồn kịch khung đối với xe ô tô?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4091.75,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 3,
+      "query": "Lùi xe trên đường cao tốc bị phạt bao nhiêu tiền và trừ mấy điểm?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4092.81,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 4,
+      "query": "Xe ô tô trễ hạn đăng kiểm trên 01 tháng bị phạt bao nhiêu?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4112.01,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 5,
+      "query": "Đi xe máy không đội mũ bảo hiểm bị xử phạt như thế nào?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4111.08,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 6,
+      "query": "Chạy quá tốc độ từ 10 đến 20 km/h đối với xe ô tô bị phạt bao nhiêu?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4110.36,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 7,
+      "query": "Không mang theo giấy phép lái xe khi tham gia giao thông bị phạt bao nhiêu?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4083.7,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 8,
+      "query": "Đi xe máy vào đường cao tốc bị xử phạt mức nào?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4108.22,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 9,
+      "query": "Mức phạt đối với hành vi chở quá số người quy định trên xe ô tô?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4099.1,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 10,
+      "query": "Bấm còi trong đô thị từ 22h đêm đến 5h sáng hôm sau bị xử phạt ra sao?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4108.85,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 11,
+      "query": "Điều kiện tham gia giao thông của xe cơ giới theo Luật Trật tự an toàn giao thông đường bộ?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4045.09,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 12,
+      "query": "Thẩm quyền dừng phương tiện kiểm tra giấy tờ của CSGT theo Thông tư 73/2024?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4043.45,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 13,
+      "query": "Quy trình bốc biển số xe định danh theo Thông tư 79/2024?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4042.58,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 14,
+      "query": "Hành vi lạng lách đánh võng trên đường đô thị bị phạt bao nhiêu tiền?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4049.67,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 15,
+      "query": "Người đi bộ vượt giải phân cách không đúng nơi quy định bị phạt bao nhiêu?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 4050.63,
+      "is_cached": false,
+      "error": null
+    },
+    {
+      "request_id": 16,
+      "query": "Quy định mức phạt vượt đèn đỏ đối với xe máy?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 13.85,
+      "is_cached": true,
+      "error": null
+    },
+    {
+      "request_id": 17,
+      "query": "Mức phạt nồng độ cồn kịch khung đối với xe ô tô?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 12.87,
+      "is_cached": true,
+      "error": null
+    },
+    {
+      "request_id": 18,
+      "query": "Lùi xe trên đường cao tốc bị phạt bao nhiêu tiền và trừ mấy điểm?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 10.68,
+      "is_cached": true,
+      "error": null
+    },
+    {
+      "request_id": 19,
+      "query": "Xe ô tô trễ hạn đăng kiểm trên 01 tháng bị phạt bao nhiêu?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 12.59,
+      "is_cached": true,
+      "error": null
+    },
+    {
+      "request_id": 20,
+      "query": "Đi xe máy không đội mũ bảo hiểm bị xử phạt như thế nào?",
+      "status_code": 200,
+      "success": true,
+      "latency_ms": 11.69,
+      "is_cached": true,
+      "error": null
+    }
+  ]
+}
