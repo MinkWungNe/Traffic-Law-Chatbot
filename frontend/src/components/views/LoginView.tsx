@@ -92,7 +92,7 @@ export const LoginView: React.FC = () => {
           {/* Dải mặt đường cong */}
           <path
             d="M -50,0 L 595,0 C 610,100 610,200 595,300 C 580,400 580,500 595,600 C 610,700 610,800 595,900 C 580,1000 580,1100 595,1200 L -50,1200 Z"
-            className="fill-sidebar"
+            className="fill-main"
             fillOpacity="0.45"
             filter="url(#roadShadow)"
           />

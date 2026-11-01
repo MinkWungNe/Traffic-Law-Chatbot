@@ -97,6 +97,52 @@
   }
 }
 
+/* ================== UNIVERSAL BRAND SCROLLBAR ================== */
+/* Chrome, Edge, Safari, Brave, Opera (WebKit & Blink) */
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 7px !important;
+  height: 7px !important;
+}
+
+::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(28, 61, 110, 0.28) !important;
+  border-radius: 9999px !important;
+  border: 1px solid transparent !important;
+  background-clip: padding-box !important;
+}
+
+::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(28, 61, 110, 0.58) !important;
+}
+
+::-webkit-scrollbar-thumb:active,
+*::-webkit-scrollbar-thumb:active {
+  background-color: #1C3D6E !important;
+}
+
+::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+/* Firefox & W3C Standard for all containers */
+html,
+body,
+*,
+*::before,
+*::after {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(28, 61, 110, 0.28) transparent !important;
+}
+
 body {
   background-color: var(--bg-canvas);
   color: var(--text-main);

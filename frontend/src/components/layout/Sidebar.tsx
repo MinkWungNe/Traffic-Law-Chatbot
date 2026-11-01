@@ -167,7 +167,7 @@ export const Sidebar: React.FC = () => {
           >
             <div className="relative z-10 flex items-center gap-3 w-full">
               <Plus size={18} className="text-accent-red shrink-0" strokeWidth={2.5} />
-              <span className="text-[13px] font-semibold text-slate-800">Cuộc trò chuyện mới</span>
+              <span className="text-[13px] font-bold text-primary-navy">Cuộc trò chuyện mới</span>
             </div>
           </button>
 

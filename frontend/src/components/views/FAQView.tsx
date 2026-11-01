@@ -73,7 +73,7 @@ export const FAQView: React.FC = () => {
     <div className="absolute inset-0 w-full h-full overflow-y-auto px-4 md:px-8 py-8 z-10 select-text">
       <div className="max-w-4xl mx-auto flex flex-col gap-6 pb-20">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-bold text-primary-navy tracking-tight">
             Câu hỏi Thường gặp về Giao thông &amp; Xử phạt
           </h1>
           <p className="text-sm md:text-base text-slate-600 leading-relaxed">
