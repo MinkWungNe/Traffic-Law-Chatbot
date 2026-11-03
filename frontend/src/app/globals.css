@@ -12,6 +12,11 @@
   --color-text-muted: #64748B;
   --font-sans: var(--font-be-vietnam-pro), system-ui, -apple-system, sans-serif;
   --animate-spin-dongson: spinDongSonCounterClockwise 120s linear infinite;
+  --animate-fade-in: fadeIn 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade-out: fadeOut 200ms cubic-bezier(0.4, 0, 1, 1) forwards;
+  --animate-zoom-in: zoomIn 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-zoom-out: zoomOut 200ms cubic-bezier(0.4, 0, 1, 1) forwards;
+  --animate-slide-up: slideUp 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 :root {
@@ -41,10 +46,74 @@
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .animate-road-dash {
   stroke-dasharray: 20 20;
   animation: dashAnimation 1.2s linear infinite;
   will-change: stroke-dashoffset;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-fade-out,
+  .animate-zoom-in,
+  .animate-zoom-out,
+  .animate-slide-up,
+  .animate-road-dash,
+  .animate-spin-dongson {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 /* ================== UNIVERSAL SPOTLIGHT BORDER ================== */
@@ -88,13 +157,6 @@
 .spotlight-border:hover,
 .spotlight-border:focus-within {
   border-color: transparent !important;
-}
-
-/* Tôn trọng cài đặt giảm chuyển động của hệ điều hành */
-@media (prefers-reduced-motion: reduce) {
-  .animate-spin-dongson {
-    animation: none !important;
-  }
 }
 
 /* ================== UNIVERSAL BRAND SCROLLBAR ================== */

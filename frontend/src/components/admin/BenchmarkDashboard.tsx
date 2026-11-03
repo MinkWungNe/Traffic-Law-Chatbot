@@ -24,7 +24,7 @@ import {
   FileText,
 } from "lucide-react";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { benchmarkApi } from "@/lib/benchmarkApi";
+import { benchmarkApi } from "@/lib/api";
 import { BenchmarkReportResponse, BenchmarkQueryItem } from "@/types/benchmark";
 
 export const BenchmarkDashboard: React.FC = () => {
@@ -45,7 +45,7 @@ export const BenchmarkDashboard: React.FC = () => {
 
   // Execution parameters
   const [sampleLimit, setSampleLimit] = useState<number>(50);
-  const [topK, setTopK] = useState<number>(3);
+  const DEFAULT_TOP_K = 3;
   const [elapsedTimer, setElapsedTimer] = useState<number>(0);
   const [isCopied, setIsCopied] = useState(false);
 
@@ -57,7 +57,7 @@ export const BenchmarkDashboard: React.FC = () => {
       setIsLoading(true);
       setErrorMessage(null);
       try {
-        const data = await benchmarkApi.getResults(token || undefined);
+        const data = await benchmarkApi.getResults();
         if (isMounted) {
           setReport(data);
         }
@@ -107,7 +107,7 @@ export const BenchmarkDashboard: React.FC = () => {
     setErrorMessage(null);
     setSuccessMessage(null);
     try {
-      const data = await benchmarkApi.runBenchmark(token || undefined, topK, sampleLimit);
+      const data = await benchmarkApi.runBenchmark(DEFAULT_TOP_K, sampleLimit);
       setReport(data);
       setSuccessMessage(
         `Đã hoàn thành đánh giá ${data.metadata?.evaluated_samples || sampleLimit} mẫu thử! Hit-rate@3 đạt ${
@@ -283,7 +283,7 @@ export const BenchmarkDashboard: React.FC = () => {
 
       {/* SUCCESS MESSAGE BANNER */}
       {successMessage && (
-        <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-[13px] flex items-center justify-between shadow-xs animate-in fade-in duration-150">
+        <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-[13px] flex items-center justify-between shadow-xs animate-fade-in">
           <div className="flex items-center gap-2">
             <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
             <span className="font-medium">{successMessage}</span>
@@ -296,7 +296,7 @@ export const BenchmarkDashboard: React.FC = () => {
 
       {/* ERROR MESSAGE NOTIFICATION */}
       {errorMessage && (
-        <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-[13px] flex items-center justify-between shadow-xs animate-in fade-in duration-150">
+        <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-[13px] flex items-center justify-between shadow-xs animate-fade-in">
           <div className="flex items-center gap-2">
             <AlertCircle size={16} className="text-accent-red shrink-0" />
             <span>{errorMessage}</span>
@@ -501,7 +501,7 @@ export const BenchmarkDashboard: React.FC = () => {
 
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11.5px] text-slate-500">
                 <span>Tệp dữ liệu: 683_CauHoi_TTATGTDB.csv</span>
-                <span className="font-mono text-slate-700">K = {report?.metadata?.top_k || topK}</span>
+                <span className="font-mono text-slate-700">K = {report?.metadata?.top_k || DEFAULT_TOP_K}</span>
               </div>
             </div>
           </div>
@@ -723,8 +723,8 @@ export const BenchmarkDashboard: React.FC = () => {
 
       {/* 5. QUERY DETAIL MODAL / DRAWER */}
       {selectedItem && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-3xl p-6 flex flex-col max-h-[85vh] animate-in fade-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-3xl p-6 flex flex-col max-h-[85vh] animate-zoom-in">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4 shrink-0">
               <div className="flex items-center gap-2">
                 <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-mono font-bold text-[12px]">

@@ -59,6 +59,5 @@ export interface StarterCardItem {
   glowColor: string;
   iconBg: string;
   iconColor: string;
-  cardBorder?: string;
   hoverArrowColor?: string;
 }

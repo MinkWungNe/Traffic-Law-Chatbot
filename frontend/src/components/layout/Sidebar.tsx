@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useChatStore } from "@/stores/useChatStore";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { SessionItem } from "@/types/chat";
+import { Modal } from "@/components/common/Modal";
 import {
   Plus,
   Bot,
@@ -39,6 +40,16 @@ export const Sidebar: React.FC = () => {
   const { user, isAuthenticated, isAdmin, clearAuth, initFromStorage } = useAuthStore();
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isMenuClosing, setIsMenuClosing] = useState(false);
+
+  const closeMenu = (callback?: () => void) => {
+    setIsMenuClosing(true);
+    setTimeout(() => {
+      setMenuOpen(false);
+      setIsMenuClosing(false);
+      if (callback) callback();
+    }, 150);
+  };
   const [activeMenuSession, setActiveMenuSession] = useState<SessionItem | null>(null);
   const [menuPosition, setMenuPosition] = useState<{ top: number; left: number }>({
     top: 0,
@@ -268,6 +279,7 @@ export const Sidebar: React.FC = () => {
                   ) : (
                     sessions.map((s) => {
                       const isSelected = currentSessionId === s.id;
+                      const isMenuTarget = menuOpen && activeMenuSession?.id === s.id;
                       return (
                         <div
                           key={s.id}
@@ -275,6 +287,8 @@ export const Sidebar: React.FC = () => {
                           className={`group relative flex items-center justify-between w-full px-2.5 py-1.5 rounded-xl transition-all duration-150 text-[12.5px] select-none cursor-pointer active:scale-[0.99] ${
                             isSelected
                               ? "bg-white text-primary-navy font-bold shadow-xs border border-slate-200/80"
+                              : isMenuTarget
+                              ? "bg-white/80 text-primary-navy shadow-xs border border-slate-200/70"
                               : "border border-transparent text-slate-700 hover:text-primary-navy hover:bg-white/75 hover:shadow-xs"
                           }`}
                         >
@@ -286,7 +300,9 @@ export const Sidebar: React.FC = () => {
                           <button
                             type="button"
                             onClick={(e) => handleOpenMenu(e, s)}
-                            className="p-1 text-slate-400 hover:text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 cursor-pointer"
+                            className={`p-1 text-slate-400 hover:text-slate-800 transition-opacity shrink-0 cursor-pointer ${
+                              isMenuTarget ? "opacity-100 text-slate-800" : "opacity-0 group-hover:opacity-100"
+                            }`}
                             title="Tùy chọn phiên"
                           >
                             <MoreVertical size={15} />
@@ -349,36 +365,40 @@ export const Sidebar: React.FC = () => {
       {/* FLYOUT MENU 3 CHẤM CỦA PHIÊN CHAT */}
       {menuOpen && (
         <>
-          <div className="fixed inset-0 z-40" onClick={() => setMenuOpen(false)} />
+          <div className="fixed inset-0 z-40" onClick={() => closeMenu()} />
           <div
             style={{
               top: `${menuPosition.top}px`,
               left: `${menuPosition.left}px`,
             }}
-            className="fixed z-50 w-38 bg-white rounded-xl shadow-xl border border-slate-200/90 py-1 flex flex-col text-[12px] text-slate-700 animate-in fade-in zoom-in-95 duration-150"
+            className={`fixed z-50 w-38 bg-white rounded-xl shadow-xl border border-slate-200/90 py-1 flex flex-col text-[12px] text-slate-700 ${
+              isMenuClosing ? "animate-zoom-out" : "animate-zoom-in"
+            }`}
           >
             {activeMenuSession && (
               <button
                 onClick={() => {
                   togglePinSession(activeMenuSession.id);
-                  setMenuOpen(false);
+                  closeMenu();
                 }}
                 className="flex items-center gap-2 px-3 py-1.5 hover:bg-slate-50 text-left transition-colors cursor-pointer"
               >
                 <Pin size={14} className="text-slate-500 shrink-0" />
-                <span>{activeMenuSession.is_pinned ? "Bỏ ghim" : "Ghim lên đầu"}</span>
+                <span>{activeMenuSession.is_pinned ? "Bỏ ghim" : "Ghim"}</span>
               </button>
             )}
 
             <button
               onClick={() => {
                 const currentT = activeMenuSession ? activeMenuSession.title : sessionTitle;
-                setRenameModal({
-                  isOpen: true,
-                  sessionId: activeMenuSession ? activeMenuSession.id : null,
-                  title: currentT,
+                const sId = activeMenuSession ? activeMenuSession.id : null;
+                closeMenu(() => {
+                  setRenameModal({
+                    isOpen: true,
+                    sessionId: sId,
+                    title: currentT,
+                  });
                 });
-                setMenuOpen(false);
               }}
               className="flex items-center gap-2 px-3 py-1.5 hover:bg-slate-50 text-left transition-colors cursor-pointer"
             >
@@ -389,12 +409,14 @@ export const Sidebar: React.FC = () => {
             <button
               onClick={() => {
                 const currentT = activeMenuSession ? activeMenuSession.title : (sessionTitle || "Cuộc trò chuyện hiện tại");
-                setDeleteModal({
-                  isOpen: true,
-                  sessionId: activeMenuSession ? activeMenuSession.id : null,
-                  title: currentT,
+                const sId = activeMenuSession ? activeMenuSession.id : null;
+                closeMenu(() => {
+                  setDeleteModal({
+                    isOpen: true,
+                    sessionId: sId,
+                    title: currentT,
+                  });
                 });
-                setMenuOpen(false);
               }}
               className="flex items-center gap-2 px-3 py-1.5 hover:bg-red-50 text-red-600 text-left transition-colors border-t border-slate-100 cursor-pointer"
             >
@@ -406,118 +428,106 @@ export const Sidebar: React.FC = () => {
       )}
 
       {/* MODAL ĐỔI TÊN PHIÊN TRÒ CHUYỆN */}
-      {renameModal?.isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-in fade-in duration-150">
-          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200/90 w-full max-w-sm p-5 flex flex-col gap-4 animate-in zoom-in-95 duration-150">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-primary-navy flex items-center justify-center shrink-0">
-                <Edit3 size={16} />
-              </div>
-              <h3 className="font-bold text-[15px] text-slate-800">Đổi tên cuộc trò chuyện</h3>
-            </div>
-            <input
-              type="text"
-              autoFocus
-              value={renameModal.title}
-              onChange={(e) => setRenameModal({ ...renameModal, title: e.target.value })}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") handleConfirmRename();
-                if (e.key === "Escape") setRenameModal(null);
-              }}
-              placeholder="Nhập tiêu đề mới..."
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-[13.5px] text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-navy/20 focus:border-primary-navy transition-all"
-            />
-            <div className="flex items-center justify-end gap-2 pt-1">
-              <button
-                type="button"
-                onClick={() => setRenameModal(null)}
-                className="px-3.5 py-2 rounded-xl text-[13px] font-medium text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
-              >
-                Hủy
-              </button>
-              <button
-                type="button"
-                onClick={handleConfirmRename}
-                disabled={!renameModal.title.trim()}
-                className="px-4 py-2 rounded-xl text-[13px] font-semibold text-white bg-primary-navy hover:bg-slate-800 disabled:opacity-40 transition-all cursor-pointer shadow-xs"
-              >
-                Lưu thay đổi
-              </button>
-            </div>
+      <Modal isOpen={Boolean(renameModal?.isOpen)} onClose={() => setRenameModal(null)}>
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-blue-50 text-primary-navy flex items-center justify-center shrink-0">
+            <Edit3 size={16} />
           </div>
+          <h3 className="font-bold text-[15px] text-slate-800">Đổi tên cuộc trò chuyện</h3>
         </div>
-      )}
+        <input
+          type="text"
+          autoFocus
+          value={renameModal?.title || ""}
+          onChange={(e) => renameModal && setRenameModal({ ...renameModal, title: e.target.value })}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleConfirmRename();
+            if (e.key === "Escape") setRenameModal(null);
+          }}
+          placeholder="Nhập tiêu đề mới..."
+          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-[13.5px] text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-navy/20 focus:border-primary-navy transition-all"
+        />
+        <div className="flex items-center justify-end gap-2 pt-1">
+          <button
+            type="button"
+            onClick={() => setRenameModal(null)}
+            className="px-3.5 py-2 rounded-xl text-[13px] font-medium text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+          >
+            Hủy
+          </button>
+          <button
+            type="button"
+            onClick={handleConfirmRename}
+            disabled={!renameModal?.title.trim()}
+            className="px-4 py-2 rounded-xl text-[13px] font-semibold text-white bg-primary-navy hover:bg-slate-800 disabled:opacity-40 transition-all cursor-pointer shadow-xs"
+          >
+            Lưu thay đổi
+          </button>
+        </div>
+      </Modal>
 
       {/* MODAL XÁC NHẬN XÓA PHIÊN TRÒ CHUYỆN */}
-      {deleteModal?.isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-in fade-in duration-150">
-          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200/90 w-full max-w-sm p-5 flex flex-col gap-4 animate-in zoom-in-95 duration-150">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-red-50 text-accent-red flex items-center justify-center shrink-0">
-                <Trash2 size={16} />
-              </div>
-              <h3 className="font-bold text-[15px] text-slate-800">Xóa cuộc trò chuyện?</h3>
-            </div>
-            <p className="text-[13px] text-slate-600 leading-relaxed">
-              Bạn có chắc muốn xóa <span className="font-semibold text-slate-900">&ldquo;{deleteModal.title}&rdquo;</span>? Thao tác này không thể hoàn tác.
-            </p>
-            <div className="flex items-center justify-end gap-2 pt-1">
-              <button
-                type="button"
-                onClick={() => setDeleteModal(null)}
-                className="px-3.5 py-2 rounded-xl text-[13px] font-medium text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
-              >
-                Hủy
-              </button>
-              <button
-                type="button"
-                onClick={handleConfirmDelete}
-                className="px-4 py-2 rounded-xl text-[13px] font-semibold text-white bg-accent-red hover:bg-red-700 transition-all cursor-pointer shadow-xs"
-              >
-                Xóa vĩnh viễn
-              </button>
-            </div>
+      <Modal isOpen={Boolean(deleteModal?.isOpen)} onClose={() => setDeleteModal(null)}>
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-lg bg-red-50 text-accent-red flex items-center justify-center shrink-0">
+            <Trash2 size={16} />
           </div>
+          <h3 className="font-bold text-[15px] text-slate-800">Xóa cuộc trò chuyện?</h3>
         </div>
-      )}
+        <p className="text-[13px] text-slate-600 leading-relaxed">
+          Bạn có chắc muốn xóa <span className="font-semibold text-slate-900">&ldquo;{deleteModal?.title}&rdquo;</span>? Thao tác này không thể hoàn tác.
+        </p>
+        <div className="flex items-center justify-end gap-2 pt-1">
+          <button
+            type="button"
+            onClick={() => setDeleteModal(null)}
+            className="px-3.5 py-2 rounded-xl text-[13px] font-medium text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+          >
+            Hủy
+          </button>
+          <button
+            type="button"
+            onClick={handleConfirmDelete}
+            className="px-4 py-2 rounded-xl text-[13px] font-semibold text-white bg-accent-red hover:bg-red-700 transition-all cursor-pointer shadow-xs"
+          >
+            Xóa vĩnh viễn
+          </button>
+        </div>
+      </Modal>
 
       {/* MODAL XÁC NHẬN ĐĂNG XUẤT */}
-      {logoutModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-in fade-in duration-150">
-          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200/90 w-full max-w-sm p-5 flex flex-col gap-4 animate-in zoom-in-95 duration-150">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-                <LogOut size={16} />
-              </div>
-              <h3 className="font-bold text-[15px] text-slate-800">Đăng xuất tài khoản?</h3>
-            </div>
-            <p className="text-[13px] text-slate-600 leading-relaxed">
-              Bạn sẽ trở về chế độ Khách (Guest) và các phiên riêng tư sẽ được ẩn cho đến lần đăng nhập tiếp theo.
-            </p>
-            <div className="flex items-center justify-end gap-2 pt-1">
-              <button
-                type="button"
-                onClick={() => setLogoutModalOpen(false)}
-                className="px-3.5 py-2 rounded-xl text-[13px] font-medium text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
-              >
-                Ở lại
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setLogoutModalOpen(false);
-                  clearAuth();
-                  clearMessages();
-                  setActiveTab("chat");
-                }}
-                className="px-4 py-2 rounded-xl text-[13px] font-semibold text-white bg-accent-red hover:bg-red-700 transition-all cursor-pointer shadow-xs"
-              >
-                Đăng xuất
-              </button>
-            </div>
+      <Modal isOpen={logoutModalOpen} onClose={() => setLogoutModalOpen(false)}>
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+            <LogOut size={16} />
           </div>
+          <h3 className="font-bold text-[15px] text-slate-800">Đăng xuất tài khoản?</h3>
         </div>
-      )}
+        <p className="text-[13px] text-slate-600 leading-relaxed">
+          Bạn sẽ trở về chế độ Khách (Guest) và các phiên riêng tư sẽ được ẩn cho đến lần đăng nhập tiếp theo.
+        </p>
+        <div className="flex items-center justify-end gap-2 pt-1">
+          <button
+            type="button"
+            onClick={() => setLogoutModalOpen(false)}
+            className="px-3.5 py-2 rounded-xl text-[13px] font-medium text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+          >
+            Ở lại
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setLogoutModalOpen(false);
+              clearAuth();
+              clearMessages();
+              setActiveTab("chat");
+            }}
+            className="px-4 py-2 rounded-xl text-[13px] font-semibold text-white bg-accent-red hover:bg-red-700 transition-all cursor-pointer shadow-xs"
+          >
+            Đăng xuất
+          </button>
+        </div>
+      </Modal>
     </>
   );
 };

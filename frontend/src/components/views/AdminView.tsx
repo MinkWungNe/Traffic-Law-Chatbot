@@ -6,6 +6,7 @@ import { useChatStore } from "@/stores/useChatStore";
 import { adminApi } from "@/lib/api";
 import { UserProfile, AuditLogItem } from "@/types/chat";
 import { BenchmarkDashboard } from "@/components/admin/BenchmarkDashboard";
+import { Modal } from "@/components/common/Modal";
 import {
   Users,
   Shield,
@@ -143,7 +144,7 @@ export const AdminView: React.FC = () => {
 
   if (!isAdmin) {
     return (
-      <div className="flex-1 h-screen flex flex-col items-center justify-center p-6 text-center select-none bg-canvas">
+      <div className="flex-1 h-screen flex flex-col items-center justify-center p-6 text-center select-none relative z-10">
         <Shield size={48} className="text-red-500 mb-3" />
         <h2 className="text-xl font-bold text-primary-navy mb-2">Quyền truy cập bị từ chối</h2>
         <p className="text-[13.5px] text-slate-500 mb-4 max-w-md">
@@ -160,9 +161,9 @@ export const AdminView: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 h-screen flex flex-col overflow-hidden bg-slate-50 select-none">
+    <div className="flex-1 h-screen flex flex-col overflow-hidden relative z-10 select-none">
       {/* HEADER QUẢN TRỊ */}
-      <header className="h-[60px] shrink-0 bg-white border-b border-slate-200 px-6 flex items-center justify-center z-10">
+      <header className="h-[60px] shrink-0 bg-white/80 backdrop-blur-md border-b border-slate-200/80 px-6 flex items-center justify-center z-10">
         <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-2xs">
           <button
             onClick={() => setCurrentTab("users")}
@@ -182,8 +183,6 @@ export const AdminView: React.FC = () => {
             <FileText size={15} />
             <span>Nhật ký Kiểm toán ({auditTotal})</span>
           </button>
-          {/* Tạm thời ẩn tab Xem báo cáo chất lượng AI */}
-          {/*
           <button
             onClick={() => setCurrentTab("benchmark")}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-[12.5px] font-semibold transition-all cursor-pointer ${
@@ -193,14 +192,13 @@ export const AdminView: React.FC = () => {
             <BarChart3 size={15} />
             <span>Xem báo cáo chất lượng AI</span>
           </button>
-          */}
         </div>
       </header>
 
       {/* THÔNG BÁO ALERT NỔI */}
       {notification && (
         <div
-          className={`mx-6 mt-4 p-3 rounded-xl border flex items-center justify-between text-[13px] shadow-sm animate-in fade-in duration-200 ${
+          className={`mx-6 mt-4 p-3 rounded-xl border flex items-center justify-between text-[13px] shadow-sm animate-fade-in ${
             notification.type === "success"
               ? "bg-emerald-50 border-emerald-200 text-emerald-800"
               : "bg-red-50 border-red-200 text-red-800"
@@ -480,8 +478,8 @@ export const AdminView: React.FC = () => {
 
       {/* MODAL 1: ĐẶT LẠI MẬT KHẨU */}
       {resetModalUser && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-md p-6 animate-in fade-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-md p-6 animate-zoom-in">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2 text-primary-navy">
                 <KeyRound size={20} className="text-accent-red" />
@@ -538,8 +536,8 @@ export const AdminView: React.FC = () => {
 
       {/* MODAL 2: CHI TIẾT AUDIT LOG JSON */}
       {selectedLog && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-2xl p-6 flex flex-col max-h-[85vh] animate-in fade-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-2xl p-6 flex flex-col max-h-[85vh] animate-zoom-in">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4 shrink-0">
               <div className="flex items-center gap-2">
                 <FileText size={20} className="text-accent-red" />
