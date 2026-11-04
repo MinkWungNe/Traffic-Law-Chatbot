@@ -215,7 +215,7 @@ export const LegalDocsView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setViewMode("split")}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-semibold cursor-pointer border transition-all ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-semibold cursor-pointer border transition-all select-none ${
                   viewMode === "split"
                     ? "bg-white text-primary-navy shadow-xs border-slate-200/90"
                     : "text-slate-600 hover:text-slate-900 border-transparent"
@@ -228,7 +228,7 @@ export const LegalDocsView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setViewMode("grid")}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-semibold cursor-pointer border transition-all ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-semibold cursor-pointer border transition-all select-none ${
                   viewMode === "grid"
                     ? "bg-white text-primary-navy shadow-xs border-slate-200/90"
                     : "text-slate-600 hover:text-slate-900 border-transparent"
@@ -257,7 +257,7 @@ export const LegalDocsView: React.FC = () => {
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-2.5 py-1 rounded-md text-[12px] font-semibold cursor-pointer inline-flex items-center gap-1.5 border transition-colors ${
+                  className={`px-2.5 py-1 rounded-md text-[12px] font-semibold cursor-pointer inline-flex items-center gap-1.5 border transition-colors select-none ${
                     activeCategory === cat.id
                       ? "bg-primary-navy text-white border-primary-navy shadow-2xs"
                       : "bg-white hover:bg-slate-50 text-slate-600 border-slate-200/80"

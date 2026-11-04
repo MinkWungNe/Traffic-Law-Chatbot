@@ -26,6 +26,7 @@ import {
 import { useAuthStore } from "@/stores/useAuthStore";
 import { benchmarkApi } from "@/lib/api";
 import { BenchmarkReportResponse, BenchmarkQueryItem } from "@/types/benchmark";
+import { Modal } from "@/components/common/Modal";
 
 export const BenchmarkDashboard: React.FC = () => {
   const { token } = useAuthStore();
@@ -99,6 +100,21 @@ export const BenchmarkDashboard: React.FC = () => {
   useEffect(() => {
     setCurrentPage(1);
   }, [searchQuery, statusFilter]);
+
+  // Tự động đóng thông báo nổi sau 5 giây
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => setSuccessMessage(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
+
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => setErrorMessage(null), 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [errorMessage]);
 
   // Handle trigger benchmark run
   const handleRunBenchmark = async () => {
@@ -281,28 +297,31 @@ export const BenchmarkDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* SUCCESS MESSAGE BANNER */}
-      {successMessage && (
-        <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-[13px] flex items-center justify-between shadow-xs animate-fade-in">
-          <div className="flex items-center gap-2">
-            <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
-            <span className="font-medium">{successMessage}</span>
+      {/* FLOATING TOAST NOTIFICATION (KHÔNG GÂY CO GIẬT BỐ CỤC) */}
+      {(successMessage || errorMessage) && (
+        <div
+          className={`fixed top-5 right-5 z-50 p-3 px-4 rounded-xl border flex items-center gap-3 text-[13px] shadow-lg animate-fade-in max-w-md ${
+            successMessage
+              ? "bg-emerald-50/95 border-emerald-200 text-emerald-800 backdrop-blur-sm"
+              : "bg-red-50/95 border-red-200 text-red-800 backdrop-blur-sm"
+          }`}
+        >
+          <div className="flex items-center gap-2 min-w-0">
+            {successMessage ? (
+              <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
+            ) : (
+              <AlertCircle size={16} className="text-accent-red shrink-0" />
+            )}
+            <span className="font-medium leading-snug">{successMessage || errorMessage}</span>
           </div>
-          <button onClick={() => setSuccessMessage(null)} className="cursor-pointer text-slate-400 hover:text-slate-700">
-            <X size={15} />
-          </button>
-        </div>
-      )}
-
-      {/* ERROR MESSAGE NOTIFICATION */}
-      {errorMessage && (
-        <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-[13px] flex items-center justify-between shadow-xs animate-fade-in">
-          <div className="flex items-center gap-2">
-            <AlertCircle size={16} className="text-accent-red shrink-0" />
-            <span>{errorMessage}</span>
-          </div>
-          <button onClick={() => setErrorMessage(null)} className="cursor-pointer text-slate-400 hover:text-slate-700">
-            <X size={15} />
+          <button
+            onClick={() => {
+              setSuccessMessage(null);
+              setErrorMessage(null);
+            }}
+            className="cursor-pointer text-slate-400 hover:text-slate-700 shrink-0 ml-1"
+          >
+            <X size={14} />
           </button>
         </div>
       )}
@@ -721,11 +740,15 @@ export const BenchmarkDashboard: React.FC = () => {
         </>
       )}
 
-      {/* 5. QUERY DETAIL MODAL / DRAWER */}
-      {selectedItem && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-3xl p-6 flex flex-col max-h-[85vh] animate-zoom-in">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4 shrink-0">
+      {/* 5. QUERY DETAIL MODAL */}
+      <Modal
+        isOpen={Boolean(selectedItem)}
+        onClose={() => setSelectedItem(null)}
+        dialogClassName="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl p-6 flex flex-col max-h-[85vh] gap-4"
+      >
+        {selectedItem && (
+          <>
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 shrink-0">
               <div className="flex items-center gap-2">
                 <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-mono font-bold text-[12px]">
                   #{selectedItem.id.toString().padStart(3, "0")}
@@ -849,7 +872,7 @@ export const BenchmarkDashboard: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-100 flex justify-end shrink-0 mt-2">
+            <div className="pt-3 border-t border-slate-100 flex justify-end shrink-0">
               <button
                 onClick={() => setSelectedItem(null)}
                 className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-[13px] font-semibold cursor-pointer"
@@ -857,9 +880,9 @@ export const BenchmarkDashboard: React.FC = () => {
                 Đóng
               </button>
             </div>
-          </div>
-        </div>
-      )}
+          </>
+        )}
+      </Modal>
     </div>
   );
 };

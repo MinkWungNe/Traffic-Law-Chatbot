@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 interface ModalProps {
   isOpen: boolean;
@@ -17,6 +18,11 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   const [shouldRender, setShouldRender] = useState(isOpen);
   const [isClosing, setIsClosing] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -43,9 +49,9 @@ export const Modal: React.FC<ModalProps> = ({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  if (!shouldRender) return null;
+  if (!shouldRender || !mounted) return null;
 
-  return (
+  return createPortal(
     <div
       onClick={onClose}
       className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs select-none ${
@@ -58,6 +64,7 @@ export const Modal: React.FC<ModalProps> = ({
       >
         {children}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
