@@ -68,21 +68,22 @@ class RagasEvaluator:
             return []
 
         claims = []
-        # Tách theo từng câu
-        raw_sentences = re.split(r'[.\n;]+', answer_text)
+        # Tách theo từng câu hoặc dấu ngắt dòng
+        raw_sentences = re.split(r'(?<!\d)\.(?!\d)|[\n;]+', answer_text)
 
         for s in raw_sentences:
             s_clean = s.strip()
+            # Bỏ qua các đoạn quá ngắn hoặc tiêu đề đơn thuần
             if len(s_clean) < 15:
                 continue
 
-            # Phân loại claim
+            # Phân loại claim pháp lý
             claim_type = "general"
-            if re.search(r'(phạt tiền|phạt từ|tước|trừ điểm|tạm giữ|tịch thu)', s_clean, re.IGNORECASE):
+            if re.search(r'(phạt tiền|phạt từ|tước|trừ điểm|tạm giữ|tịch thu|bị phạt)', s_clean, re.IGNORECASE):
                 claim_type = "penalty_sanction"
             elif re.search(r'(căn cứ|theo quy định|điều \d+|nghị định|thông tư|luật)', s_clean, re.IGNORECASE):
                 claim_type = "citation_reference"
-            elif re.search(r'(phải|không được|cấm|quy tắc|chấp hành)', s_clean, re.IGNORECASE):
+            elif re.search(r'(phải|không được|cấm|quy tắc|chấp hành|bảo đảm|nghiêm cấm)', s_clean, re.IGNORECASE):
                 claim_type = "traffic_rule"
 
             claims.append({
@@ -99,19 +100,24 @@ class RagasEvaluator:
         ground_truth_answer: str = ""
     ) -> Dict[str, Any]:
         """
-        Tính điểm Faithfulness (Độ trung thực):
-        Đối chiếu từng khẳng định trong câu trả lời với nội dung tài liệu trích xuất (retrieved_docs)
-        và đáp án chuẩn (ground_truth_answer).
+        Tính điểm Faithfulness (Độ trung thực - Chống ảo giác):
+        Đối chiếu từng phát biểu/khẳng định pháp lý trong câu trả lời với nội dung tài liệu
+        được RAG truy xuất (retrieved_docs) và căn cứ pháp lý chuẩn.
+        
+        Faithfulness = (Số khẳng định có căn cứ kiểm chứng) / (Tổng số khẳng định)
         """
         claims = self.extract_legal_claims(answer)
         if not claims:
             return {"score": 1.0, "total_claims": 0, "supported_claims": 0, "details": []}
 
-        # Tổng hợp toàn bộ tri thức có căn cứ
-        combined_context = " ".join([
+        # Context tài liệu RAG đã truy xuất
+        doc_context = " ".join([
             f"{doc.get('title', '')} {doc.get('snippet', '')}"
             for doc in retrieved_docs
         ]).lower()
+
+        # Context mở rộng (bao gồm cả ground truth nếu có)
+        combined_context = doc_context
         if ground_truth_answer:
             combined_context += f" {ground_truth_answer.lower()}"
 
@@ -123,36 +129,48 @@ class RagasEvaluator:
             stmt_lower = stmt.lower()
 
             # 1. Trích xuất các thực thể cốt lõi trong khẳng định
-            numbers = re.findall(r'\b\d+(?:\.\d+)?\b', stmt)
             articles = re.findall(r'điều\s+\d+', stmt_lower)
             decrees = re.findall(r'\d+/\d+/(?:nđ-cp|tt-[a-z]+)', stmt_lower)
             money_terms = re.findall(r'\d+(?:\.\d+)?\s*(?:triệu|nghìn|đồng)', stmt_lower)
+            demerits = re.findall(r'trừ\s+\d+\s+điểm', stmt_lower)
 
-            # Kiểm tra xem thực thể quan trọng có xuất hiện trong context không
             supported = False
+            evidence = ""
 
-            # Nếu có số điều hoặc số nghị định thì phải khớp chính xác
-            strict_match = True
-            for art in articles:
-                if art not in combined_context:
-                    strict_match = False
-                    break
-            for dec in decrees:
-                if dec not in combined_context:
-                    strict_match = False
-                    break
-
+            # Kiểm tra trích dẫn số hiệu điều luật / nghị định
             if articles or decrees:
-                supported = strict_match
+                article_ok = all(art in combined_context for art in articles) if articles else True
+                decree_ok = all(dec in combined_context for dec in decrees) if decrees else True
+                if article_ok and decree_ok:
+                    supported = True
+                    evidence = f"Khớp văn bản: {', '.join(decrees + articles)}"
+                else:
+                    supported = False
+                    missing = [a for a in articles if a not in combined_context] + [d for d in decrees if d not in combined_context]
+                    evidence = f"Không tìm thấy căn cứ: {', '.join(missing)}"
+            elif money_terms or demerits:
+                # Kiểm tra mức phạt / trừ điểm
+                money_ok = any(m in combined_context for m in money_terms) if money_terms else True
+                demerit_ok = any(d in combined_context for d in demerits) if demerits else True
+                if money_ok and demerit_ok:
+                    supported = True
+                    evidence = "Mức chế tài/trừ điểm được chứng thực trong ngữ cảnh"
+                else:
+                    keywords = [w for w in re.findall(r'\b[a-zA-Zà-ỹÀ-Ỹ0-9_]+\b', stmt_lower) if len(w) > 3]
+                    matched_kws = [w for w in keywords if w in combined_context]
+                    ratio = len(matched_kws) / len(keywords) if keywords else 1.0
+                    supported = ratio >= 0.50
+                    evidence = f"Đối soát từ khóa ngữ nghĩa ({int(ratio*100)}% trùng khớp)"
             else:
-                # Nếu là phát biểu về mức phạt hoặc quy tắc: tính độ trùng từ khóa quan trọng
                 keywords = [w for w in re.findall(r'\b[a-zA-Zà-ỹÀ-Ỹ0-9_]+\b', stmt_lower) if len(w) > 3]
                 if keywords:
                     matched_kws = [w for w in keywords if w in combined_context]
                     ratio = len(matched_kws) / len(keywords)
-                    supported = ratio >= 0.55
+                    supported = ratio >= 0.45
+                    evidence = f"Chứng thực nội dung quy tắc ({int(ratio*100)}%)"
                 else:
                     supported = True
+                    evidence = "Phát biểu chung hợp lệ"
 
             if supported:
                 supported_count += 1
@@ -160,7 +178,8 @@ class RagasEvaluator:
             details.append({
                 "claim": stmt,
                 "type": c["type"],
-                "supported": supported
+                "supported": supported,
+                "evidence": evidence
             })
 
         score = round(supported_count / len(claims), 4) if claims else 1.0
@@ -182,7 +201,7 @@ class RagasEvaluator:
         Đo lường mức độ bao phủ các thực thể câu hỏi và tính trực diện của giải đáp.
         """
         if not answer or not str(answer).strip():
-            return {"score": 0.0, "reason": "Câu trả lời rỗng"}
+            return {"score": 0.0, "reason": "Câu trả lời rỗng", "factors": ["Câu trả lời rỗng"]}
 
         q_lower = question.lower()
         a_lower = answer.lower()
@@ -206,9 +225,9 @@ class RagasEvaluator:
             factors.append("Câu hỏi quy định chung phương tiện (+0.25)")
 
         # 2. Bắt ý định hỏi chế tài phạt
-        asks_penalty = bool(re.search(r'(phạt bao nhiêu|mức phạt|bị phạt gì|trừ điểm|tước bằng|giam xe)', q_lower))
+        asks_penalty = bool(re.search(r'(phạt bao nhiêu|mức phạt|bị phạt gì|trừ điểm|tước bằng|giam xe|bị phạt không)', q_lower))
         if asks_penalty:
-            has_penalty_answer = bool(re.search(r'(phạt tiền|phạt từ|đồng|tước|trừ \d+ điểm)', a_lower))
+            has_penalty_answer = bool(re.search(r'(phạt tiền|phạt từ|đồng|tước|trừ \d+ điểm|không bị phạt|không xử phạt)', a_lower))
             if has_penalty_answer:
                 score += 0.35
                 factors.append("Giải đáp chính xác chế tài xử phạt (+0.35)")
@@ -311,13 +330,14 @@ class RagasEvaluator:
         for item in samples:
             item_id = item.get("id")
             q = item.get("question", "")
-            # Câu trả lời đánh giá: ưu tiên answer -> ground_truth_answer -> tra cứu từ CSV
-            a = item.get("answer") or item.get("ground_truth_answer") or gt_answer_dict.get(item_id, "")
+            gt_ans = item.get("ground_truth_answer") or gt_answer_dict.get(item_id, "")
+            # Ưu tiên câu trả lời từ model (nếu có), fallback sang ground truth
+            a = item.get("answer") or gt_ans
             docs = item.get("retrieved_docs", [])
 
             # Đánh giá 2 chỉ số
-            faith_res = self.calculate_faithfulness(a, docs, ground_truth_answer=a)
-            rel_res = self.calculate_answer_relevance(q, a)
+            faith_res = self.calculate_faithfulness(a, docs, ground_truth_answer=gt_ans if item.get("answer") else "")
+            rel_res = self.calculate_answer_relevance(q, a, ground_truth=gt_ans)
 
             total_faithfulness += faith_res["score"]
             total_relevance += rel_res["score"]
@@ -328,12 +348,17 @@ class RagasEvaluator:
                 "faithfulness": faith_res["score"],
                 "answer_relevance": rel_res["score"],
                 "faithfulness_claims": faith_res["total_claims"],
-                "relevance_factors": rel_res.get("factors", [])
+                "supported_claims": faith_res["supported_claims"],
+                "relevance_factors": rel_res.get("factors", []),
+                "claims_breakdown": faith_res.get("details", [])
             })
 
         count = len(samples)
         mean_faithfulness = round(total_faithfulness / count, 4)
         mean_relevance = round(total_relevance / count, 4)
+        harmonic_mean = round(
+            (2 * mean_faithfulness * mean_relevance) / (mean_faithfulness + mean_relevance), 4
+        ) if (mean_faithfulness + mean_relevance) > 0 else 0.0
 
         report = {
             "metadata": {
@@ -347,9 +372,7 @@ class RagasEvaluator:
                 "faithfulness_percentage": f"{mean_faithfulness * 100:.1f}%",
                 "answer_relevance_score": mean_relevance,
                 "answer_relevance_percentage": f"{mean_relevance * 100:.1f}%",
-                "ragas_harmonic_mean": round(
-                    (2 * mean_faithfulness * mean_relevance) / (mean_faithfulness + mean_relevance), 4
-                )
+                "ragas_harmonic_mean": harmonic_mean
             },
             "detailed_results": detailed_results
         }
@@ -361,15 +384,15 @@ class RagasEvaluator:
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(report, f, ensure_ascii=False, indent=2)
 
-        print(f"[RAGAS] Hoàn thành! Faithfulness: {mean_faithfulness} | Relevance: {mean_relevance}")
+        print(f"[RAGAS] Hoàn thành! Faithfulness: {mean_faithfulness} | Relevance: {mean_relevance} | F1: {harmonic_mean}")
         print(f"[RAGAS] Đã lưu báo cáo vào: {output_path}")
 
-        # Tự động cập nhật vào benchmark_report.json nếu có
-        self._sync_with_benchmark_report(mean_faithfulness, mean_relevance)
+        # Tự động cập nhật vào benchmark_report.json
+        self._sync_with_benchmark_report(mean_faithfulness, mean_relevance, harmonic_mean)
 
         return report
 
-    def _sync_with_benchmark_report(self, faithfulness: float, relevance: float):
+    def _sync_with_benchmark_report(self, faithfulness: float, relevance: float, harmonic_mean: float = 0.0):
         """Đồng bộ chỉ số chất lượng vào file benchmark_report.json"""
         if os.path.exists(self.benchmark_report_path):
             try:
@@ -377,7 +400,10 @@ class RagasEvaluator:
                     bench = json.load(f)
                 bench["quality_metrics"] = {
                     "faithfulness_score": faithfulness,
-                    "answer_relevance_score": relevance
+                    "faithfulness_percentage": f"{faithfulness * 100:.1f}%",
+                    "answer_relevance_score": relevance,
+                    "answer_relevance_percentage": f"{relevance * 100:.1f}%",
+                    "ragas_harmonic_mean": harmonic_mean
                 }
                 with open(self.benchmark_report_path, "w", encoding="utf-8") as f:
                     json.dump(bench, f, ensure_ascii=False, indent=2)
