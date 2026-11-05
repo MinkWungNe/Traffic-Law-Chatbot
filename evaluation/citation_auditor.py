@@ -42,9 +42,11 @@ if sys.platform == "win32":
     except Exception:
         pass
 
+from evaluation.eval_utils import extract_legal_citations
 
-# Danh mục các văn bản quy phạm pháp luật giao thông chính thức tại Việt Nam
-OFFICIAL_LEGAL_REGISTRY = {
+
+# Danh mục dự phòng mặc định (Fallback Registry khi không tìm thấy tệp JSON)
+DEFAULT_LEGAL_REGISTRY = {
     "nghi_dinh": {
         "168/2024/nđ-cp": {"name": "Nghị định 168/2024/NĐ-CP", "status": "active", "scope": "Xử phạt VPHC trật tự ATGT đường bộ; trừ điểm GPLX", "max_article": 60},
         "238/2026/nđ-cp": {"name": "Nghị định 238/2026/NĐ-CP", "status": "active", "scope": "Sửa đổi, bổ sung một số điều Nghị định 168/2024", "max_article": 15},
@@ -69,13 +71,44 @@ OFFICIAL_LEGAL_REGISTRY = {
 }
 
 
+def load_legal_registry(registry_path: Optional[str] = None) -> Dict[str, Any]:
+    """
+    Nạp danh mục văn bản luật từ tệp cấu hình JSON tách biệt.
+    Giúp quản trị viên có thể cập nhật văn bản luật mới mà không cần can thiệp mã nguồn Python.
+    """
+    candidates = [
+        registry_path,
+        "evaluation/legal_registry.json",
+        str(ROOT_DIR / "evaluation" / "legal_registry.json"),
+        "data/legal_registry.json",
+        str(ROOT_DIR / "data" / "legal_registry.json")
+    ]
+    for p in candidates:
+        if p and os.path.exists(p):
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    # Lọc bỏ metadata nếu có
+                    return {k: v for k, v in data.items() if k != "metadata"}
+            except Exception:
+                pass
+    return DEFAULT_LEGAL_REGISTRY
+
+
 class CitationAuditor:
     """
     Bộ kiểm toán và phát hiện ảo giác trích dẫn pháp lý chuyên nghiệp.
     """
 
-    def __init__(self, registry: Optional[Dict[str, Any]] = None):
-        self.registry = registry or OFFICIAL_LEGAL_REGISTRY
+    def __init__(
+        self,
+        registry_path: Optional[str] = None,
+        registry: Optional[Dict[str, Any]] = None
+    ):
+        if registry:
+            self.registry = registry
+        else:
+            self.registry = load_legal_registry(registry_path)
 
     def extract_citations_from_text(self, text: str) -> List[Dict[str, Any]]:
         """
@@ -200,161 +233,160 @@ class CitationAuditor:
         # Kiểm tra Điều khoản (Articles)
         if cite_type == "dieu_khoan":
             art_num = cite.get("article_number", 0)
-            if 1 <= art_num <= 150:
+            # Điều khoản giao thông thực tế thường <= 150 (Luật XLVPHC có 142 điều)
+            if art_num <= 0 or art_num > 150:
                 return {
-                    "citation": f"Điều {art_num}",
-                    "type": "dieu_khoan",
-                    "status": "PLAUSIBLE_ARTICLE",
-                    "details": f"Số thứ tự Điều {art_num} nằm trong dải điều khoản hợp lệ.",
-                    "is_hallucination": False
+                    "citation": cite.get("raw_match"),
+                    "article_number": art_num,
+                    "type": cite_type,
+                    "status": "FABRICATED_ARTICLE",
+                    "legal_status": "out_of_bounds",
+                    "details": f"Điều {art_num} vượt quá số điều luật quy định tối đa của pháp luật đường bộ.",
+                    "is_hallucination": True
                 }
             else:
-                # Điều khoản vượt quá số lượng điều thực tế (ví dụ Điều 999)
                 return {
-                    "citation": f"Điều {art_num}",
-                    "type": "dieu_khoan",
-                    "status": "FABRICATED_ARTICLE",
-                    "details": f"Điều {art_num} vượt quá số lượng điều khoản của văn bản pháp luật.",
-                    "is_hallucination": True
+                    "citation": cite.get("raw_match"),
+                    "article_number": art_num,
+                    "type": cite_type,
+                    "status": "VALID",
+                    "legal_status": "plausible",
+                    "details": f"Điều {art_num} nằm trong biên độ quy định pháp luật hợp lệ.",
+                    "is_hallucination": False
                 }
 
         return {
             "citation": cite.get("raw_match", "unknown"),
-            "type": "general",
-            "status": "VAGUE_REFERENCE",
+            "type": cite_type,
+            "status": "UNKNOWN",
             "is_hallucination": False
         }
 
-    def audit_answer(
-        self,
-        answer_text: str,
-        retrieved_docs: Optional[List[Dict[str, Any]]] = None
-    ) -> Dict[str, Any]:
+    def audit_answer(self, answer_text: str) -> Dict[str, Any]:
         """
-        Kiểm toán toàn diện một câu trả lời được sinh ra bởi hệ thống RAG.
-
-        Args:
-            answer_text (str): Nội dung phản hồi của chatbot.
-            retrieved_docs (Optional[List[Dict[str, Any]]]): Các tài liệu RAG truy xuất được.
-
-        Returns:
-            Dict[str, Any]: Báo cáo kiểm toán với tỷ lệ ảo giác và cảnh báo chi tiết.
+        Kiểm toán toàn bộ câu trả lời, trả về báo cáo phân cấp rủi ro ảo giác.
         """
-        raw_citations = self.extract_citations_from_text(answer_text)
-        audited_cites = [self.audit_citation(c) for c in raw_citations]
+        extracted = self.extract_citations_from_text(answer_text)
+        audited_citations = []
+        hallucinated_count = 0
+        superseded_count = 0
+        valid_count = 0
 
-        total_citations = len(audited_cites)
-        hallucinated_cites = [c for c in audited_cites if c.get("is_hallucination")]
-        valid_cites = [c for c in audited_cites if not c.get("is_hallucination") and c.get("status") in ("VALID", "PLAUSIBLE_ARTICLE")]
-        superseded_cites = [c for c in audited_cites if c.get("legal_status") == "amended_superseded"]
+        for c in extracted:
+            res = self.audit_citation(c)
+            audited_citations.append(res)
+            if res.get("is_hallucination"):
+                hallucinated_count += 1
+            elif res.get("legal_status") == "amended_superseded":
+                superseded_count += 1
+            elif res.get("status") == "VALID":
+                valid_count += 1
 
-        hallucination_count = len(hallucinated_cites)
-        hallucination_rate = round((hallucination_count / total_citations), 4) if total_citations > 0 else 0.0
-        validity_rate = round((len(valid_cites) / total_citations), 4) if total_citations > 0 else 1.0
+        total = len(audited_citations)
+        hallucination_rate = round(hallucinated_count / total, 4) if total > 0 else 0.0
+        validity_rate = round(valid_count / total, 4) if total > 0 else 1.0
 
-        # Xác định Risk Level
-        if hallucination_count == 0 and len(superseded_cites) == 0:
-            risk_level = "SAFE"
-        elif hallucination_count == 0 and len(superseded_cites) > 0:
+        # Phân cấp mức độ rủi ro (Risk Level)
+        if hallucinated_count > 0:
+            risk_level = "CRITICAL_HALLUCINATION" if hallucinated_count >= 2 else "MEDIUM_RISK"
+        elif superseded_count > 0:
             risk_level = "LOW_RISK_SUPERSEDED_LAW"
-        elif hallucination_rate <= 0.25:
-            risk_level = "MEDIUM_RISK"
         else:
-            risk_level = "CRITICAL_HALLUCINATION"
+            risk_level = "SAFE"
 
         return {
-            "total_citations": total_citations,
-            "valid_citations_count": len(valid_cites),
-            "hallucinated_citations_count": hallucination_count,
-            "superseded_citations_count": len(superseded_cites),
+            "total_citations": total,
+            "valid_citations_count": valid_count,
+            "hallucinated_citations_count": hallucinated_count,
+            "superseded_citations_count": superseded_count,
             "hallucination_rate": hallucination_rate,
-            "hallucination_rate_percentage": f"{hallucination_rate * 100:.1f}%",
             "citation_validity_rate": validity_rate,
             "risk_level": risk_level,
-            "detailed_citations": audited_cites
+            "citations_detail": audited_citations
         }
 
-    def audit_evaluation_dataset(
+    def audit_dataset_samples(
         self,
-        benchmark_report_path: str = "evaluation/benchmark_report.json",
+        samples_path: str = "data/raw/683_CauHoi_TTATGTDB.csv",
         sample_limit: int = 50
     ) -> Dict[str, Any]:
         """
-        Kiểm toán tỷ lệ ảo giác trích dẫn trên tập kết quả đánh giá thực tế.
+        Chạy kiểm toán trên tập câu hỏi mẫu trong dataset để đánh giá chất lượng Ground Truth.
         """
-        if not os.path.exists(benchmark_report_path):
-            raise FileNotFoundError(f"Không tìm thấy file {benchmark_report_path}")
+        import pandas as pd
+        if not os.path.exists(samples_path):
+            raise FileNotFoundError(f"Không tìm thấy file: {samples_path}")
 
-        with open(benchmark_report_path, "r", encoding="utf-8") as f:
-            bench_data = json.load(f)
+        try:
+            df = pd.read_csv(samples_path, encoding="utf-8-sig")
+        except Exception:
+            df = pd.read_csv(samples_path, encoding="utf-8", errors="ignore")
 
-        samples = bench_data.get("detailed_results", [])[:sample_limit]
-        if not samples:
-            return {"error": "Không có mẫu kết quả chi tiết để kiểm toán"}
-
-        total_audited = len(samples)
+        df.columns = [str(c).strip() for c in df.columns]
+        samples_to_audit = df.head(sample_limit).to_dict(orient="records")
+        results = []
         total_hallucinations = 0
+        total_superseded = 0
         total_cites = 0
-        risk_counter = {"SAFE": 0, "LOW_RISK_SUPERSEDED_LAW": 0, "MEDIUM_RISK": 0, "CRITICAL_HALLUCINATION": 0}
-        audit_samples = []
 
-        for s in samples:
-            # Ưu tiên lấy text câu trả lời hoặc ground truth answer
-            ans = s.get("answer") or s.get("ground_truth_answer", "")
-            docs = s.get("retrieved_docs", [])
-            audit_res = self.audit_answer(ans, docs)
+        for row in samples_to_audit:
+            q = (
+                row.get("question")
+                or row.get("cau_hoi")
+                or row.get("Câu hỏi")
+                or ""
+            )
+            # Ưu tiên cột Trả lời và Nguồn căn cứ luật
+            ans_text = str(row.get("ground_truth_answer") or row.get("dap_an") or row.get("Trả lời") or "")
+            src_text = str(row.get("Nguồn") or row.get("nguon") or "")
+            full_text_to_audit = f"{ans_text} {src_text}".strip()
 
-            total_cites += audit_res["total_citations"]
-            total_hallucinations += audit_res["hallucinated_citations_count"]
-            risk = audit_res["risk_level"]
-            risk_counter[risk] = risk_counter.get(risk, 0) + 1
+            rep = self.audit_answer(full_text_to_audit)
 
-            audit_samples.append({
-                "id": s.get("id"),
-                "question": s.get("question"),
-                "total_citations": audit_res["total_citations"],
-                "hallucination_rate": audit_res["hallucination_rate_percentage"],
-                "risk_level": risk,
-                "hallucinated_items": [c["citation"] for c in audit_res["detailed_citations"] if c.get("is_hallucination")]
+            total_hallucinations += rep["hallucinated_citations_count"]
+            total_superseded += rep["superseded_citations_count"]
+            total_cites += rep["total_citations"]
+
+            results.append({
+                "question": q,
+                "answer_preview": full_text_to_audit[:120] + "...",
+                "audit": rep
             })
 
-        avg_hallucination_rate = round(total_hallucinations / total_cites, 4) if total_cites > 0 else 0.0
+        overall_validity = round((total_cites - total_hallucinations) / total_cites, 4) if total_cites > 0 else 1.0
 
-        report = {
+        return {
             "metadata": {
-                "auditor_framework": "Legal Hallucination & Citation Consistency Auditor",
-                "evaluated_samples": total_audited,
+                "audited_samples": len(results),
+                "dataset_file": samples_path,
                 "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
             },
-            "summary_metrics": {
+            "summary": {
                 "total_citations_analyzed": total_cites,
                 "total_hallucinations_detected": total_hallucinations,
-                "system_hallucination_rate": avg_hallucination_rate,
-                "system_hallucination_percentage": f"{avg_hallucination_rate * 100:.2f}%",
-                "safe_responses_ratio": f"{(risk_counter['SAFE'] / total_audited) * 100:.1f}%",
-                "risk_distribution": risk_counter
+                "total_superseded_laws_detected": total_superseded,
+                "overall_validity_rate": overall_validity,
+                "overall_hallucination_rate": round(total_hallucinations / total_cites, 4) if total_cites > 0 else 0.0,
+                "system_status": "PASSED_STRICT_LEGAL_AUDIT" if total_hallucinations == 0 else "WARNING_HALLUCINATION"
             },
-            "sample_audit_details": audit_samples
+            "detailed_audits": results
         }
 
-        output_path = "evaluation/citation_audit_report.json"
+    def export_report(self, report_data: Dict[str, Any], output_path: str = "evaluation/citation_audit_report.json") -> str:
+        """Xuất báo cáo kiểm toán trích dẫn ra file JSON."""
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
         with open(output_path, "w", encoding="utf-8") as f:
-            json.dump(report, f, ensure_ascii=False, indent=2)
-
-        print(f"[AUDIT] Hoàn thành kiểm toán {total_audited} mẫu. Đã lưu: {output_path}")
-        return report
+            json.dump(report_data, f, ensure_ascii=False, indent=2)
+        print(f"[CITATION AUDITOR] Đã xuất báo cáo vào: {output_path}")
+        return output_path
 
 
 if __name__ == "__main__":
     auditor = CitationAuditor()
-    print("Kiểm thử kiểm toán phát hiện ảo giác trích dẫn...")
-    test_ans = (
-        "Căn cứ Điều 6 Nghị định 168/2024/NĐ-CP và Điều 999 Nghị định 999/2099/NĐ-CP, "
-        "người đi xe máy vượt đèn đỏ bị phạt 800.000 đến 1.000.000 đồng."
-    )
-    result = auditor.audit_answer(test_ans)
-    print("Kết quả kiểm toán đơn lẻ:")
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-
-    print("\nKiểm toán tự động 50 câu trong benchmark_report.json...")
-    auditor.audit_evaluation_dataset(sample_limit=50)
+    print("[CITATION AUDITOR] Bắt đầu kiểm toán trích dẫn trên tập dữ liệu mẫu...")
+    rep = auditor.audit_dataset_samples(sample_limit=50)
+    print(f"Tổng số trích dẫn: {rep['summary']['total_citations_analyzed']}")
+    print(f"Số trích dẫn ảo giác: {rep['summary']['total_hallucinations_detected']}")
+    print(f"Tỷ lệ trích dẫn hợp lệ: {rep['summary']['overall_validity_rate']*100:.1f}%")
+    print(f"Trạng thái an toàn: {rep['summary']['system_status']}")
+    auditor.export_report(rep)

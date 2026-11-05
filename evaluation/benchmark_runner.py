@@ -256,53 +256,10 @@ class BenchmarkRunner:
     def extract_legal_citations(text: str) -> List[str]:
         """
         Bóc tách các căn cứ pháp lý quan trọng từ văn bản (Điều khoản, Nghị định, Thông tư, Luật)
-        bằng biểu thức chính quy (Regex).
+        bằng biểu thức chính quy (Regex) dùng chung từ eval_utils.
         """
-        if not text or not isinstance(text, str):
-            return []
-
-        citations = set()
-
-        # 1. Bắt các mẫu Nghị định (VD: Nghị định 168/2024/NĐ-CP hoặc NĐ 100/2019)
-        nd_matches = re.findall(
-            r'(?:Nghị\s*định|NĐ)(?:\s+số)?\s*(\d+/\d+/(?:NĐ-CP|ND-CP))',
-            text,
-            re.IGNORECASE
-        )
-        for m in nd_matches:
-            citations.add(f"Nghị định {m.upper()}")
-
-        # 2. Bắt các mẫu Thông tư (VD: Thông tư số 79/2024/TT-BCA)
-        tt_matches = re.findall(
-            r'(?:Thông\s*tư|TT)(?:\s+số)?\s*(\d+/\d+/(?:TT-[A-Z]+))',
-            text,
-            re.IGNORECASE
-        )
-        for m in tt_matches:
-            citations.add(f"Thông tư {m.upper()}")
-
-        # 3. Bắt các Điều luật (VD: Điều 6, Điều 15, Điều 67)
-        dieu_matches = re.findall(r'\b(?:Điều)\s+(\d+)\b', text, re.IGNORECASE)
-        for m in dieu_matches:
-            citations.add(f"Điều {m}")
-
-        # 4. Bắt các tên văn bản luật quan trọng
-        luat_patterns = [
-            r'Luật Trật tự[,\s]+an toàn giao thông đường bộ',
-            r'Luật Giao thông đường bộ',
-            r'Luật Xử lý vi phạm hành chính',
-            r'Luật Phòng[,\s]+chống tác hại của rượu[,\s]+bia',
-            r'Luật Đường bộ',
-            r'Luật Đường sắt',
-            r'Bộ luật Hình sự',
-            r'QCVN\s*41'
-        ]
-        for pat in luat_patterns:
-            m = re.search(pat, text, re.IGNORECASE)
-            if m:
-                citations.add(m.group(0).strip())
-
-        return sorted(list(citations))
+        from evaluation.eval_utils import extract_legal_citations as _extract_common
+        return _extract_common(text)
 
     def load_test_dataset(self) -> List[Dict[str, Any]]:
         """

@@ -8,16 +8,19 @@
     "retrieval_mode": [
       "lexical_fallback"
     ],
-    "evaluation_time_seconds": 0.12,
-    "timestamp": "2026-11-01 01:10:04"
+    "evaluation_time_seconds": 0.35,
+    "timestamp": "2026-11-05 08:09:05"
   },
   "summary_metrics": {
     "hit_rate": 0.9312,
     "hit_rate_percentage": "93.1%",
     "recall_at_k": 0.6146,
     "recall_percentage": "61.5%",
+    "precision_at_k": 1.2227,
+    "precision_percentage": "122.3%",
     "mrr": 0.8577,
-    "avg_latency_per_query_ms": 0.18
+    "ndcg_at_k": 0.669,
+    "avg_latency_per_query_ms": 0.51
   },
   "quality_metrics": {
     "faithfulness_score": 0.4965,
@@ -65,9 +68,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 11",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -97,9 +100,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 32",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -137,10 +140,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 4",
-        "Điều 32",
         "Nghị định 168/2024/NĐ-CP",
-        "Thông tư 79/2024/TT-BCA"
+        "Điều 32",
+        "Thông tư 79/2024/TT-BCA",
+        "Điều 4"
       ],
       "status": "Đạt"
     },
@@ -171,8 +174,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -201,8 +204,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -239,9 +242,9 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Nghị định 282/2025/NĐ-CP",
-        "Điều 261",
         "Bộ luật Hình sự",
-        "Điều 20"
+        "Điều 20",
+        "Điều 261"
       ],
       "status": "Đạt"
     },
@@ -296,8 +299,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 47",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 47"
       ],
       "status": "Đạt"
     },
@@ -333,9 +336,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "Luật Xử lý vi phạm hành chính",
-        "Điều 11",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -414,9 +417,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Bộ luật Hình sự",
         "Nghị định 282/2025/NĐ-CP",
         "Điều 20",
+        "Bộ luật Hình sự",
         "Điều 178"
       ],
       "status": "Đạt"
@@ -488,8 +491,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 3",
-        "Điều 32",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 32",
         "Thông tư 79/2024/TT-BCA",
         "Điều 6"
       ],
@@ -542,11 +545,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 47",
-        "Nghị định 168/2024/NĐ-CP",
         "Điều 3",
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 12",
         "Điều 21",
-        "Điều 12"
+        "Điều 47"
       ],
       "status": "Đạt"
     },
@@ -587,9 +590,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 9",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -636,10 +639,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Thông tư 73/2024/TT-BCA",
-        "Điều 12",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 12",
+        "Thông tư 73/2024/TT-BCA",
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 6"
       ],
       "status": "Đạt"
@@ -677,8 +680,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 10",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -725,12 +728,12 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Nghị định 238/2026/NĐ-CP",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 59",
         "Điều 32",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 9",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 56"
+        "Điều 56",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -769,11 +772,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 12",
         "Điều 18",
         "Điều 9",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 12"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -812,12 +815,12 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 11",
         "Nghị định 168/2024/NĐ-CP",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 21",
-        "Điều 7",
-        "Điều 6"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 6",
+        "Điều 11",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -871,13 +874,13 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 14",
-        "Điều 13",
-        "Điều 9",
+        "Điều 20",
         "Nghị định 168/2024/NĐ-CP",
         "Điều 21",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 20"
+        "Điều 14",
+        "Điều 13",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -910,9 +913,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 32",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -957,12 +960,12 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Thông tư 73/2024/TT-BCA",
-        "Điều 11",
         "Điều 12",
-        "Luật Phòng, chống tác hại của rượu, bia",
+        "Thông tư 73/2024/TT-BCA",
         "Điều 21",
-        "Điều 6"
+        "Luật Phòng, chống tác hại của rượu, bia",
+        "Điều 6",
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -993,11 +996,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 35",
-        "Điều 13",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 32",
-        "Điều 9",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 13",
+        "Điều 35",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -1040,13 +1043,13 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 5",
-        "Điều 18",
-        "Điều 32",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 9",
+        "Điều 12",
+        "Điều 5",
+        "Điều 32",
+        "Điều 18",
         "Điều 56",
-        "Điều 12"
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -1100,13 +1103,13 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 14",
-        "Điều 13",
-        "Điều 9",
         "Nghị định 168/2024/NĐ-CP",
         "Điều 21",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Bộ luật Hình sự"
+        "Điều 14",
+        "Điều 13",
+        "Bộ luật Hình sự",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -1166,12 +1169,12 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Điều 57",
         "Nghị định 238/2026/NĐ-CP",
-        "Luật Đường bộ",
         "Điều 26",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Bộ luật Hình sự",
-        "Điều 57"
+        "Luật Đường bộ",
+        "Bộ luật Hình sự"
       ],
       "status": "Đạt"
     },
@@ -1211,13 +1214,13 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Điều 3",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 12",
         "Thông tư 72/2024/TT-BCA",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 3",
+        "Điều 6",
         "Điều 9",
-        "Điều 7",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -1266,13 +1269,13 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 5",
-        "Điều 18",
-        "Điều 32",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 9",
+        "Điều 5",
+        "Điều 32",
+        "Điều 18",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 56"
+        "Điều 56",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -1332,20 +1335,20 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Nghị định 238/2026/NĐ-CP",
-        "Điều 2",
-        "Điều 584",
-        "Điều 589",
-        "Điều 590",
-        "Điều 39",
-        "Điều 601",
-        "Điều 585",
-        "Luật Đường bộ",
-        "Điều 1",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 3",
+        "Điều 584",
+        "Điều 585",
         "Điều 260",
+        "Điều 589",
+        "Điều 39",
+        "Điều 2",
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Luật Đường bộ",
+        "Điều 590",
+        "Điều 6",
         "Bộ luật Hình sự",
-        "Điều 6"
+        "Điều 1",
+        "Điều 601"
       ],
       "status": "Đạt"
     },
@@ -1376,9 +1379,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 35"
+        "Điều 35",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -1475,14 +1478,14 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 261",
-        "Điều 25",
-        "Điều 10",
-        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 20",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 25",
+        "Điều 261",
+        "Điều 10",
         "Điều 260",
-        "Bộ luật Hình sự",
-        "Điều 20"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Bộ luật Hình sự"
       ],
       "status": "Đạt"
     },
@@ -1521,11 +1524,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 6",
         "Điều 56",
-        "Điều 7",
-        "Điều 6"
+        "Điều 9",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -1574,13 +1577,13 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 2",
         "Điều 18",
-        "Nghị định 168/2024/NĐ-CP",
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Bộ luật Hình sự",
         "Điều 178",
-        "Điều 6"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 6",
+        "Bộ luật Hình sự"
       ],
       "status": "Đạt"
     },
@@ -1620,10 +1623,10 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 584",
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 585",
         "Điều 589",
         "Điều 590",
-        "Điều 585",
-        "Nghị định 168/2024/NĐ-CP",
         "Điều 6"
       ],
       "status": "Đạt"
@@ -1662,9 +1665,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -1703,11 +1706,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 26",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Điều 26",
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 6",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -1741,9 +1744,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -1776,9 +1779,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 9",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -1817,11 +1820,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Thông tư 38/2024/TT-BGTVT",
-        "Điều 11",
-        "Điều 12",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 12",
+        "Thông tư 38/2024/TT-BGTVT",
+        "Điều 6",
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -1870,10 +1873,10 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 584",
-        "Thông tư 72/2024/TT-BCA",
-        "Điều 601",
         "Điều 260",
-        "Bộ luật Hình sự"
+        "Thông tư 72/2024/TT-BCA",
+        "Bộ luật Hình sự",
+        "Điều 601"
       ],
       "status": "Đạt"
     },
@@ -1913,9 +1916,9 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
+        "Điều 2",
         "Luật Xử lý vi phạm hành chính",
-        "Điều 11",
-        "Điều 2"
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -1949,10 +1952,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 56",
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 56",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2000,12 +2003,12 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 18",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 12",
+        "Điều 18",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 56",
         "Thông tư 108/2026/TT-BCA",
-        "Điều 12"
+        "Điều 56"
       ],
       "status": "Đạt"
     },
@@ -2079,9 +2082,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 32",
-        "Điều 14",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 14"
       ],
       "status": "Đạt"
     },
@@ -2107,8 +2110,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 32",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 32"
       ],
       "status": "Đạt"
     },
@@ -2141,9 +2144,9 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Điều 11",
+        "Điều 6",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 6"
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -2172,10 +2175,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 8",
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 8",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2212,9 +2215,9 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Điều 13",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 32",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -2245,11 +2248,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 11",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 14",
         "Điều 13",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -2287,10 +2290,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 8",
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 8",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2320,8 +2323,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -2354,8 +2357,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 18",
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP",
         "Điều 6"
       ],
@@ -2413,10 +2416,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 9",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2459,11 +2462,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 6",
         "Điều 8",
         "Điều 9",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2497,11 +2500,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 12",
-        "Điều 8",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Điều 12",
+        "Điều 6",
+        "Điều 8",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2535,11 +2538,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 6",
         "Điều 8",
         "Điều 9",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2578,12 +2581,12 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Thông tư 72/2024/TT-BCA",
+        "Điều 6",
         "Điều 8",
         "Điều 9",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2617,11 +2620,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 6",
         "Điều 8",
         "Điều 9",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2655,11 +2658,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 6",
         "Điều 8",
         "Điều 9",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2692,10 +2695,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Điều 14",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 14",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2722,10 +2725,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Điều 7",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 9",
+        "Điều 12",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2756,9 +2759,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 12",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2785,8 +2788,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2818,9 +2821,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2848,8 +2851,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2878,9 +2881,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 9",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2906,9 +2909,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2948,12 +2951,12 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
         "Nghị định 168/2024/NĐ-CP",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 10",
-        "Điều 7",
-        "Điều 6"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 6",
+        "Điều 9",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -2979,8 +2982,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 9",
         "Điều 12"
       ],
       "status": "Đạt"
@@ -3023,10 +3026,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 9",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3056,8 +3059,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -3091,11 +3094,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 6",
         "Điều 8",
         "Điều 9",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3129,11 +3132,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 6",
         "Điều 8",
         "Điều 9",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3165,13 +3168,13 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 2",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP",
         "Điều 3",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 21",
-        "Điều 7",
-        "Điều 6"
+        "Điều 2",
+        "Điều 6",
+        "Điều 8",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3219,9 +3222,9 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 10",
-        "Nghị định 168/2024/NĐ-CP",
+        "Điều 6",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 6"
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -3257,8 +3260,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -3290,8 +3293,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 18",
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP",
         "Điều 6"
       ],
@@ -3319,8 +3322,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -3354,11 +3357,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
-        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 20",
         "Nghị định 168/2024/NĐ-CP",
         "Điều 21",
-        "Điều 20",
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 13",
         "Điều 6"
       ],
       "status": "Đạt"
@@ -3388,8 +3391,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 6",
         "Điều 10",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
         "Điều 12"
       ],
@@ -3419,10 +3422,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 9",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3452,8 +3455,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -3490,9 +3493,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3522,8 +3525,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -3550,9 +3553,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -3577,8 +3580,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3610,8 +3613,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3638,8 +3641,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3666,8 +3669,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3692,8 +3695,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3739,11 +3742,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Thông tư 73/2024/TT-BCA",
         "Điều 18",
-        "Điều 8",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8",
         "Điều 56"
       ],
       "status": "Đạt"
@@ -3777,12 +3780,12 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 18",
-        "Điều 32",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 9",
         "Điều 21",
-        "Điều 56"
+        "Điều 32",
+        "Điều 18",
+        "Điều 56",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -3819,10 +3822,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 56",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 18",
-        "Nghị định 168/2024/NĐ-CP"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 56"
       ],
       "status": "Đạt"
     },
@@ -3856,9 +3859,9 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 7",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 12",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3891,10 +3894,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 18",
         "luật trật tự an toàn giao thông đường bộ",
-        "Điều 26",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 26",
+        "Điều 18",
         "Điều 7"
       ],
       "status": "Đạt"
@@ -3922,9 +3925,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 9",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3956,9 +3959,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 12",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -3993,8 +3996,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -4022,9 +4025,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 9",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -4062,8 +4065,8 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Điều 9",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -4089,8 +4092,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -4122,8 +4125,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 10",
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
@@ -4154,9 +4157,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 47",
+        "Điều 3",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 3"
+        "Điều 47"
       ],
       "status": "Đạt"
     },
@@ -4182,8 +4185,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 47",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 47",
         "Điều 12"
       ],
       "status": "Đạt"
@@ -4214,9 +4217,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 47",
         "Điều 9",
-        "Nghị định 168/2024/NĐ-CP",
         "Điều 12"
       ],
       "status": "Đạt"
@@ -4279,10 +4282,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Điều 5",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 5",
+        "Điều 12",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -4338,10 +4341,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Điều 5",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 5",
+        "Điều 12",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -4371,8 +4374,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 5",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 5",
         "Điều 12"
       ],
       "status": "Đạt"
@@ -4402,8 +4405,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 5",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 5",
         "Điều 12"
       ],
       "status": "Đạt"
@@ -4535,9 +4538,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 32",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -4564,10 +4567,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 47",
-        "Điều 13",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 32",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 47",
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -4698,12 +4701,12 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 35",
-        "Điều 9",
+        "Điều 20",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 26",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 20"
+        "Điều 35",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -4802,11 +4805,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 47",
-        "Luật Đường sắt",
-        "Nghị định 81/2026/NĐ-CP",
         "Điều 3",
         "Điều 49",
+        "Luật Đường sắt",
+        "Nghị định 81/2026/NĐ-CP",
+        "Điều 47",
         "Điều 6"
       ],
       "status": "Đạt"
@@ -4839,10 +4842,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Điều 3",
         "Điều 6",
         "Điều 47",
-        "Luật Đường sắt",
-        "Điều 3"
+        "Luật Đường sắt"
       ],
       "status": "Đạt"
     },
@@ -4915,10 +4918,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Phòng, chống tác hại của rượu, bia",
+        "Điều 6",
         "Điều 5",
         "Luật Đường sắt",
-        "Điều 6"
+        "Luật Phòng, chống tác hại của rượu, bia"
       ],
       "status": "Đạt"
     },
@@ -4954,8 +4957,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 49",
-        "Luật Đường sắt",
-        "Nghị định 81/2026/NĐ-CP"
+        "Nghị định 81/2026/NĐ-CP",
+        "Luật Đường sắt"
       ],
       "status": "Đạt"
     },
@@ -4995,8 +4998,8 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Điều 32",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 32"
       ],
       "status": "Đạt"
     },
@@ -5039,11 +5042,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 35",
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 26",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 21",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 26",
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 35"
       ],
       "status": "Đạt"
     },
@@ -5073,8 +5076,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 32",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 32"
       ],
       "status": "Đạt"
     },
@@ -5217,10 +5220,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Thông tư 38/2024/TT-BGTVT",
-        "Điều 12",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 12",
         "Điều 10",
+        "Thông tư 38/2024/TT-BGTVT",
         "Điều 6"
       ],
       "status": "Đạt"
@@ -5254,9 +5257,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Điều 6",
         "Điều 25",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -5298,9 +5301,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 12",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -5341,9 +5344,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -5371,8 +5374,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 5",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 5",
         "Điều 12"
       ],
       "status": "Đạt"
@@ -5406,10 +5409,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 9",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -5442,10 +5445,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
-        "Điều 11",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 12"
+        "Điều 12",
+        "Điều 11",
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -5503,10 +5506,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
         "Điều 18",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 14",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -5574,10 +5577,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Thông tư 79/2024/TT-BCA",
-        "Điều 13",
         "Điều 14",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -5646,9 +5649,9 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 21",
-        "Điều 13",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 32",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -5696,9 +5699,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 18",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Nghị định 168/2024/NĐ-CP",
         "Điều 56",
         "Điều 7"
       ],
@@ -5738,11 +5741,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 13",
+        "Điều 6",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -5775,11 +5778,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 14",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 14",
+        "Điều 6",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -5818,12 +5821,12 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 8",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 9",
         "Điều 10",
-        "Điều 7",
-        "Điều 6"
+        "Điều 6",
+        "Điều 8",
+        "Điều 9",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -5881,10 +5884,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 9",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -5913,8 +5916,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 5",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 5",
         "Điều 12"
       ],
       "status": "Đạt"
@@ -5957,14 +5960,14 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Đường sắt",
-        "Điều 13",
-        "Điều 26",
         "Nghị định 168/2024/NĐ-CP",
+        "Luật Đường sắt",
+        "Điều 26",
         "Điều 16",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 7",
-        "Điều 6"
+        "Điều 13",
+        "Điều 6",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -5999,8 +6002,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -6033,11 +6036,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 16",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Điều 6",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -6065,9 +6068,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -6128,11 +6131,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 14",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 14",
+        "Điều 6",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -6193,10 +6196,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 10",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -6275,13 +6278,13 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Đường sắt",
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 26",
-        "Điều 16",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Luật Đường sắt",
+        "Điều 26",
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 16",
+        "Điều 6",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -6316,9 +6319,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Điều 3",
         "Điều 6",
-        "Luật Đường sắt",
-        "Điều 3"
+        "Luật Đường sắt"
       ],
       "status": "Đạt"
     },
@@ -6354,12 +6357,12 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Đường sắt",
-        "Điều 13",
         "Nghị định 168/2024/NĐ-CP",
+        "Luật Đường sắt",
         "Điều 16",
-        "Điều 7",
-        "Điều 6"
+        "Điều 13",
+        "Điều 6",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -6388,10 +6391,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 32",
         "Điều 18",
         "Điều 14",
-        "Điều 32",
-        "Nghị định 168/2024/NĐ-CP",
         "Điều 56"
       ],
       "status": "Đạt"
@@ -6423,9 +6426,9 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Điều 7",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 12",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -6453,8 +6456,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -6537,11 +6540,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 11",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "QCVN 41",
         "Điều 16",
-        "Điều 6"
+        "QCVN 41",
+        "Điều 6",
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -6567,9 +6570,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 14",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -6626,9 +6629,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 9",
-        "Điều 14",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 14"
       ],
       "status": "Đạt"
     },
@@ -6661,10 +6664,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 11",
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 11",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -6716,14 +6719,14 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Nghị định 238/2026/NĐ-CP",
-        "Thông tư 72/2024/TT-BCA",
-        "Điều 9",
         "Nghị định 168/2024/NĐ-CP",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 260",
+        "Thông tư 72/2024/TT-BCA",
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 6",
         "Bộ luật Hình sự",
-        "Điều 7",
-        "Điều 6"
+        "Điều 9",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -6763,11 +6766,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 18",
         "Điều 584",
-        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 590"
+        "Điều 18",
+        "Điều 590",
+        "Điều 6"
       ],
       "status": "Đạt"
     },
@@ -6800,10 +6803,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP",
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 16",
+        "Điều 9",
         "Điều 7"
       ],
       "status": "Đạt"
@@ -6843,10 +6846,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Nghị định 282/2025/NĐ-CP",
         "Điều 8",
         "Điều 35",
-        "Nghị định 168/2024/NĐ-CP",
         "Điều 9",
         "Điều 7"
       ],
@@ -6940,8 +6943,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự an toàn giao thông đường bộ",
-        "Điều 57"
+        "Điều 57",
+        "Luật Trật tự an toàn giao thông đường bộ"
       ],
       "status": "Đạt"
     },
@@ -6980,8 +6983,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -7010,8 +7013,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -7040,8 +7043,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -7065,8 +7068,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -7090,8 +7093,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -7120,8 +7123,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -7206,10 +7209,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 56",
         "Điều 2",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 35"
+        "Điều 35",
+        "Điều 56"
       ],
       "status": "Đạt"
     },
@@ -7268,8 +7271,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -7298,8 +7301,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -7329,8 +7332,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -7358,8 +7361,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 10",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -7387,8 +7390,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 26",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -7412,8 +7415,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -7455,10 +7458,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Điều 6",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 11",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -7494,9 +7497,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -7528,9 +7531,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 14",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -7558,9 +7561,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 9",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -7594,9 +7597,9 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 7",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 12",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -7623,8 +7626,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -7661,9 +7664,9 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Luật Trật tự, an toàn giao thông đường bộ",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 11",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -7695,9 +7698,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 12",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -7724,8 +7727,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -7755,9 +7758,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 9",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -7785,9 +7788,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 9",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -7819,8 +7822,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 10",
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
@@ -7848,9 +7851,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 32",
-        "Điều 11",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -7878,9 +7881,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 32",
-        "Điều 11",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -7914,9 +7917,9 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 7",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 12",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -7943,8 +7946,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 6",
         "Điều 10",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
         "Điều 12"
       ],
@@ -8009,10 +8012,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Điều 7",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 9",
+        "Điều 12",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -8065,8 +8068,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 5",
-        "Điều 18"
+        "Điều 18",
+        "Điều 5"
       ],
       "status": "Đạt"
     },
@@ -8097,10 +8100,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Điều 7",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 9",
+        "Điều 12",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -8128,9 +8131,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
+        "Điều 8",
         "Điều 32",
-        "Điều 8"
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -8156,8 +8159,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 32",
-        "Điều 8"
+        "Điều 8",
+        "Điều 32"
       ],
       "status": "Đạt"
     },
@@ -8196,11 +8199,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Điều 12",
         "Điều 5",
-        "Điều 39",
-        "Luật Đường bộ",
         "Điều 10",
-        "Điều 12"
+        "Điều 39",
+        "Luật Đường bộ"
       ],
       "status": "Đạt"
     },
@@ -8244,11 +8247,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 11",
-        "Điều 32",
-        "Điều 9",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 16"
+        "Điều 32",
+        "Điều 16",
+        "Điều 11",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -8275,9 +8278,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 35"
+        "Điều 35",
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -8308,9 +8311,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 35"
+        "Điều 35",
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -8337,9 +8340,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 9",
-        "Điều 13",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -8377,10 +8380,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Điều 13",
+        "Điều 3",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 3"
+        "Điều 9",
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -8409,11 +8412,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 35",
-        "Điều 13",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 32",
-        "Điều 9",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 13",
+        "Điều 35",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -8447,11 +8450,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 35",
-        "Điều 13",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 32",
-        "Điều 9",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 13",
+        "Điều 35",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -8496,9 +8499,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 9",
-        "Điều 13",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -8525,9 +8528,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 14",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 35"
+        "Điều 35",
+        "Điều 14"
       ],
       "status": "Đạt"
     },
@@ -8590,9 +8593,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
+        "Điều 3",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 3"
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -8626,9 +8629,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 56",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 35"
+        "Điều 35",
+        "Điều 56"
       ],
       "status": "Đạt"
     },
@@ -8667,10 +8670,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Điều 35",
+        "Điều 3",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 3"
+        "Điều 35",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -8704,8 +8707,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -8747,10 +8750,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
         "Luật Đường bộ",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 9",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -8783,10 +8786,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 56",
-        "Điều 32",
         "Điều 18",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 32",
+        "Điều 56"
       ],
       "status": "Đạt"
     },
@@ -8822,13 +8825,13 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 12",
+        "QCVN 41",
         "Điều 14",
         "Điều 13",
-        "Nghị định 168/2024/NĐ-CP",
-        "QCVN 41",
-        "Điều 7",
-        "Điều 6"
+        "Điều 6",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -8900,9 +8903,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 8",
         "Điều 9",
-        "Nghị định 168/2024/NĐ-CP",
         "Điều 12"
       ],
       "status": "Đạt"
@@ -8986,13 +8989,13 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 18",
         "Điều 584",
-        "Điều 589",
-        "Điều 601",
+        "Điều 12",
         "Điều 585",
+        "Điều 589",
+        "Điều 18",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 12"
+        "Điều 601"
       ],
       "status": "Đạt"
     },
@@ -9028,8 +9031,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 10",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -9148,10 +9151,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 158/2024/NĐ-CP",
-        "Điều 25",
-        "Luật Đường bộ",
         "Điều 3",
+        "Điều 25",
+        "Nghị định 158/2024/NĐ-CP",
+        "Luật Đường bộ",
         "Điều 56"
       ],
       "status": "Đạt"
@@ -9231,8 +9234,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 10",
-        "Điều 7",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -9275,11 +9278,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 57",
+        "Điều 12",
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "Thông tư 108/2026/TT-BCA",
-        "Điều 12"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -9313,12 +9316,12 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 5",
-        "Điều 18",
         "Nghị định 168/2024/NĐ-CP",
+        "Điều 5",
+        "Điều 12",
+        "Điều 18",
         "Điều 9",
-        "Điều 7",
-        "Điều 12"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -9351,11 +9354,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 26",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 7",
-        "Điều 6"
+        "Điều 26",
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 6",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -9407,16 +9410,16 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Thông tư 73/2024/TT-BCA",
-        "Điều 11",
-        "Điều 5",
-        "Luật Phòng, chống tác hại của rượu, bia",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 9",
+        "Điều 5",
+        "Thông tư 73/2024/TT-BCA",
         "Điều 21",
+        "Luật Phòng, chống tác hại của rượu, bia",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 7",
-        "Điều 6"
+        "Điều 6",
+        "Điều 11",
+        "Điều 9",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -9460,12 +9463,12 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Thông tư 73/2024/TT-BCA",
         "Điều 18",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 56",
-        "Điều 6"
+        "Điều 6",
+        "Điều 56"
       ],
       "status": "Đạt"
     },
@@ -9502,8 +9505,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 2",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -9535,8 +9538,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 2",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 6",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -9577,9 +9580,9 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Điều 13",
+        "Điều 3",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 3"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -9625,9 +9628,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
+        "Điều 3",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 3"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -9668,9 +9671,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
+        "Điều 3",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 3"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -9701,9 +9704,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
+        "Điều 3",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 3"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -9734,9 +9737,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 4",
-        "Điều 14",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 14"
       ],
       "status": "Đạt"
     },
@@ -9767,9 +9770,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 4",
-        "Điều 14",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 14"
       ],
       "status": "Đạt"
     },
@@ -9795,8 +9798,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 5",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 5"
       ],
       "status": "Đạt"
     },
@@ -9832,8 +9835,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 5",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 5"
       ],
       "status": "Đạt"
     },
@@ -9912,8 +9915,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -9949,8 +9952,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -9991,8 +9994,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -10028,8 +10031,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -10065,8 +10068,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -10113,8 +10116,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 20",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -10161,8 +10164,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 20",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -10209,8 +10212,8 @@
       "reciprocal_rank": 0.5,
       "matched_citations": [
         "Điều 20",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -10251,8 +10254,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -10298,8 +10301,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -10340,8 +10343,8 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -10383,8 +10386,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 20",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -10431,8 +10434,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 20",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -10479,8 +10482,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 20",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -10527,8 +10530,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 20",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -10570,8 +10573,8 @@
       "reciprocal_rank": 0.5,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -10613,8 +10616,8 @@
       "reciprocal_rank": 0.5,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -10646,8 +10649,8 @@
       "reciprocal_rank": 0.5,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -10694,8 +10697,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -10737,8 +10740,8 @@
       "reciprocal_rank": 0.5,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -10785,8 +10788,8 @@
       "reciprocal_rank": 0.5,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -10828,8 +10831,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -10871,8 +10874,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -10919,8 +10922,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -10962,8 +10965,8 @@
       "reciprocal_rank": 0.5,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -11005,8 +11008,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -11048,8 +11051,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -11086,8 +11089,8 @@
       "reciprocal_rank": 0.5,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -11124,8 +11127,8 @@
       "reciprocal_rank": 0.5,
       "matched_citations": [
         "Điều 21",
-        "Điều 8",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 8"
       ],
       "status": "Đạt"
     },
@@ -11213,8 +11216,8 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Điều 38",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 38"
       ],
       "status": "Đạt"
     },
@@ -11243,8 +11246,8 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Điều 38",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 38"
       ],
       "status": "Đạt"
     },
@@ -11353,9 +11356,9 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
+        "Điều 12",
         "Điều 56",
-        "Điều 14",
-        "Điều 12"
+        "Điều 14"
       ],
       "status": "Đạt"
     },
@@ -11450,9 +11453,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Điều 6",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -11483,9 +11486,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "QCVN 41",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -11572,8 +11575,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "QCVN 41",
-        "Điều 12"
+        "Điều 12",
+        "QCVN 41"
       ],
       "status": "Đạt"
     },
@@ -11644,12 +11647,12 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 11",
         "Nghị định 168/2024/NĐ-CP",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 21",
-        "Điều 7",
-        "Điều 6"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 6",
+        "Điều 11",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -11700,12 +11703,12 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Nghị định 238/2026/NĐ-CP",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP",
         "Điều 260",
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 6",
         "Bộ luật Hình sự",
-        "Điều 7",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -11741,8 +11744,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 32",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 32"
       ],
       "status": "Đạt"
     },
@@ -11956,10 +11959,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 21",
         "Điều 57",
         "Điều 18",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 21"
       ],
       "status": "Đạt"
     },
@@ -12065,9 +12068,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
+        "Điều 6",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 6"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -12103,10 +12106,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Điều 6",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 14",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 14"
       ],
       "status": "Đạt"
     },
@@ -12169,9 +12172,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "QCVN 41",
         "Điều 18",
         "Nghị định 168/2024/NĐ-CP",
+        "QCVN 41",
         "Điều 6"
       ],
       "status": "Đạt"
@@ -12216,9 +12219,9 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 13",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 32",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -12252,10 +12255,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 32",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP",
         "Điều 21",
+        "Điều 32",
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 7"
       ],
       "status": "Đạt"
@@ -12354,8 +12357,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 18",
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP",
         "Điều 6"
       ],
@@ -12416,8 +12419,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "QCVN 41",
-        "Điều 12"
+        "Điều 12",
+        "QCVN 41"
       ],
       "status": "Đạt"
     },
@@ -12449,11 +12452,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 14",
-        "Điều 13",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 12"
+        "Điều 12",
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 14",
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -12536,8 +12539,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 6"
+        "Điều 6",
+        "Luật Trật tự, an toàn giao thông đường bộ"
       ],
       "status": "Đạt"
     },
@@ -12586,8 +12589,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 1",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 1"
       ],
       "status": "Đạt"
     },
@@ -12827,8 +12830,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 3"
+        "Điều 3",
+        "Luật Trật tự, an toàn giao thông đường bộ"
       ],
       "status": "Đạt"
     },
@@ -12857,8 +12860,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 4",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 4"
       ],
       "status": "Đạt"
     },
@@ -12887,8 +12890,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 5",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 5"
       ],
       "status": "Đạt"
     },
@@ -12917,8 +12920,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 6"
+        "Điều 6",
+        "Luật Trật tự, an toàn giao thông đường bộ"
       ],
       "status": "Đạt"
     },
@@ -13001,8 +13004,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 11",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -13061,8 +13064,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -13087,8 +13090,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -13216,8 +13219,8 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Điều 20",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 20"
       ],
       "status": "Đạt"
     },
@@ -13375,8 +13378,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 26"
+        "Điều 26",
+        "Luật Trật tự, an toàn giao thông đường bộ"
       ],
       "status": "Đạt"
     },
@@ -13550,8 +13553,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 32",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 32"
       ],
       "status": "Đạt"
     },
@@ -13727,8 +13730,8 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Điều 38",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 38"
       ],
       "status": "Đạt"
     },
@@ -13919,8 +13922,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 47",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 47"
       ],
       "status": "Đạt"
     },
@@ -14089,8 +14092,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 56",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 56"
       ],
       "status": "Đạt"
     },
@@ -14712,13 +14715,13 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 18",
-        "Điều 56",
+        "Điều 57",
         "Nghị định 168/2024/NĐ-CP",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 21",
+        "Điều 18",
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 4",
-        "Điều 57"
+        "Điều 56"
       ],
       "status": "Đạt"
     },
@@ -14754,11 +14757,11 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 12",
         "Điều 18",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Nghị định 168/2024/NĐ-CP",
-        "Điều 56",
-        "Điều 12"
+        "Điều 56"
       ],
       "status": "Đạt"
     },
@@ -14880,17 +14883,17 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Thông tư 73/2024/TT-BCA",
-        "Điều 11",
-        "Điều 18",
-        "Điều 5",
-        "Điều 6",
-        "Điều 26",
         "Nghị định 168/2024/NĐ-CP",
-        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 12",
+        "Điều 5",
+        "Thông tư 73/2024/TT-BCA",
         "Điều 56",
-        "Điều 7",
-        "Điều 12"
+        "Điều 26",
+        "Điều 18",
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 6",
+        "Điều 11",
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -14959,9 +14962,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 9",
-        "Điều 7",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -15134,10 +15137,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 56",
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 58",
-        "Nghị định 168/2024/NĐ-CP"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 56"
       ],
       "status": "Đạt"
     },
@@ -15190,8 +15193,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
-        "Thông tư 79/2024/TT-BCA"
+        "Thông tư 79/2024/TT-BCA",
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -15252,9 +15255,9 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Điều 21",
-        "Điều 56",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 56"
       ],
       "status": "Đạt"
     },
@@ -15575,8 +15578,8 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Điều 20",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 20"
       ],
       "status": "Đạt"
     },
@@ -15710,8 +15713,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 26"
+        "Điều 26",
+        "Luật Trật tự, an toàn giao thông đường bộ"
       ],
       "status": "Đạt"
     },
@@ -16217,9 +16220,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -16246,9 +16249,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 7",
+        "Điều 6",
         "Nghị định 168/2024/NĐ-CP",
-        "Điều 6"
+        "Điều 7"
       ],
       "status": "Đạt"
     },
@@ -16517,8 +16520,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 32",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 32"
       ],
       "status": "Đạt"
     },
@@ -16875,8 +16878,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -16948,8 +16951,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -16988,8 +16991,8 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Điều 11",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -17131,8 +17134,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 3"
+        "Điều 3",
+        "Luật Trật tự, an toàn giao thông đường bộ"
       ],
       "status": "Đạt"
     },
@@ -17219,8 +17222,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 3"
+        "Điều 3",
+        "Luật Trật tự, an toàn giao thông đường bộ"
       ],
       "status": "Đạt"
     },
@@ -17249,8 +17252,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 3"
+        "Điều 3",
+        "Luật Trật tự, an toàn giao thông đường bộ"
       ],
       "status": "Đạt"
     },
@@ -17331,8 +17334,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Đường bộ",
         "Điều 2",
+        "Luật Đường bộ",
         "Điều 26"
       ],
       "status": "Đạt"
@@ -17424,10 +17427,10 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 9",
         "Luật Trật tự, an toàn giao thông đường bộ",
+        "Nghị định 168/2024/NĐ-CP",
         "Điều 5",
-        "Nghị định 168/2024/NĐ-CP"
+        "Điều 9"
       ],
       "status": "Đạt"
     },
@@ -17493,8 +17496,8 @@
       "reciprocal_rank": 1.0,
       "matched_citations": [
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 11",
-        "QCVN 41"
+        "QCVN 41",
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -17558,9 +17561,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "QCVN 41",
-        "Điều 11",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -17589,8 +17592,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 11",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -18021,8 +18024,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 11",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Điều 11"
       ],
       "status": "Đạt"
     },
@@ -18080,8 +18083,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -18132,8 +18135,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 14",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 14"
       ],
       "status": "Đạt"
     },
@@ -18162,8 +18165,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 14",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 14"
       ],
       "status": "Đạt"
     },
@@ -18592,8 +18595,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Đường sắt",
-        "Nghị định 168/2024/NĐ-CP"
+        "Nghị định 168/2024/NĐ-CP",
+        "Luật Đường sắt"
       ],
       "status": "Đạt"
     },
@@ -18791,8 +18794,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 14",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 14"
       ],
       "status": "Đạt"
     },
@@ -18885,8 +18888,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
         "Điều 26",
+        "Luật Trật tự, an toàn giao thông đường bộ",
         "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
@@ -18921,8 +18924,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 26"
+        "Điều 26",
+        "Luật Trật tự, an toàn giao thông đường bộ"
       ],
       "status": "Đạt"
     },
@@ -19049,8 +19052,8 @@
       "rank": 2,
       "reciprocal_rank": 0.5,
       "matched_citations": [
-        "Thông tư 108/2026/TT-BCA",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Thông tư 108/2026/TT-BCA"
       ],
       "status": "Đạt"
     },
@@ -19464,8 +19467,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 56",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 56"
       ],
       "status": "Đạt"
     },
@@ -19489,8 +19492,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 56",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 56"
       ],
       "status": "Đạt"
     },
@@ -19956,8 +19959,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Thông tư 38/2024/TT-BGTVT",
-        "Điều 8"
+        "Điều 8",
+        "Thông tư 38/2024/TT-BGTVT"
       ],
       "status": "Đạt"
     },
@@ -20173,9 +20176,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Thông tư 38/2024/TT-BGTVT",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 12"
+        "Điều 12",
+        "Thông tư 38/2024/TT-BGTVT"
       ],
       "status": "Đạt"
     },
@@ -20545,8 +20548,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 47",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Điều 47"
       ],
       "status": "Đạt"
     },
@@ -20928,8 +20931,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Nghị định 168/2024/NĐ-CP",
-        "Luật Trật tự, an toàn giao thông đường bộ"
+        "Luật Trật tự, an toàn giao thông đường bộ",
+        "Nghị định 168/2024/NĐ-CP"
       ],
       "status": "Đạt"
     },
@@ -21945,9 +21948,9 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Điều 13",
         "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 12"
+        "Điều 12",
+        "Điều 13"
       ],
       "status": "Đạt"
     },
@@ -21981,8 +21984,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 26"
+        "Điều 26",
+        "Luật Trật tự, an toàn giao thông đường bộ"
       ],
       "status": "Đạt"
     },
@@ -22016,8 +22019,8 @@
       "rank": 1,
       "reciprocal_rank": 1.0,
       "matched_citations": [
-        "Luật Trật tự, an toàn giao thông đường bộ",
-        "Điều 26"
+        "Điều 26",
+        "Luật Trật tự, an toàn giao thông đường bộ"
       ],
       "status": "Đạt"
     }
