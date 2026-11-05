@@ -32,9 +32,12 @@ class LegalRAGPipeline:
     # Ngưỡng tương đồng chuẩn hóa an toàn để vượt qua Cổng kiểm soát (Threshold Gate)
     RELEVANCE_THRESHOLD = 0.45
 
-    # Danh mục từ khóa nhận diện câu hỏi ngoài luồng (Domain Guardrail)
+    # Danh mục từ khóa nhận diện câu hỏi ngoài luồng (Domain Guardrail - Tầng 1)
     OUT_OF_DOMAIN_KEYWORDS = [
-        
+        "thời tiết", "nấu ăn", "công thức nấu", "món ăn", "bài thơ", "làm thơ", 
+        "lập trình", "viết code", "bóng đá", "tình yêu", "tâm sự", "chữa bệnh", 
+        "thuốc uống", "bác sĩ", "chứng khoán", "tiền ảo", "bitcoin", "bất động sản", 
+        "mua nhà", "du lịch", "xem bói", "tử vi", "ca sĩ", "diễn viên"
     ]
 
     # Danh mục từ khóa nghiệp vụ giao thông để tránh chặn nhầm (Compound Logic)
@@ -107,11 +110,11 @@ class LegalRAGPipeline:
         """
         Thực hiện toàn bộ quy trình RAG:
         1. Guard Clause: Chặn câu hỏi rỗng.
-        2. Tầng 1: Domain Intent Guardrail (Chặn câu hỏi thời tiết, nấu ăn... < 5ms).
+        2. Tầng 1: Domain Intent Guardrail (Chặn câu hỏi ngoài luồng rõ rệt mà không phụ thuộc similarity).
         3. Query Normalizer (Nhóm 1).
         4. Hybrid Retrieval (Nhóm 2).
         5. Tầng 2: Relevance Threshold Gate & Fast-Exit (Nhóm 3).
-        6. Dynamic Chunk Pruning (Nhóm 3).
+        6. Dynamic Chunk Pruning & Context Budget (Nhóm 3).
         7. Ghép Prompt CoT (Nhóm 4).
         8. Sinh câu trả lời qua LLM Engine (Nhóm 5).
         9. Hậu xử lý làm sạch văn bản (Post-processing cleaner).
@@ -122,7 +125,7 @@ class LegalRAGPipeline:
 
         lower_q = str(query).lower()
 
-        # TẦNG 1: DOMAIN INTENT GUARDRAIL (Chặn câu hỏi ngoài luồng rõ rệt mà không phụ thuộc similarity)
+        # TẦNG 1: DOMAIN INTENT GUARDRAIL (Chặn câu hỏi ngoài luồng rõ rệt < 5ms mà không cần truy vấn DB)
         # Sử dụng Compound Logic: Chỉ chặn khi có từ ngoài luồng VÀ KHÔNG chứa từ khóa giao thông
         is_matched_ood = any(ood in lower_q for ood in self.OUT_OF_DOMAIN_KEYWORDS)
         is_traffic_related = any(kw in lower_q for kw in self.TRAFFIC_DOMAIN_KEYWORDS)
@@ -161,13 +164,15 @@ class LegalRAGPipeline:
                 "sources": []
             }
 
-        # 3. Dynamic Chunk Pruning: Cắt tỉa các chunk ở đuôi bị loãng điểm
+        # 3. Dynamic Chunk Pruning & Context Budget: Cắt tỉa các chunk loãng điểm, giới hạn Top 3 phù hợp nhất
         pruned_sources = [
             s for s in raw_sources 
             if s.get("score", 0.0) >= 0.35 and s.get("score", 0.0) >= (top_score * 0.65)
         ]
         if not pruned_sources:
             pruned_sources = raw_sources[:1]
+        elif len(pruned_sources) > 3:
+            pruned_sources = pruned_sources[:3]
 
         # 4. Khử trùng an toàn (Sanitize): Làm sạch mã độc HTML/Script
         safe_query = TextCleaner.sanitize_text(query)

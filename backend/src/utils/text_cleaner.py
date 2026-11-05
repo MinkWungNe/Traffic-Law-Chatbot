@@ -142,10 +142,6 @@ class TextCleaner:
         cleaned = cleaned.replace("miligam/00", "miligam/100")
         cleaned = cleaned.replace("GPLB", "GPLX")
 
-        # 2. Xóa các chuỗi tiếng Anh rác do hallucination
-        cleaned = re.sub(r"(?i)\s*bạn\s+KHÔNG\s+ĐƯỢC\s+DRIVING\s+MÁY[^\.\n]*", "", cleaned)
-        cleaned = re.sub(r"(?i)\bDRIVING\s+MÁY[^\.\n]*", "", cleaned)
-
         return cleaned.strip()
 
 if __name__ == "__main__":
