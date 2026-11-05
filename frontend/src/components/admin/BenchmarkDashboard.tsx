@@ -682,8 +682,11 @@ export const BenchmarkDashboard: React.FC = () => {
                         </td>
                         <td className="py-3 px-4">
                           <div className="flex flex-wrap gap-1 max-w-[240px]">
-                            {(item.retrieved_sources || []).slice(0, 2).map((src, idx) => {
-                              const srcName = typeof src === "string" ? src : (src as any).source || (src as any).document;
+                            {(((item.retrieved_sources && item.retrieved_sources.length > 0)
+                              ? item.retrieved_sources
+                              : (item.retrieved_docs || []).map((d: any) => typeof d === "string" ? d : d.title || "Tài liệu")
+                            ) || []).slice(0, 2).map((src, idx) => {
+                              const srcName = typeof src === "string" ? src : (src as any).title || (src as any).source || (src as any).document;
                               const isMatch = item.ground_truth_citations?.some((gt) =>
                                 gt.toLowerCase().includes(srcName?.toLowerCase() || "")
                               );
@@ -701,9 +704,9 @@ export const BenchmarkDashboard: React.FC = () => {
                                 </span>
                               );
                             })}
-                            {(item.retrieved_sources?.length || 0) > 2 && (
+                            {Math.max(item.retrieved_sources?.length || 0, item.retrieved_docs?.length || 0) > 2 && (
                               <span className="text-[10px] text-slate-400 font-mono">
-                                +{(item.retrieved_sources?.length || 0) - 2}
+                                +{Math.max(item.retrieved_sources?.length || 0, item.retrieved_docs?.length || 0) - 2}
                               </span>
                             )}
                           </div>
@@ -834,8 +837,11 @@ export const BenchmarkDashboard: React.FC = () => {
                     Căn cứ RAG đã truy xuất (Top-K):
                   </span>
                   <div className="flex flex-col gap-1.5 p-3 rounded-xl bg-slate-50 border border-slate-200 min-h-[120px]">
-                    {(selectedItem.retrieved_sources || []).map((src, idx) => {
-                      const srcName = typeof src === "string" ? src : (src as any).source || (src as any).document;
+                    {(((selectedItem.retrieved_sources && selectedItem.retrieved_sources.length > 0)
+                      ? selectedItem.retrieved_sources
+                      : (selectedItem.retrieved_docs || []).map((d: any) => typeof d === "string" ? d : d.title || "Tài liệu")
+                    ) || []).map((src, idx) => {
+                      const srcName = typeof src === "string" ? src : (src as any).title || (src as any).source || (src as any).document;
                       const isMatch = selectedItem.ground_truth_citations?.some((gt) =>
                         gt.toLowerCase().includes(srcName?.toLowerCase() || "")
                       );

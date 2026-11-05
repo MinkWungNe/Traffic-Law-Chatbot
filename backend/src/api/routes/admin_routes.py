@@ -328,13 +328,18 @@ def _get_validated_benchmark_data() -> dict:
     for item in raw_results:
         hit = float(item.get("hit", 0))
         first_rank = int(item.get("first_rank", item.get("rank", 0)))
+        retrieved_docs = item.get("retrieved_docs", [])
+        retrieved_sources = item.get("retrieved_sources") or [
+            doc.get("title", "") for doc in retrieved_docs
+            if isinstance(doc, dict) and doc.get("title")
+        ]
         normalized_results.append({
             "id": item.get("id"),
             "question": item.get("question", ""),
             "ground_truth_answer": item.get("ground_truth_answer"),
             "ground_truth_citations": item.get("ground_truth_citations", []),
-            "retrieved_sources": item.get("retrieved_sources", []),
-            "retrieved_docs": item.get("retrieved_docs", []),
+            "retrieved_sources": retrieved_sources,
+            "retrieved_docs": retrieved_docs,
             "hit": hit,
             "recall": float(item.get("recall", 0.0)),
             "first_rank": first_rank,
