@@ -1,5 +1,9 @@
 import { Citation, UserProfile, SessionItem, AuditLogItem } from "@/types/chat";
-import { BenchmarkReportResponse } from "@/types/benchmark";
+import {
+  BenchmarkReportResponse,
+  BenchmarkSummaryResponse,
+  BenchmarkSamplesResponse,
+} from "@/types/benchmark";
 import { getAuthToken } from "@/stores/useAuthStore";
 
 export const BACKEND_BASE_URL =
@@ -349,7 +353,7 @@ export const adminApi = {
 // ==============================================================================
 export const benchmarkApi = {
   /**
-   * Lấy kết quả benchmark mới nhất từ backend
+   * Lấy kết quả benchmark đầy đủ từ backend
    */
   async getResults(): Promise<BenchmarkReportResponse> {
     const res = await fetch(`${BACKEND_BASE_URL}/api/admin/benchmark/results`, {
@@ -360,6 +364,54 @@ export const benchmarkApi = {
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({}));
       throw new Error(errorData.detail || `Lỗi khi tải dữ liệu benchmark (Mã: ${res.status})`);
+    }
+
+    return res.json();
+  },
+
+  /**
+   * Lấy nhanh chỉ số KPI tổng hợp và chất lượng RAGAS
+   */
+  async getLatest(): Promise<BenchmarkSummaryResponse> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/admin/benchmark/latest`, {
+      method: "GET",
+      headers: getAuthHeaders(),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.detail || `Lỗi khi tải tóm tắt benchmark (Mã: ${res.status})`);
+    }
+
+    return res.json();
+  },
+
+  /**
+   * Lấy danh sách mẫu kiểm thử có phân trang và bộ lọc
+   */
+  async getSamples(
+    page = 1,
+    limit = 20,
+    status = "all",
+    search = ""
+  ): Promise<BenchmarkSamplesResponse> {
+    const query = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+      status: status,
+    });
+    if (search.trim()) {
+      query.append("search", search.trim());
+    }
+
+    const res = await fetch(`${BACKEND_BASE_URL}/api/admin/benchmark/samples?${query.toString()}`, {
+      method: "GET",
+      headers: getAuthHeaders(),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.detail || `Lỗi khi tải danh sách kiểm thử (Mã: ${res.status})`);
     }
 
     return res.json();

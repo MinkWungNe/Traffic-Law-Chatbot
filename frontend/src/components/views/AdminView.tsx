@@ -535,7 +535,7 @@ export const AdminView: React.FC = () => {
 
           {/* TAB 3: BÁO CÁO ĐO LƯỜNG CHẤT LƯỢNG AI */}
           {currentTab === "benchmark" && (
-            <div className="flex-1 overflow-y-auto pr-1 min-h-0">
+            <div id="benchmark-scroll-container" className="flex-1 overflow-y-auto pr-1 min-h-0 scroll-smooth">
               <BenchmarkDashboard />
             </div>
           )}
