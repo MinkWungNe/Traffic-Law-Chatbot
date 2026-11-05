@@ -117,6 +117,37 @@ class TextCleaner:
         return list(dict.fromkeys(matches))
 
 
+    @staticmethod
+    def clean_llm_output(text: str) -> str:
+        """
+        Làm sạch các lỗi giải mã token thường gặp ở mô hình ngôn ngữ lượng tử hóa:
+        - Sửa 'miliga/dmlà00' hoặc 'miliga/dmlà(\d+)' -> 'miligam/\1'
+        - Sửa 'dmlà(\d+)' -> '/\1'
+        - Xóa các cụm tiếng Anh rác do model sinh hallucination khi out-of-context.
+        """
+        if not text or not isinstance(text, str):
+            return ""
+
+        # 1. Sửa lỗi giải mã UTF-8 ký tự /100 của nồng độ cồn
+        cleaned = text
+        cleaned = re.sub(r"miligam/00\b", "miligam/100", cleaned)
+        cleaned = re.sub(r"/00\s*mililít", "/100 mililít", cleaned)
+        cleaned = re.sub(r"\b00\s+mililít\b", "100 mililít", cleaned)
+        cleaned = re.sub(r"miliga/dmlà(\d+)", r"miligam/\1", cleaned)
+        cleaned = re.sub(r"miliga/(\d+)", r"miligam/\1", cleaned)
+        cleaned = re.sub(r"dmlà(\d+)", r"/\1", cleaned)
+        cleaned = cleaned.replace("miliga/dmlà00", "miligam/100")
+        cleaned = cleaned.replace("dmlà00", "100")
+        cleaned = cleaned.replace("miliga/100", "miligam/100")
+        cleaned = cleaned.replace("miligam/00", "miligam/100")
+        cleaned = cleaned.replace("GPLB", "GPLX")
+
+        # 2. Xóa các chuỗi tiếng Anh rác do hallucination
+        cleaned = re.sub(r"(?i)\s*bạn\s+KHÔNG\s+ĐƯỢC\s+DRIVING\s+MÁY[^\.\n]*", "", cleaned)
+        cleaned = re.sub(r"(?i)\bDRIVING\s+MÁY[^\.\n]*", "", cleaned)
+
+        return cleaned.strip()
+
 if __name__ == "__main__":
     import sys
 
