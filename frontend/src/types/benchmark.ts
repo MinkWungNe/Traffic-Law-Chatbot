@@ -35,7 +35,7 @@ export interface BenchmarkQueryItem {
     document?: string;
     source?: string;
     score?: number;
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
   }>;
   hit: number;
   recall: number;

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { LEGAL_DOCUMENTS, LegalDocItem } from "@/data/legalDocuments";
+import { LEGAL_DOCUMENTS } from "@/data/legalDocuments";
 import { useChatStore } from "@/stores/useChatStore";
 import {
   Search,
@@ -98,6 +98,8 @@ const STATS = {
   quyChuan: LEGAL_DOCUMENTS.filter((d) => d.category === "quy-chuan").length,
 };
 
+// NOTE (Kiến trúc đồ án): Dữ liệu văn bản pháp luật được nạp tĩnh từ frontend/src/data/legalDocuments.ts
+// nhằm tối ưu hóa tốc độ tải trang (Zero Latency) và tập trung tài nguyên Backend cho RAG Chatbot.
 export const LegalDocsView: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState<string>("all");
@@ -172,7 +174,7 @@ export const LegalDocsView: React.FC = () => {
       <div className="max-w-7xl w-full mx-auto flex flex-col gap-3 flex-1 min-h-0">
         
         {/* ========================================================================= */}
-        {/* HEADER NẰM NGOÀI, ĐƯA VÀO CHÍNH GIỮA                                      */}
+        {/* HEADER NẰM                                                                */}
         {/* ========================================================================= */}
         <header className="w-full text-center py-0.5">
           <h1 className="text-2xl font-extrabold text-primary-navy tracking-tight">
@@ -185,9 +187,9 @@ export const LegalDocsView: React.FC = () => {
         {/* ========================================================================= */}
         <div className="w-full bg-white/70 rounded-2xl border border-slate-200/80 shadow-md p-4 flex flex-col gap-3.5 flex-1 min-h-0">
           
-          {/* CỤM THANH TÌM KIẾM & BỘ CHUYỂN VIEW NẰM CÙNG MỘT HÀNG */}
+          {/* CỤM THANH TÌM KIẾM & BỘ CHUYỂN VIEW */}
           <div className="flex items-center gap-2.5">
-            {/* Search Input Box with Spotlight Border (Không tạo style object mới khi render) */}
+            {/* Search Input Box with Spotlight Border */}
             <div className="spotlight-border relative flex-1 flex items-center bg-white rounded-lg border border-slate-200 focus-within:border-primary-navy/40 transition-colors [--glow-color:#94A3B8] [--glow-size:240px]">
               <Search size={17} className="absolute left-3.5 text-slate-400 pointer-events-none shrink-0" />
               <input
@@ -210,7 +212,7 @@ export const LegalDocsView: React.FC = () => {
               )}
             </div>
 
-            {/* View Mode Switcher đặt bên phải thanh tìm kiếm */}
+            {/* View Mode Switcher */}
             <div className="flex items-center gap-1 shrink-0 bg-slate-100/80 p-1 rounded-lg border border-slate-200/80">
               <button
                 type="button"
@@ -289,7 +291,7 @@ export const LegalDocsView: React.FC = () => {
             /* ======================== CHẾ ĐỘ SPLIT MASTER-DETAIL ================== */
             <div className="grid grid-cols-12 gap-2 flex-1 items-start min-h-0">
               
-              {/* CỘT TRÁI: DANH SÁCH MỤC LỤC MASTER (Sử dụng button chuẩn A11y & spotlight-border) */}
+              {/* CỘT TRÁI: DANH SÁCH MỤC LỤC MASTER */}
               <div className="col-span-5 flex flex-col gap-2.5 h-[calc(100vh-215px)] overflow-y-auto pl-2 pr-1.5 py-1">
                 {filteredDocs.map((doc) => {
                   const isSelected = selectedDoc.id === doc.id;
@@ -300,6 +302,7 @@ export const LegalDocsView: React.FC = () => {
                       onClick={() => {
                         setSelectedDocId(doc.id);
                       }}
+                      role="tab"
                       aria-selected={isSelected}
                       className={`w-full text-left block p-3.5 rounded-xl border transition-all cursor-pointer relative group bg-white spotlight-border ${
                         isSelected
@@ -361,7 +364,7 @@ export const LegalDocsView: React.FC = () => {
                   <div className="p-8 text-center bg-white rounded-xl border border-dashed border-slate-300 flex flex-col items-center">
                     <FileQuestion size={40} className="text-slate-300 mb-2" />
                     <p className="text-sm font-semibold text-slate-700">Không tìm thấy văn bản phù hợp</p>
-                    <p className="text-xs text-slate-500 mt-1">Thử đổi từ khóa hoặc bấm nút "Tất cả" để xem toàn bộ danh mục.</p>
+                    <p className="text-xs text-slate-500 mt-1">Thử đổi từ khóa hoặc bấm nút &quot;Tất cả&quot; để xem toàn bộ danh mục.</p>
                   </div>
                 )}
               </div>
@@ -403,7 +406,7 @@ export const LegalDocsView: React.FC = () => {
                     </h2>
                   )}
 
-                  {/* Thanh Metadata phẳng (Flat Metadata Strip) - Toàn chiều ngang, ngăn cách bằng khoảng trắng */}
+                  {/* Thanh Metadata */}
                   <div className="flex items-center gap-5 text-[12px] text-slate-500 pt-1 flex-wrap">
                     {/* Số hiệu chính + Micro Copy Icon */}
                     <div className="flex items-center gap-1 font-mono font-bold text-slate-800 shrink-0">

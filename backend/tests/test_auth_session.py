@@ -36,7 +36,17 @@ def test_crypto_primitives():
     assert decrypted == plain_text
 
 
-def test_admin_and_member_lifecycle(client):
+def test_admin_and_member_lifecycle(client, monkeypatch):
+    from backend.src.api.routes import chat_routes
+    monkeypatch.setattr(
+        chat_routes.rag_pipeline,
+        "answer_question",
+        lambda query, top_k=3, temperature=0.2: {
+            "answer": "Tốc độ tối đa trên đường cao tốc là 120km/h.",
+            "sources": [{"title": "Thông tư 31/2019/TT-BGTVT", "snippet": "Điều 9", "score": 0.9}]
+        }
+    )
+
     # 1. Đăng nhập Admin
     admin_login = client.post("/api/auth/login", json={"email": "admin@vinalaw.vn", "password": "Admin@2026"})
     assert admin_login.status_code == 200

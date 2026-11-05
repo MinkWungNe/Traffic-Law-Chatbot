@@ -52,8 +52,10 @@ export const LoginView: React.FC = () => {
         await loadSessions();
         setActiveTab("chat");
       }
-    } catch (err: any) {
-      setErrorMessage(err.message || "Đã xảy ra lỗi trong quá trình xác thực.");
+    } catch (err: unknown) {
+      const message = (err as Error)?.message || "Đã xảy ra lỗi trong quá trình xác thực.";
+      setErrorMessage(message);
+      
     } finally {
       setIsSubmitting(false);
     }
@@ -62,21 +64,21 @@ export const LoginView: React.FC = () => {
   return (
     <div className="fixed inset-0 w-screen h-screen overflow-hidden select-none font-sans bg-text-muted z-50">
       {/* LAYER 1: Right-aligned Background Image */}
-      <div className="absolute top-0 right-0 bottom-0 h-full pointer-events-none hidden lg:flex items-center justify-end overflow-hidden z-0 w-[calc(100vw-530px)]">
+      <div className="absolute top-0 right-0 bottom-0 h-full pointer-events-none flex items-center justify-end overflow-hidden z-0 w-[calc(100vw-530px)]">
         <div
           className="absolute inset-0 w-full h-full bg-cover bg-center filter blur-lg opacity-80 scale-110"
-          style={{ backgroundImage: "url('/assets/LoginBackGround.jpg')" }}
+          style={{ backgroundImage: "url('/assets/LoginBackGround.webp')" }}
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/assets/LoginBackGround.jpg"
+          src="/assets/LoginBackGround.webp"
           alt="Login Background"
           className="relative h-full w-auto max-w-none object-contain object-right"
         />
       </div>
 
       {/* LAYER 2: Roadway SVG with Animated Dashed Line */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none hidden lg:block overflow-hidden z-10">
+      <div className="absolute inset-0 w-full h-full pointer-events-none block overflow-hidden z-10">
         <svg className="w-full h-full absolute inset-0" viewBox="0 0 1440 1200" preserveAspectRatio="none">
           <defs>
             <filter id="roadShadow" x="-20%" y="-10%" width="160%" height="120%">
@@ -128,13 +130,11 @@ export const LoginView: React.FC = () => {
         </svg>
       </div>
 
-      {/* Mobile/Tablet Fallback Backdrop (< 1024px) */}
-      <div className="absolute inset-0 pointer-events-none lg:hidden bg-white/95 backdrop-blur-sm z-20" />
 
       {/* LAYER 3: FORM PANEL */}
-      <div className="relative h-full flex flex-col justify-between w-full sm:w-[530px] lg:w-[530px] xl:w-[540px] max-w-[540px] overflow-hidden select-none z-30">
+      <div className="relative h-full flex flex-col justify-between w-[540px] max-w-[540px] overflow-hidden select-none z-30">
         {/* Brand Header & Mode Toggle căn phải */}
-        <div className="flex items-center justify-between select-none pt-5 pl-5 sm:pt-6 sm:pl-6 lg:pt-7 lg:pl-7 pr-5 sm:pr-6 lg:pr-7 mb-2">
+        <div className="flex items-center justify-between select-none pt-7 pl-7 pr-7 mb-2">
           {/* Cụm Logo & Brand */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-accent-red flex items-center justify-center shadow-md shrink-0 p-2">
@@ -149,7 +149,7 @@ export const LoginView: React.FC = () => {
             </div>
           </div>
 
-          {/* Toggle Đăng nhập / Đăng ký ngang hàng, căn phải */}
+          {/* Toggle Đăng nhập / Đăng ký */}
           <div className="flex items-center gap-1 p-1 bg-slate-100/90 rounded-xl border border-slate-200/90 shadow-2xs">
             <button
               type="button"
@@ -183,7 +183,7 @@ export const LoginView: React.FC = () => {
         </div>
 
         {/* Centered Form Area */}
-        <div className="my-auto py-1 w-full flex flex-col justify-center px-[36px] sm:px-[60px] lg:px-[72px]">
+        <div className="my-auto py-1 w-full flex flex-col justify-center px-[72px]">
           <div className="mb-3 text-center">
             <h1 className="text-[26px] font-bold text-primary-navy tracking-tight mb-1">
               {mode === "login" ? "Chào mừng trở lại" : "Tạo tài khoản mới"}
@@ -254,7 +254,7 @@ export const LoginView: React.FC = () => {
               </div>
             </div>
 
-            {/* Khoảng trống dành sẵn cho thông báo lỗi, chống giật layout */}
+            {/* Thông báo lỗi */}
             <div className="min-h-[22px] flex items-center px-1">
               {errorMessage && (
                 <div className="flex items-center gap-1.5 text-[12px] text-red-600 font-medium animate-fade-in">

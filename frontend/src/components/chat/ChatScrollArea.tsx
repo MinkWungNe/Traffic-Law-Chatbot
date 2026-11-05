@@ -23,13 +23,13 @@ export const ChatScrollArea: React.FC = () => {
     <div
       ref={scrollRef}
       id="chatScrollArea"
-      className="absolute inset-0 w-full h-full overflow-y-auto px-4 md:px-8 py-6 z-10 select-text"
+      className="absolute inset-0 w-full h-full overflow-y-auto px-8 py-6 z-10 select-text"
     >
       <div className="max-w-3xl h-full mx-auto flex flex-col gap-6 pb-30">
         {/* Welcome Hero khi chưa có tin nhắn */}
         {messages.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center pt-10 md:pt-14 text-center max-w-2xl mx-auto">
-            <h1 className="text-[24px] md:text-[28px] font-bold text-primary-navy tracking-tight leading-snug">
+          <div className="h-full flex flex-col items-center justify-center pt-14 text-center max-w-2xl mx-auto">
+            <h1 className="text-[28px] font-bold text-primary-navy tracking-tight leading-snug">
               Tôi có thể hỗ trợ gì về Luật Giao thông?
             </h1>
             <StarterCards onSelectPrompt={(prompt) => sendMessage(prompt)} />

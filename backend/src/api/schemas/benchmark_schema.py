@@ -80,9 +80,3 @@ class BenchmarkSamplesResponse(BaseModel):
     limit: int = Field(..., description="Số lượng mỗi trang")
     total_pages: int = Field(..., description="Tổng số trang")
     items: List[BenchmarkQueryItem] = Field(..., description="Danh sách câu hỏi trong trang")
-
-
-class BenchmarkRunRequest(BaseModel):
-    """Tham số khi kích hoạt chạy đánh giá Benchmark mới."""
-    top_k: int = Field(3, ge=1, le=10, description="Số lượng đoạn trích Top-K cần kiểm tra")
-    max_samples: int = Field(50, ge=5, le=683, description="Số lượng mẫu kiểm thử (50 cho chuẩn, 683 cho toàn bộ)")

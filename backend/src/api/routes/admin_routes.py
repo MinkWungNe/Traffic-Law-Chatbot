@@ -7,6 +7,7 @@ Quản lý người dùng (Đổi mật khẩu, Khóa/Mở khóa, Xóa mềm) v�
 import uuid
 import json
 import logging
+import asyncio
 from pathlib import Path
 from datetime import datetime, timezone
 from typing import Optional
@@ -279,14 +280,23 @@ async def list_audit_logs(
 BENCHMARK_REPORT_PATH = Path("evaluation/benchmark_report.json")
 RAGAS_REPORT_PATH = Path("evaluation/ragas_report.json")
 
+# Bộ đệm in-memory cache cho báo cáo Benchmark tránh đọc đĩa và lặp JSON liên tục
+_cached_benchmark_data: Optional[dict] = None
+_cached_benchmark_mtime: float = 0.0
+
+
 
 def _get_validated_benchmark_data() -> dict:
     """Nạp và chuẩn hóa dữ liệu báo cáo Benchmark & RAGAS từ file lưu trữ."""
+    global _cached_benchmark_data, _cached_benchmark_mtime
     if not BENCHMARK_REPORT_PATH.exists():
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Chưa có dữ liệu báo cáo đánh giá. Vui lòng bấm 'Chạy Benchmark' để tạo mới."
         )
+    current_mtime = BENCHMARK_REPORT_PATH.stat().st_mtime
+    if _cached_benchmark_data is not None and current_mtime == _cached_benchmark_mtime:
+        return _cached_benchmark_data
     try:
         with open(BENCHMARK_REPORT_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -354,6 +364,8 @@ def _get_validated_benchmark_data() -> dict:
 
     data["detailed_results"] = normalized_results
     data["samples"] = normalized_results
+    _cached_benchmark_data = data
+    _cached_benchmark_mtime = current_mtime
     return data
 
 
@@ -448,10 +460,16 @@ async def run_benchmark(
 
     _is_benchmark_running = True
     try:
-        from evaluation.benchmark_runner import BenchmarkRunner
-        runner = BenchmarkRunner(test_dataset_path="data/raw/683_CauHoi_TTATGTDB.csv")
-        report = runner.evaluate_retrieval(top_k=top_k, max_samples=max_samples)
-        runner.export_report(output_path=str(BENCHMARK_REPORT_PATH))
+        def _sync_evaluate():
+            from evaluation.benchmark_runner import BenchmarkRunner
+            runner = BenchmarkRunner(test_dataset_path="data/raw/683_CauHoi_TTATGTDB.csv")
+            rep = runner.evaluate_retrieval(top_k=top_k, max_samples=max_samples)
+            runner.export_report(output_path=str(BENCHMARK_REPORT_PATH))
+            return rep
+
+        report = await asyncio.to_thread(_sync_evaluate)
+        global _cached_benchmark_data
+        _cached_benchmark_data = None
 
         await log_audit_event(
             db=db,

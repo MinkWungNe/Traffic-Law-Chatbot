@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi" className={`${beVietnamPro.variable} h-full antialiased`}>
-      <body className="h-full w-full overflow-hidden select-none bg-canvas text-text-main font-sans">
+      <body className="h-full w-full overflow-hidden bg-canvas text-text-main font-sans">
         {children}
       </body>
     </html>

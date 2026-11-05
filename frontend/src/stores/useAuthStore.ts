@@ -15,7 +15,7 @@ interface AuthState {
 const TOKEN_KEY = "vinalaw_auth_token";
 const USER_KEY = "vinalaw_auth_user";
 
-export const useAuthStore = create<AuthState>((set, get) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   token: null,
   user: null,
   isAuthenticated: false,

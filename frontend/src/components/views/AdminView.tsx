@@ -11,8 +11,7 @@ import {
   Users,
   Shield,
   Search,
-  Lock,
-  Unlock,
+  Lock, Unlock,
   KeyRound,
   Trash2,
   RefreshCw,
@@ -33,13 +32,13 @@ export const AdminView: React.FC = () => {
 
   const [currentTab, setCurrentTab] = useState<"users" | "audit" | "benchmark">("users");
 
-  // Users State (danh sách dài liên tục)
+  // Users State
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [userTotal, setUserTotal] = useState(0);
   const [userSearch, setUserSearch] = useState("");
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
 
-  // Audit Logs State (danh sách dài liên tục)
+  // Audit Logs State 
   const [auditLogs, setAuditLogs] = useState<AuditLogItem[]>([]);
   const [auditTotal, setAuditTotal] = useState(0);
   const [auditFilter, setAuditFilter] = useState("");
@@ -72,8 +71,9 @@ export const AdminView: React.FC = () => {
       const data = await adminApi.listUsers(1, 100, userSearch);
       setUsers(data.users);
       setUserTotal(data.total);
-    } catch (err: any) {
-      showNotification("error", err.message || "Lỗi tải danh sách người dùng.");
+    } catch (err: unknown) {
+      const errObj = err as Error;
+      showNotification("error", errObj.message || "Lỗi tải danh sách người dùng.");
     } finally {
       setIsLoadingUsers(false);
     }
@@ -85,8 +85,9 @@ export const AdminView: React.FC = () => {
       const data = await adminApi.listAuditLogs(1, 100, auditFilter);
       setAuditLogs(data.logs);
       setAuditTotal(data.total);
-    } catch (err: any) {
-      showNotification("error", err.message || "Lỗi tải nhật ký kiểm toán.");
+    } catch (err: unknown) {
+      const errObj = err as Error;
+      showNotification("error", errObj.message || "Lỗi tải nhật ký kiểm toán.");
     } finally {
       setIsLoadingAudit(false);
     }
@@ -129,8 +130,9 @@ export const AdminView: React.FC = () => {
       showNotification("success", res.message);
       setStatusModalUser(null);
       fetchUsers();
-    } catch (err: any) {
-      showNotification("error", err.message || "Thao tác cập nhật trạng thái thất bại.");
+    } catch (err: unknown) {
+      const errObj = err as Error;
+      showNotification("error", errObj.message || "Thao tác cập nhật trạng thái thất bại.");
     } finally {
       setIsSubmittingStatus(false);
     }
@@ -146,8 +148,9 @@ export const AdminView: React.FC = () => {
       showNotification("success", res.message);
       setResetModalUser(null);
       setNewPasswordInput("");
-    } catch (err: any) {
-      showNotification("error", err.message || "Đặt lại mật khẩu thất bại.");
+    } catch (err: unknown) {
+      const errObj = err as Error;
+      showNotification("error", errObj.message || "Đặt lại mật khẩu thất bại.");
     } finally {
       setIsSubmittingReset(false);
     }
@@ -162,8 +165,9 @@ export const AdminView: React.FC = () => {
       showNotification("success", res.message);
       setDeleteModalUser(null);
       fetchUsers();
-    } catch (err: any) {
-      showNotification("error", err.message || "Xóa người dùng thất bại.");
+    } catch (err: unknown) {
+      const errObj = err as Error;
+      showNotification("error", errObj.message || "Xóa người dùng thất bại.");
     } finally {
       setIsSubmittingDelete(false);
     }
@@ -199,7 +203,7 @@ export const AdminView: React.FC = () => {
     <div className="absolute inset-0 w-full h-full overflow-hidden px-5 py-5 z-10 select-text flex flex-col">
       <div className="max-w-7xl w-full mx-auto flex flex-col gap-3 flex-1 min-h-0">
         {/* ========================================================================= */}
-        {/* HEADER CĂN GIỮA NGOÀI KHUNG (ĐỒNG BỘ TOÀN HỆ THỐNG)                       */}
+        {/* HEADER CĂN GIỮA NGOÀI KHUNG                                               */}
         {/* ========================================================================= */}
         <header className="w-full text-center py-1 shrink-0 flex flex-col items-center">
           <h1 className="text-2xl font-extrabold text-primary-navy tracking-tight">
@@ -208,7 +212,7 @@ export const AdminView: React.FC = () => {
         </header>
 
         {/* ========================================================================= */}
-        {/* KHUNG HỢP NHẤT TOÀN DIỆN (UNIFIED WORKSPACE CONTAINER)                     */}
+        {/* KHUNG HỢP NHẤT TOÀN DIỆN                                                  */}
         {/* ========================================================================= */}
         <div className="w-full bg-white/70 rounded-2xl border border-slate-200/80 shadow-md p-4 flex flex-col gap-3.5 flex-1 min-h-0 overflow-hidden">
           {/* Cụm chuyển Tab (Segmented Control) */}
@@ -250,7 +254,7 @@ export const AdminView: React.FC = () => {
             </div>
           </div>
 
-          {/* TAB 1: QUẢN LÝ TÀI KHOẢN (DANH SÁCH DÀI CUỘN LIÊN TỤC) */}
+          {/* TAB 1: QUẢN LÝ TÀI KHOẢN */}
           {currentTab === "users" && (
             <div className="flex flex-col gap-3 flex-1 min-h-0">
               {/* Toolbar tìm kiếm & Làm mới */}
@@ -290,7 +294,7 @@ export const AdminView: React.FC = () => {
                 </div>
               </div>
 
-              {/* Bảng Người dùng cuộn dài duy nhất */}
+              {/* Bảng Người dùng */}
               <div className="flex-1 min-h-0 bg-white rounded-xl border border-slate-200/90 shadow-2xs overflow-hidden flex flex-col">
                 <div className="flex-1 overflow-y-auto">
                   <table className="w-full text-left text-[13px] border-collapse">
@@ -414,7 +418,7 @@ export const AdminView: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 2: NHẬT KÝ KIỂM TOÁN (DANH SÁCH DÀI CUỘN LIÊN TỤC) */}
+          {/* TAB 2: NHẬT KÝ KIỂM TOÁN */}
           {currentTab === "audit" && (
             <div className="flex flex-col gap-3 flex-1 min-h-0">
               {/* Toolbar lọc sự kiện */}
@@ -448,7 +452,7 @@ export const AdminView: React.FC = () => {
                 </button>
               </div>
 
-              {/* Bảng Nhật ký cuộn dài duy nhất */}
+              {/* Bảng Nhật ký */}
               <div className="flex-1 min-h-0 bg-white rounded-xl border border-slate-200/90 shadow-2xs overflow-hidden flex flex-col">
                 <div className="flex-1 overflow-y-auto">
                   <table className="w-full text-left text-[13px] border-collapse">
@@ -542,7 +546,7 @@ export const AdminView: React.FC = () => {
         </div>
       </div>
 
-      {/* TOAST NOTIFICATION NỔI GÓC PHẢI TRÊN (KHÔNG GÂY CO GIẬT BỐ CỤC) */}
+      {/* TOAST NOTIFICATION NỔI (Góc trên bên phải) */}
       {notification && (
         <div
           className={`fixed top-5 right-5 z-50 p-3 px-4 rounded-xl border flex items-center gap-3 text-[13px] shadow-lg animate-fade-in ${
@@ -740,7 +744,7 @@ export const AdminView: React.FC = () => {
         </div>
       </Modal>
 
-      {/* MODAL 4: CHI TIẾT AUDIT LOG JSON (CÓ HIỆU ỨNG ĐÓNG & NÚT SAO CHÉP) */}
+      {/* MODAL 4: CHI TIẾT AUDIT LOG JSON */}
       <Modal
         isOpen={Boolean(selectedLog)}
         onClose={() => setSelectedLog(null)}
