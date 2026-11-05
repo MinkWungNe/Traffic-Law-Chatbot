@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { ChatMessage, SessionItem } from "@/types/chat";
-import { queryChatApi, checkBackendHealth, sessionApi } from "@/lib/api";
+import { queryChatApi, sessionApi } from "@/lib/api";
 import { useAuthStore } from "./useAuthStore";
 
 // Controller lưu trữ tham chiếu phiên request hiện tại để hỗ trợ hủy tức thời
@@ -14,15 +14,12 @@ interface ChatState {
   sessions: SessionItem[];
   inputText: string;
   isLoading: boolean;
-  backendStatus: "connected" | "disconnected" | "checking";
-  backendMessage: string;
 
   setActiveTab: (tab: "chat" | "docs" | "faq" | "login" | "admin") => void;
   setInputText: (text: string) => void;
   setSessionTitle: (title: string) => void;
   setCurrentSessionId: (id: string | null) => void;
   clearMessages: () => void;
-  checkBackend: () => Promise<boolean>;
   sendMessage: (query: string) => Promise<void>;
   stopGeneration: () => void;
 
@@ -43,8 +40,6 @@ export const useChatStore = create<ChatState>((set, get) => ({
   sessions: [],
   inputText: "",
   isLoading: false,
-  backendStatus: "checking",
-  backendMessage: "Đang kiểm tra kết nối...",
 
   setActiveTab: (tab) => set({ activeTab: tab }),
   setInputText: (text) => set({ inputText: text }),
@@ -56,16 +51,6 @@ export const useChatStore = create<ChatState>((set, get) => ({
       activeAbortController = null;
     }
     set({ messages: [], inputText: "", currentSessionId: null, isLoading: false });
-  },
-
-  checkBackend: async () => {
-    set({ backendStatus: "checking", backendMessage: "Đang ping máy chủ..." });
-    const res = await checkBackendHealth();
-    set({
-      backendStatus: res.isOnline ? "connected" : "disconnected",
-      backendMessage: res.message,
-    });
-    return res.isOnline;
   },
 
   loadSessions: async () => {
@@ -235,10 +220,6 @@ export const useChatStore = create<ChatState>((set, get) => ({
         messages: [...state.messages, botMessage],
         currentSessionId: res.sessionId || state.currentSessionId,
         isLoading: false,
-        backendStatus: res.isFallback ? "disconnected" : "connected",
-        backendMessage: res.isFallback
-          ? "Đang dùng dữ liệu dự phòng offline (FastAPI backend chưa phản hồi)"
-          : "Kết nối API FastAPI hoạt động tốt",
       }));
 
       // Nếu đã lưu phiên trên backend, cập nhật lại danh sách sessions
@@ -253,8 +234,6 @@ export const useChatStore = create<ChatState>((set, get) => ({
       console.error("Error sending message:", err);
       set({
         isLoading: false,
-        backendStatus: "disconnected",
-        backendMessage: "Không thể kết nối API",
       });
     } finally {
       if (activeAbortController === controller) {

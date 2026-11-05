@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useChatStore } from "@/stores/useChatStore";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { authApi } from "@/lib/api";
-import { AtSign, Lock, Eye, EyeOff, Loader2, ArrowRight, AlertCircle, CheckCircle2 } from "lucide-react";
+import { AtSign, Lock, Eye, EyeOff, Loader2, ArrowRight, AlertCircle } from "lucide-react";
 
 export const LoginView: React.FC = () => {
   const { setActiveTab, loadSessions } = useChatStore();
@@ -16,13 +16,11 @@ export const LoginView: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
-    setSuccessMessage(null);
-
+    
     const cleanEmail = email.trim();
     const cleanPassword = password.trim();
 
@@ -52,10 +50,7 @@ export const LoginView: React.FC = () => {
         const res = await authApi.register(cleanEmail, cleanPassword);
         setAuth(res.access_token, res.user);
         await loadSessions();
-        setSuccessMessage("Đăng ký tài khoản thành công! Đang chuyển hướng...");
-        setTimeout(() => {
-          setActiveTab("chat");
-        }, 800);
+        setActiveTab("chat");
       }
     } catch (err: any) {
       setErrorMessage(err.message || "Đã xảy ra lỗi trong quá trình xác thực.");
@@ -92,7 +87,7 @@ export const LoginView: React.FC = () => {
           {/* Dải mặt đường cong */}
           <path
             d="M -50,0 L 595,0 C 610,100 610,200 595,300 C 580,400 580,500 595,600 C 610,700 610,800 595,900 C 580,1000 580,1100 595,1200 L -50,1200 Z"
-            className="fill-sidebar"
+            className="fill-main"
             fillOpacity="0.45"
             filter="url(#roadShadow)"
           />
@@ -200,21 +195,6 @@ export const LoginView: React.FC = () => {
             </p>
           </div>
 
-          {/* Error / Success Alert */}
-          {errorMessage && (
-            <div className="mb-3 p-2.5 rounded-xl bg-red-50 border border-red-200 flex items-start gap-2 text-[12.5px] text-red-700 animate-in fade-in duration-150">
-              <AlertCircle size={16} className="text-red-500 shrink-0 mt-0.5" />
-              <span>{errorMessage}</span>
-            </div>
-          )}
-
-          {successMessage && (
-            <div className="mb-3 p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-start gap-2 text-[12.5px] text-emerald-700 animate-in fade-in duration-150">
-              <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
-              <span>{successMessage}</span>
-            </div>
-          )}
-
           <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             {/* Email Input */}
             <div className="flex flex-col gap-1">
@@ -274,11 +254,21 @@ export const LoginView: React.FC = () => {
               </div>
             </div>
 
+            {/* Khoảng trống dành sẵn cho thông báo lỗi, chống giật layout */}
+            <div className="min-h-[22px] flex items-center px-1">
+              {errorMessage && (
+                <div className="flex items-center gap-1.5 text-[12px] text-red-600 font-medium animate-fade-in">
+                  <AlertCircle size={14} className="text-accent-red shrink-0" />
+                  <span className="truncate">{errorMessage}</span>
+                </div>
+              )}
+            </div>
+
             {/* Submit Button */}
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-[42px] rounded-xl bg-accent-red hover:bg-red-700 text-white font-semibold text-[14px] shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer mt-1 active:scale-[0.99]"
+              className="w-full h-[42px] rounded-xl bg-accent-red hover:bg-red-700 text-white font-semibold text-[14px] shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]"
             >
               {isSubmitting ? (
                 <Loader2 size={18} className="animate-spin shrink-0" />

@@ -29,7 +29,7 @@ export const ChatScrollArea: React.FC = () => {
         {/* Welcome Hero khi chưa có tin nhắn */}
         {messages.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center pt-10 md:pt-14 text-center max-w-2xl mx-auto">
-            <h1 className="text-[24px] md:text-[28px] font-bold text-slate-900 tracking-tight leading-snug">
+            <h1 className="text-[24px] md:text-[28px] font-bold text-primary-navy tracking-tight leading-snug">
               Tôi có thể hỗ trợ gì về Luật Giao thông?
             </h1>
             <StarterCards onSelectPrompt={(prompt) => sendMessage(prompt)} />

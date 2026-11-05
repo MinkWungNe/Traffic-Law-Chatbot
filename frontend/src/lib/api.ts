@@ -1,4 +1,9 @@
 import { Citation, UserProfile, SessionItem, AuditLogItem } from "@/types/chat";
+import {
+  BenchmarkReportResponse,
+  BenchmarkSummaryResponse,
+  BenchmarkSamplesResponse,
+} from "@/types/benchmark";
 import { getAuthToken } from "@/stores/useAuthStore";
 
 export const BACKEND_BASE_URL =
@@ -32,39 +37,11 @@ export interface ChatApiResponse {
   error?: string;
 }
 
-export interface HealthCheckResult {
-  isOnline: boolean;
-  message: string;
-  status?: string;
-}
-
-/**
- * Kiểm tra trạng thái máy chủ FastAPI (/api/health)
- */
-export async function checkBackendHealth(): Promise<HealthCheckResult> {
-  try {
-    const res = await fetch(`${BACKEND_BASE_URL}/api/health`, {
-      method: "GET",
-      signal: AbortSignal.timeout(3000),
-    });
-    if (res.ok) {
-      const data = await res.json();
-      return {
-        isOnline: true,
-        status: data.status || "ok",
-        message: data.message || "Hệ thống AI Chatbot đang hoạt động ổn định",
-      };
-    }
-    return {
-      isOnline: false,
-      message: `Máy chủ phản hồi mã lỗi ${res.status}`,
-    };
-  } catch {
-    return {
-      isOnline: false,
-      message: "Không thể kết nối đến máy chủ Backend (Port 8000)",
-    };
-  }
+function getOfflineFallback(query: string): { answer: string; sources: Citation[] } {
+  return {
+    answer: `### Thông báo kết nối máy chủ AI\n\nHệ thống hiện chưa nhận được phản hồi từ máy chủ xử lý AI (FastAPI tại ${BACKEND_BASE_URL}).\n\n- Câu hỏi: **"${query}"**\n- Vui lòng kiểm tra lại kết nối hoặc thử lại sau khi máy chủ hoàn tất khởi động.`,
+    sources: [],
+  };
 }
 
 /**
@@ -155,88 +132,13 @@ export async function queryChatApi(
     console.warn("FastAPI backend offline or timeout, switching to offline fallback:", err);
   }
 
-  // Fallback offline chuẩn xác theo văn bản luật khi backend chưa chạy
+  // Fallback thông báo khi backend chưa kết nối được
   const fallback = getOfflineFallback(trimmed);
   return {
     query: trimmed,
     answer: fallback.answer,
     sources: fallback.sources,
     isFallback: true,
-  };
-}
-
-function getOfflineFallback(query: string): { answer: string; sources: Citation[] } {
-  const qLower = query.toLowerCase();
-
-  if (qLower.includes("rẽ phải") || qLower.includes("đèn đỏ")) {
-    return {
-      answer: `### Kết luận: Không được phép rẽ phải khi đèn đỏ
-
-Khi ngã tư có tín hiệu đèn đỏ mà **không có biển báo phụ** (như biển *"Đèn đỏ được phép rẽ phải"*), không có đèn mũi tên xanh và không có hiệu lệnh của CSGT, người điều khiển xe máy **bắt buộc phải dừng trước vạch dừng xe**.
-
-#### Khung hình phạt áp dụng:
-- **Phạt tiền trực tiếp:** **800.000đ – 1.000.000đ** (Mức phổ biến áp dụng: **900.000 VNĐ**).
-- **Hình thức phạt bổ sung:** Tước quyền sử dụng Giấy phép lái xe từ **01 đến 03 tháng** (Nếu gây TNGT: Tước **02 – 04 tháng**).
-- **Tạm giữ phương tiện:** Không tạm giữ nếu người điều khiển xuất trình đủ giấy tờ xe hợp lệ.
-
-> **Căn cứ pháp lý:** Điểm e Khoản 4 và Điểm b Khoản 10 Điều 6 Nghị định 100/2019/NĐ-CP (sửa đổi, bổ sung bởi Nghị định 123/2021/NĐ-CP).`,
-      sources: [
-        {
-          title: "Điểm e Khoản 4 Điều 6 Nghị định 100/2019/NĐ-CP",
-          snippet: "Phạt tiền từ 800.000 đồng đến 1.000.000 đồng đối với người điều khiển xe mô tô, xe gắn máy không chấp hành hiệu lệnh của đèn tín hiệu giao thông.",
-          raw: "Phạt tiền từ 800.000 đồng đến 1.000.000 đồng đối với người điều khiển xe mô tô, xe gắn máy không chấp hành hiệu lệnh của đèn tín hiệu giao thông.",
-          score: 0.95,
-        },
-        {
-          title: "Nghị định 123/2021/NĐ-CP",
-          snippet: "Bị tước quyền sử dụng Giấy phép lái xe từ 01 tháng đến 03 tháng; gây tai nạn giao thông tước từ 02 đến 04 tháng.",
-          raw: "Bị tước quyền sử dụng Giấy phép lái xe từ 01 tháng đến 03 tháng; gây tai nạn giao thông tước từ 02 đến 04 tháng.",
-          score: 0.9,
-        },
-      ],
-    };
-  }
-
-  if (qLower.includes("nồng độ cồn") || qLower.includes("rượu") || qLower.includes("bia")) {
-    return {
-      answer: `### Kết luận: Nghiêm cấm tuyệt đối nồng độ cồn khi điều khiển phương tiện
-
-Luật Trật tự, an toàn giao thông đường bộ 2024 nghiêm cấm triệt để hành vi điều khiển phương tiện tham gia giao thông mà trong máu hoặc hơi thở có nồng độ cồn.
-
-#### Mức xử phạt kịch khung đối với xe máy:
-- **Phạt tiền:** **6.000.000đ – 8.000.000đ** (khi nồng độ cồn vượt quá 80mg/100ml máu hoặc vượt quá 0.4mg/l khí thở).
-- **Hình phạt bổ sung:** Tước quyền sử dụng GPLX từ **22 đến 24 tháng**.
-- **Biện pháp ngăn chặn:** Tạm giữ phương tiện đến **07 ngày làm việc**.
-
-> **Căn cứ pháp lý:** Điểm e Khoản 8 Điều 6 Nghị định 100/2019/NĐ-CP.`,
-      sources: [
-        {
-          title: "Điểm e Khoản 8 Điều 6 Nghị định 100/2019/NĐ-CP",
-          snippet: "Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng đối với người điều khiển xe mô tô, xe gắn máy mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 80 miligam/100 mililít máu hoặc vượt quá 0,4 miligam/1 lít khí thở.",
-          raw: "Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng đối với người điều khiển xe mô tô, xe gắn máy mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 80 miligam/100 mililít máu hoặc vượt quá 0,4 miligam/1 lít khí thở.",
-          score: 0.98,
-        },
-      ],
-    };
-  }
-
-  return {
-    answer: `### Giải đáp quy định pháp luật về: "${query}"
-
-Căn cứ Luật Trật tự, an toàn giao thông đường bộ 2024 và các Nghị định hướng dẫn xử phạt vi phạm hành chính:
-
-- Mọi hành vi vi phạm trật tự an toàn giao thông đường bộ đều được xử lý theo nguyên tắc đúng người, đúng hành vi, đúng tính chất và mức độ vi phạm.
-- Người tham gia giao thông có nghĩa vụ chấp hành nghiêm chỉnh hệ thống báo hiệu đường bộ và hiệu lệnh của người điều khiển giao thông.
-
-> *(Lưu ý: Bạn có thể khởi động máy chủ FastAPI tại cổng 8000 để nhận phân tích chi tiết từ mô hình AI RAG đầy đủ).*`,
-    sources: [
-      {
-        title: "Luật Trật tự, an toàn giao thông đường bộ 2024 (Luật số 36/2024/QH15)",
-        snippet: "Quy tắc chung và quy định chấp hành an toàn giao thông đường bộ.",
-        raw: "Quy tắc chung và quy định chấp hành an toàn giao thông đường bộ.",
-        score: 0.85,
-      },
-    ],
   };
 }
 
@@ -313,18 +215,6 @@ export const sessionApi = {
       console.warn("Không thể tải danh sách phiên từ backend:", e);
     }
     return [];
-  },
-
-  async createSession(title?: string): Promise<SessionItem> {
-    const res = await fetch(`${BACKEND_BASE_URL}/api/sessions`, {
-      method: "POST",
-      headers: getAuthHeaders(),
-      body: JSON.stringify({ title: title || "Cuộc trò chuyện mới" }),
-    });
-    if (!res.ok) {
-      throw new Error("Không thể tạo phiên trò chuyện mới.");
-    }
-    return res.json();
   },
 
   async getSessionDetail(sessionId: string): Promise<{
@@ -459,119 +349,94 @@ export const adminApi = {
 };
 
 // ==============================================================================
-// VĂN BẢN PHÁP LUẬT
+// CÁC HÀM ĐÁNH GIÁ BENCHMARK (BENCHMARK API)
 // ==============================================================================
-export interface RelatedDocItem {
-  relationType: "goc" | "sua_doi";
-  relationLabel: string;
-  title: string;
-  number: string;
-  sourceUrl: string;
-}
-
-export interface LegalDocItem {
-  id: string;
-  category: "luat" | "nghi-dinh" | "thong-tu" | "quy-chuan";
-  typeLabel: string;
-  typeBadgeBg: string;
-  typeBadgeText: string;
-  title: string;
-  number: string;
-  date: string;
-  status: string;
-  desc: string;
-  sourceUrl?: string;
-  isConsolidated?: boolean;
-  relatedDocs?: RelatedDocItem[];
-}
-
-export async function fetchLegalDocuments(): Promise<LegalDocItem[]> {
-  try {
-    const res = await fetch(`${BACKEND_BASE_URL}/api/documents`, {
+export const benchmarkApi = {
+  /**
+   * Lấy kết quả benchmark đầy đủ từ backend
+   */
+  async getResults(): Promise<BenchmarkReportResponse> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/admin/benchmark/results`, {
       method: "GET",
-      signal: AbortSignal.timeout(4000),
+      headers: getAuthHeaders(),
     });
-    if (res.ok) {
-      const data = await res.json();
-      return (data.documents || []).map((doc: {
-        id: string;
-        category: "luat" | "nghi-dinh" | "thong-tu" | "quy-chuan";
-        type_label: string;
-        title: string;
-        number: string;
-        date: string;
-        status: string;
-        desc: string;
-        source_url?: string;
-        is_consolidated?: boolean;
-        related_docs?: Array<{
-          relation_type: "goc" | "sua_doi";
-          relation_label: string;
-          title: string;
-          number: string;
-          source_url: string;
-        }>;
-      }) => ({
-        id: doc.id,
-        category: doc.category,
-        typeLabel: doc.type_label,
-        typeBadgeBg:
-          doc.category === "luat"
-            ? "bg-red-50 border-red-200"
-            : doc.category === "quy-chuan"
-            ? "bg-emerald-50 border-emerald-200"
-            : doc.category === "thong-tu"
-            ? "bg-purple-50 border-purple-200"
-            : "bg-blue-50 border-blue-200",
-        typeBadgeText:
-          doc.category === "luat"
-            ? "text-red-700"
-            : doc.category === "quy-chuan"
-            ? "text-emerald-700"
-            : doc.category === "thong-tu"
-            ? "text-purple-700"
-            : "text-blue-700",
-        title: doc.title,
-        number: doc.number,
-        date: doc.date,
-        status: doc.status,
-        desc: doc.desc,
-        sourceUrl: doc.source_url || "",
-        isConsolidated: !!doc.is_consolidated,
-        relatedDocs: (doc.related_docs || []).map((r) => ({
-          relationType: r.relation_type,
-          relationLabel: r.relation_label,
-          title: r.title,
-          number: r.number,
-          sourceUrl: r.source_url,
-        })),
-      }));
-    }
-  } catch (err) {
-    console.warn("Could not fetch documents from FastAPI backend:", err);
-  }
-  return [];
-}
 
-export async function searchLegalSources(query: string, topK = 3): Promise<Citation[]> {
-  try {
-    const res = await fetch(`${BACKEND_BASE_URL}/api/search`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query, top_k: topK }),
-      signal: AbortSignal.timeout(10000),
-    });
-    if (res.ok) {
-      const data = await res.json();
-      return (data.sources || []).map((s: BackendSource) => ({
-        title: s.title,
-        snippet: s.snippet,
-        raw: s.snippet,
-        score: typeof s.score === "number" ? s.score : null,
-      }));
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.detail || `Lỗi khi tải dữ liệu benchmark (Mã: ${res.status})`);
     }
-  } catch (err) {
-    console.warn("Search API failed:", err);
-  }
-  return [];
-}
+
+    return res.json();
+  },
+
+  /**
+   * Lấy nhanh chỉ số KPI tổng hợp và chất lượng RAGAS
+   */
+  async getLatest(): Promise<BenchmarkSummaryResponse> {
+    const res = await fetch(`${BACKEND_BASE_URL}/api/admin/benchmark/latest`, {
+      method: "GET",
+      headers: getAuthHeaders(),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.detail || `Lỗi khi tải tóm tắt benchmark (Mã: ${res.status})`);
+    }
+
+    return res.json();
+  },
+
+  /**
+   * Lấy danh sách mẫu kiểm thử có phân trang và bộ lọc
+   */
+  async getSamples(
+    page = 1,
+    limit = 20,
+    status = "all",
+    search = ""
+  ): Promise<BenchmarkSamplesResponse> {
+    const query = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+      status: status,
+    });
+    if (search.trim()) {
+      query.append("search", search.trim());
+    }
+
+    const res = await fetch(`${BACKEND_BASE_URL}/api/admin/benchmark/samples?${query.toString()}`, {
+      method: "GET",
+      headers: getAuthHeaders(),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.detail || `Lỗi khi tải danh sách kiểm thử (Mã: ${res.status})`);
+    }
+
+    return res.json();
+  },
+
+  /**
+   * Kích hoạt chạy đánh giá benchmark
+   */
+  async runBenchmark(
+    topK = 3,
+    maxSamples = 50
+  ): Promise<BenchmarkReportResponse> {
+    const res = await fetch(
+      `${BACKEND_BASE_URL}/api/admin/benchmark/run?top_k=${topK}&max_samples=${maxSamples}`,
+      {
+        method: "POST",
+        headers: getAuthHeaders(),
+      }
+    );
+
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.detail || `Lỗi khi thực thi benchmark (Mã: ${res.status})`);
+    }
+
+    return res.json();
+  },
+};
