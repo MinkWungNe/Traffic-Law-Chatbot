@@ -1,0 +1,326 @@
+{
+  "vehicles": {
+    "xe máy chuyên dùng": {
+      "canonical_vehicle": "xe_may_chuyen_dung",
+      "synonyms": [
+        "xe máy chuyên dùng"
+      ]
+    },
+    "xe đạp điện": {
+      "canonical_vehicle": "xe_tho_so",
+      "synonyms": [
+        "xe đạp máy",
+        "xe thô sơ"
+      ]
+    },
+    "xe máy điện": {
+      "canonical_vehicle": "mo_to_xe_may",
+      "synonyms": [
+        "xe gắn máy",
+        "xe mô tô"
+      ]
+    },
+    "xe mô tô": {
+      "canonical_vehicle": "mo_to_xe_may",
+      "synonyms": [
+        "xe mô tô",
+        "xe gắn máy"
+      ]
+    },
+    "xe gắn máy": {
+      "canonical_vehicle": "mo_to_xe_may",
+      "synonyms": [
+        "xe gắn máy",
+        "xe mô tô"
+      ]
+    },
+    "xe máy": {
+      "canonical_vehicle": "mo_to_xe_may",
+      "synonyms": [
+        "xe mô tô",
+        "xe gắn máy"
+      ]
+    },
+    "mô tô": {
+      "canonical_vehicle": "mo_to_xe_may",
+      "synonyms": [
+        "xe mô tô",
+        "xe gắn máy"
+      ]
+    },
+    "xe ô tô": {
+      "canonical_vehicle": "o_to",
+      "synonyms": [
+        "xe ô tô"
+      ]
+    },
+    "ô tô": {
+      "canonical_vehicle": "o_to",
+      "synonyms": [
+        "xe ô tô"
+      ]
+    },
+    "xe con": {
+      "canonical_vehicle": "o_to",
+      "synonyms": [
+        "xe ô tô"
+      ]
+    },
+    "xe tải": {
+      "canonical_vehicle": "o_to",
+      "synonyms": [
+        "xe ô tô tải",
+        "xe ô tô"
+      ]
+    },
+    "xe khách": {
+      "canonical_vehicle": "o_to",
+      "synonyms": [
+        "xe ô tô chở người",
+        "xe ô tô"
+      ]
+    },
+    "xe 4 bánh": {
+      "canonical_vehicle": "o_to",
+      "synonyms": [
+        "xe ô tô"
+      ]
+    },
+    "xe thô sơ": {
+      "canonical_vehicle": "xe_tho_so",
+      "synonyms": [
+        "xe thô sơ"
+      ]
+    },
+    "xe đạp": {
+      "canonical_vehicle": "xe_tho_so",
+      "synonyms": [
+        "xe thô sơ",
+        "xe đạp"
+      ]
+    },
+    "xe ba gác": {
+      "canonical_vehicle": "xe_tho_so",
+      "synonyms": [
+        "xe ba bánh",
+        "xe thô sơ"
+      ]
+    },
+    "người đi bộ": {
+      "canonical_vehicle": "nguoi_di_bo",
+      "synonyms": [
+        "người đi bộ"
+      ]
+    },
+    "xe ôm": {
+      "canonical_vehicle": "mo_to_xe_may",
+      "synonyms": [
+        "xe mô tô",
+        "xe gắn máy"
+      ]
+    },
+    "xe ôm công nghệ": {
+      "canonical_vehicle": "mo_to_xe_may",
+      "synonyms": [
+        "xe mô tô",
+        "xe gắn máy"
+      ]
+    },
+    "xe grab": {
+      "canonical_vehicle": "mo_to_xe_may",
+      "synonyms": [
+        "xe mô tô",
+        "xe gắn máy"
+      ]
+    },
+    "grab": {
+      "canonical_vehicle": "mo_to_xe_may",
+      "synonyms": [
+        "xe mô tô",
+        "xe gắn máy"
+      ]
+    }
+  },
+  "violations": {
+    "không chấp hành hiệu lệnh của đèn tín hiệu": [
+      "không chấp hành hiệu lệnh của đèn tín hiệu giao thông",
+      "đèn tín hiệu"
+    ],
+    "không chấp hành hiệu lệnh đèn tín hiệu": [
+      "không chấp hành hiệu lệnh của đèn tín hiệu giao thông",
+      "đèn tín hiệu"
+    ],
+    "vượt đèn đỏ": [
+      "không chấp hành hiệu lệnh của đèn tín hiệu giao thông"
+    ],
+    "vượt đèn vàng": [
+      "không chấp hành hiệu lệnh của đèn tín hiệu giao thông"
+    ],
+    "đèn đỏ": [
+      "không chấp hành hiệu lệnh của đèn tín hiệu giao thông"
+    ],
+    "đèn tín hiệu": [
+      "không chấp hành hiệu lệnh của đèn tín hiệu giao thông"
+    ],
+    "uống rượu bia": [
+      "nồng độ cồn",
+      "rượu bia"
+    ],
+    "uống rượu": [
+      "nồng độ cồn",
+      "rượu bia"
+    ],
+    "uống bia": [
+      "nồng độ cồn",
+      "rượu bia"
+    ],
+    "nồng độ cồn": [
+      "nồng độ cồn",
+      "rượu bia"
+    ],
+    "thổi cồn": [
+      "nồng độ cồn",
+      "kiểm tra nồng độ cồn"
+    ],
+    "say xỉn": [
+      "nồng độ cồn"
+    ],
+    "đi ngược chiều": [
+      "đi ngược chiều của đường một chiều",
+      "ngược chiều trên đường có biển cấm đi ngược chiều"
+    ],
+    "chạy ngược chiều": [
+      "đi ngược chiều của đường một chiều",
+      "ngược chiều"
+    ],
+    "ngược chiều": [
+      "đi ngược chiều của đường một chiều"
+    ],
+    "chạy quá tốc độ quy định": [
+      "chạy quá tốc độ quy định"
+    ],
+    "chạy quá tốc độ": [
+      "chạy quá tốc độ quy định"
+    ],
+    "quá tốc độ": [
+      "chạy quá tốc độ quy định"
+    ],
+    "bắn tốc độ": [
+      "chạy quá tốc độ quy định"
+    ],
+    "vượt tốc độ": [
+      "chạy quá tốc độ quy định"
+    ],
+    "đi vào đường cao tốc": [
+      "đi vào đường cao tốc"
+    ],
+    "đi vào cao tốc": [
+      "đi vào đường cao tốc"
+    ],
+    "lên cao tốc": [
+      "đi vào đường cao tốc"
+    ],
+    "vào cao tốc": [
+      "đi vào đường cao tốc"
+    ],
+    "không đội mũ bảo hiểm": [
+      "không đội mũ bảo hiểm cho người đi mô tô, xe máy"
+    ],
+    "không đội mũ": [
+      "không đội mũ bảo hiểm cho người đi mô tô, xe máy"
+    ],
+    "quên bằng lái": [
+      "không mang theo Giấy phép lái xe"
+    ],
+    "không có bằng lái": [
+      "không có Giấy phép lái xe"
+    ],
+    "không bằng lái": [
+      "không có Giấy phép lái xe"
+    ],
+    "không có giấy phép lái xe": [
+      "không có Giấy phép lái xe"
+    ],
+    "chở quá số người quy định": [
+      "chở quá số người quy định"
+    ],
+    "chở quá số người": [
+      "chở quá số người quy định"
+    ],
+    "chở ba": [
+      "chở theo từ 03 người trở lên",
+      "chở quá số người quy định"
+    ],
+    "kẹp ba": [
+      "chở theo từ 03 người trở lên",
+      "chở quá số người quy định"
+    ],
+    "lạng lách": [
+      "lạng lách, đánh võng"
+    ],
+    "đánh võng": [
+      "lạng lách, đánh võng"
+    ],
+    "bao nhiêu tuổi được lái xe": [
+      "tuổi của người lái xe",
+      "điều kiện của người điều khiển phương tiện"
+    ],
+    "độ tuổi lái xe": [
+      "tuổi của người lái xe",
+      "điều kiện của người điều khiển phương tiện"
+    ],
+    "đủ tuổi lái xe": [
+      "tuổi của người lái xe"
+    ],
+    "dưới 50cm3": [
+      "xe gắn máy có dung tích xi-lanh dưới 50 cm3",
+      "tuổi của người lái xe"
+    ],
+    "dưới 50cc": [
+      "xe gắn máy có dung tích xi-lanh dưới 50 cm3",
+      "tuổi của người lái xe"
+    ],
+    "trừ điểm gplx": [
+      "trừ điểm giấy phép lái xe",
+      "điểm của giấy phép lái xe"
+    ],
+    "trừ điểm bằng lái": [
+      "trừ điểm giấy phép lái xe",
+      "điểm của giấy phép lái xe"
+    ],
+    "tước bằng lái": [
+      "tước quyền sử dụng Giấy phép lái xe"
+    ],
+    "tước gplx": [
+      "tước quyền sử dụng Giấy phép lái xe"
+    ],
+    "kẹp 3 người": [
+      "chở theo từ 03 người trở lên",
+      "chở quá số người quy định"
+    ],
+    "kẹp 3": [
+      "chở theo từ 03 người trở lên",
+      "chở quá số người quy định"
+    ],
+    "kẹp ba người": [
+      "chở theo từ 03 người trở lên",
+      "chở quá số người quy định"
+    ],
+    "kẹp 4": [
+      "chở theo từ 03 người trở lên",
+      "chở quá số người quy định"
+    ],
+    "chở 3 người": [
+      "chở theo từ 03 người trở lên",
+      "chở quá số người quy định"
+    ],
+    "chở 3": [
+      "chở theo từ 03 người trở lên",
+      "chở quá số người quy định"
+    ],
+    "chở ba người": [
+      "chở theo từ 03 người trở lên",
+      "chở quá số người quy định"
+    ]
+  }
+}
