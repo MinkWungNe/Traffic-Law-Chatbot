@@ -33,6 +33,11 @@ from typing import List, Dict, Any, Optional
 from pathlib import Path
 import pandas as pd
 
+# Đảm bảo thư mục gốc dự án luôn nằm trong sys.path để import evaluation modules
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 # Đảm bảo in tiếng Việt chuẩn trên Windows Console
 if sys.platform == "win32":
     try:
@@ -519,7 +524,15 @@ class BenchmarkRunner:
         total_ndcg = 0.0
         retrieval_modes = set()
 
-        for item in eval_samples:
+        # Khởi tạo RagasEvaluator để đo lường chất lượng câu trả lời động (Dynamic Evaluation)
+        from evaluation.ragas_eval import RagasEvaluator
+        ragas_evaluator = RagasEvaluator()
+
+        total_faith = 0.0
+        total_rel = 0.0
+        ragas_eval_count = min(50, total_count)
+
+        for idx, item in enumerate(eval_samples):
             query = item["question"]
             q_start = time.time()
             retrieved_docs, mode = self._get_rag_retrieval(query, top_k=top_k, use_real_pipeline=use_real_pipeline)
@@ -534,27 +547,49 @@ class BenchmarkRunner:
             total_precision += metrics.get("precision", 0.0)
             total_ndcg += metrics.get("ndcg", 0.0)
 
+            # Đo lường RAGAS động cho mẫu câu hỏi
+            ans_text = str(item.get("ground_truth_answer", ""))
+            faith_score = None
+            rel_score = None
+            if idx < ragas_eval_count and ans_text:
+                f_res = ragas_evaluator.calculate_faithfulness(ans_text, retrieved_docs, ground_truth_answer=ans_text)
+                r_res = ragas_evaluator.calculate_answer_relevance(query, ans_text, ground_truth=ans_text)
+                faith_score = round(f_res.get("score", 1.0), 4)
+                rel_score = round(r_res.get("score", 1.0), 4)
+                total_faith += faith_score
+                total_rel += rel_score
+
             # Định dạng retrieved_docs chuẩn theo schema SourceDocument
             formatted_docs = []
+            retrieved_sources = []
             for d in retrieved_docs:
+                title_d = d.get("title", "")
+                snip_d = d.get("snippet", "")
                 formatted_docs.append({
-                    "title": d.get("title", ""),
-                    "snippet": d.get("snippet", ""),
+                    "title": title_d,
+                    "snippet": snip_d,
                     "score": d.get("score", 0.0)
                 })
+                retrieved_sources.append(f"{title_d}: {snip_d[:80]}..." if snip_d else title_d)
 
+            is_passed = bool(metrics["hit"] > 0)
             detailed_records.append({
                 "id": item["id"],
                 "question": query,
-                "ground_truth_answer": item.get("ground_truth_answer", ""),
+                "ground_truth_answer": ans_text,
                 "ground_truth_citations": item["ground_truth_citations"],
+                "retrieved_sources": retrieved_sources,
                 "retrieved_docs": formatted_docs,
                 "hit": metrics["hit"],
                 "recall": metrics["recall"],
+                "first_rank": metrics["first_rank"],
                 "rank": metrics["first_rank"],
                 "reciprocal_rank": metrics["reciprocal_rank"],
                 "matched_citations": metrics["matched_citations"],
-                "status": "Đạt" if metrics["hit"] > 0 else "Chưa đạt"
+                "status": "Đạt" if is_passed else "Chưa đạt",
+                "is_passed": is_passed,
+                "faithfulness": faith_score,
+                "answer_relevance": rel_score
             })
 
         duration = time.time() - start_time
@@ -565,8 +600,22 @@ class BenchmarkRunner:
         avg_ndcg = round(total_ndcg / total_count, 4)
         avg_latency = round((duration / total_count) * 1000, 2)
 
-        # Tính toán hoặc nạp baseline chỉ số RAGAS (Faithfulness & Answer Relevance)
-        quality_metrics = self._resolve_quality_metrics(eval_samples[:50])
+        # Tính toán động chỉ số RAGAS trung bình từ các câu hỏi kiểm thử thực tế
+        if ragas_eval_count > 0:
+            avg_faith = round(total_faith / ragas_eval_count, 4)
+            avg_rel = round(total_rel / ragas_eval_count, 4)
+            h_score = round(
+                (2 * avg_faith * avg_rel) / (avg_faith + avg_rel), 4
+            ) if (avg_faith + avg_rel) > 0 else 0.0
+            quality_metrics = {
+                "faithfulness_score": avg_faith,
+                "faithfulness_percentage": f"{avg_faith * 100:.1f}%",
+                "answer_relevance_score": avg_rel,
+                "answer_relevance_percentage": f"{avg_rel * 100:.1f}%",
+                "ragas_harmonic_mean": h_score
+            }
+        else:
+            quality_metrics = self._resolve_quality_metrics(eval_samples[:50])
 
         report = {
             "metadata": {
@@ -591,7 +640,8 @@ class BenchmarkRunner:
                 "avg_latency_per_query_ms": avg_latency
             },
             "quality_metrics": quality_metrics,
-            "detailed_results": detailed_records
+            "detailed_results": detailed_records,
+            "samples": detailed_records
         }
 
         self.last_results = report
@@ -710,6 +760,15 @@ def get_paginated_samples(
     start_idx = max(0, (page - 1) * limit)
     end_idx = start_idx + limit
     paginated_samples = filtered[start_idx:end_idx]
+
+    # Chuẩn hóa hợp đồng dữ liệu đảm bảo tương thích 100% với Frontend Next.js
+    for s in paginated_samples:
+        if "first_rank" not in s and "rank" in s:
+            s["first_rank"] = s["rank"]
+        if "rank" not in s and "first_rank" in s:
+            s["rank"] = s["first_rank"]
+        if "is_passed" not in s:
+            s["is_passed"] = bool(s.get("hit", 0) > 0)
 
     return {
         "total": total,
