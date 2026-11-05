@@ -1,0 +1,90 @@
+{
+  "metadata": {
+    "description": "Cơ sở dữ liệu danh mục văn bản quy phạm pháp luật giao thông đường bộ Việt Nam",
+    "version": "2026.1",
+    "updated_at": "2026-11-05"
+  },
+  "nghi_dinh": {
+    "168/2024/nđ-cp": {
+      "name": "Nghị định 168/2024/NĐ-CP",
+      "status": "active",
+      "scope": "Xử phạt VPHC trật tự ATGT đường bộ; trừ điểm GPLX",
+      "max_article": 60
+    },
+    "238/2026/nđ-cp": {
+      "name": "Nghị định 238/2026/NĐ-CP",
+      "status": "active",
+      "scope": "Sửa đổi, bổ sung một số điều Nghị định 168/2024",
+      "max_article": 15
+    },
+    "61/2026/nđ-cp": {
+      "name": "Nghị định 61/2026/NĐ-CP",
+      "status": "active",
+      "scope": "Quy trình sử dụng thiết bị kỹ thuật nghiệp vụ phát hiện vi phạm",
+      "max_article": 30
+    },
+    "100/2019/nđ-cp": {
+      "name": "Nghị định 100/2019/NĐ-CP",
+      "status": "amended_superseded",
+      "scope": "Xử phạt VPHC giao thông đường bộ đường sắt (đã thay thế)",
+      "max_article": 86
+    },
+    "123/2021/nđ-cp": {
+      "name": "Nghị định 123/2021/NĐ-CP",
+      "status": "amended_superseded",
+      "scope": "Sửa đổi Nghị định 100/2019",
+      "max_article": 10
+    }
+  },
+  "luat": {
+    "36/2024/qh15": {
+      "name": "Luật Trật tự, an toàn giao thông đường bộ số 36/2024/QH15",
+      "status": "active",
+      "max_article": 89
+    },
+    "35/2024/qh15": {
+      "name": "Luật Đường bộ số 35/2024/QH15",
+      "status": "active",
+      "max_article": 86
+    },
+    "15/2012/qh13": {
+      "name": "Luật Xử lý vi phạm hành chính số 15/2012/QH13 (sửa đổi)",
+      "status": "active",
+      "max_article": 142
+    },
+    "23/2008/qh12": {
+      "name": "Luật Giao thông đường bộ 2008",
+      "status": "amended_superseded",
+      "max_article": 89
+    }
+  },
+  "thong_tu": {
+    "73/2024/tt-bca": {
+      "name": "Thông tư 73/2024/TT-BCA",
+      "status": "active",
+      "scope": "Tuần tra, kiểm soát của CSGT",
+      "max_article": 35
+    },
+    "79/2024/tt-bca": {
+      "name": "Thông tư 79/2024/TT-BCA",
+      "status": "active",
+      "scope": "Đăng ký xe, biển số định danh",
+      "max_article": 40
+    },
+    "32/2023/tt-bca": {
+      "name": "Thông tư 32/2023/TT-BCA",
+      "status": "amended_superseded",
+      "scope": "Tuần tra kiểm soát giao thông đường bộ",
+      "max_article": 30
+    }
+  },
+  "quy_chuan": {
+    "qcvn 41:2019/bgtvt": {
+      "name": "Quy chuẩn kỹ thuật quốc gia QCVN 41:2019/BGTVT",
+      "status": "active",
+      "scope": "Báo hiệu đường bộ",
+      "max_article": 90
+    }
+  }
+}
+
