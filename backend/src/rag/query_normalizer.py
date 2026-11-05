@@ -44,6 +44,12 @@ class QueryNormalizer:
         raise FileNotFoundError("Không tìm thấy file từ điển pháp lý 'legal_synonyms.json'!")
 
     def _load_dictionary(self, path: Optional[str]) -> Dict[str, Any]:
+        """Nạp từ điển pháp lý từ file JSON vào bộ nhớ.
+        Args:
+            path (Optional[str]): Đường dẫn tới file legal_synonyms.json. Nếu None, tự động tìm kiếm.
+        Returns:
+            Dict[str, Any]: Từ điển pháp lý đã nạp."""
+        
         file_path = self._discover_dictionary_path(path)
         with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -51,10 +57,16 @@ class QueryNormalizer:
 
     @property
     def vehicles(self) -> Dict[str, Any]:
+        """Hàm này trả về từ điển các loại phương tiện, được nạp từ file legal_synonyms.json.
+        Ví dụ: {'ô tô': {'canonical_vehicle': 'ô tô', 'synonyms': ['xe hơi', 'xe ô tô']}, 
+        'xe máy': {'canonical_vehicle': 'xe máy', 'synonyms': ['mô tô', 'xe gắn máy']}}"""
         return self._dictionary_cache.get("vehicles", {}) if self._dictionary_cache else {}
 
-    @property
+    @property 
     def violations(self) -> Dict[str, Any]:
+        """Hàm này trả về từ điển các hành vi vi phạm pháp luật, được nạp từ file legal_synonyms.json.
+        Ví dụ: {'vi phạm tốc độ': ['vượt quá tốc độ', 'chạy quá tốc độ'], 
+        'vi phạm nồng độ cồn': ['uống rượu bia khi lái xe', 'say xỉn lái xe']}"""
         return self._dictionary_cache.get("violations", {}) if self._dictionary_cache else {}
 
     def normalize_and_expand(self, query: str) -> Dict[str, Any]:
@@ -62,7 +74,7 @@ class QueryNormalizer:
         Phân tích và mở rộng câu truy vấn:
         - Bắt loại phương tiện với cơ chế Longest-Match First.
         - Bắt hành vi vi phạm.
-        - Nhận diện ý định hỏi về độ tuổi lái xe (Age Intent).
+        - Nhận diện ý định hỏi về độ tuổi lái xe (Age Intent), hỗ trợ cả mẫu số như '16 tuổi', '18 tuổi'.
         - Tạo câu truy vấn mở rộng (query_expanded) cho BM25.
         """
         raw_query = str(query or "").strip()
@@ -101,8 +113,10 @@ class QueryNormalizer:
                     if s not in violation_synonyms and s.lower() not in lower_query:
                         violation_synonyms.append(s)
 
-        # 3. Nhận diện ý định hỏi độ tuổi (Age Intent)
-        is_age_query = any(k in lower_query for k in ["bao nhiêu tuổi", "độ tuổi", "đủ tuổi", "tuổi lái xe", "tuổi được lái"])
+        # 3. Nhận diện ý định hỏi độ tuổi (Age Intent): chuỗi từ khóa và mẫu số tuổi (vd: 16 tuổi, 18 tuổi)
+        age_keywords = ["bao nhiêu tuổi", "độ tuổi", "đủ tuổi", "tuổi lái xe", "tuổi được lái", "chưa đủ tuổi"]
+        has_age_pattern = bool(re.search(r"\b\d{1,2}\s*tuổi\b", lower_query))
+        is_age_query = any(k in lower_query for k in age_keywords) or has_age_pattern
 
         # 4. Tạo query_expanded cho BM25
         expanded_tokens = []

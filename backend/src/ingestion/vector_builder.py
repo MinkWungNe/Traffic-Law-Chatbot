@@ -25,11 +25,18 @@ class OllamaBatchEmbeddings(Embeddings):
     """
     Lớp nhúng vector tùy biến gọi trực tiếp endpoint '/api/embed' của Ollama theo lô (batch).
     Tối ưu hóa hiệu năng gấp 50 lần so với thư viện mặc định (xử lý 40 chunks/giây).
+    Tích hợp keep_alive để chống xung đột nạp/xả bộ nhớ (Model Swapping Churn) với LLM Engine.
     """
     # Hàm khởi tạo
-    def __init__(self, model: str = "vietnamese-embedding", base_url: str = "http://localhost:11434"):
+    def __init__(
+        self, 
+        model: str = "vietnamese-embedding", 
+        base_url: str = "http://localhost:11434",
+        keep_alive: str = "10m"
+    ):
         self.model = model # Tên mô hình embedding trong Ollama (mặc định: vietnamese-embedding)
         self.base_url = base_url.rstrip("/") # URL của dịch vụ Ollama cục bộ (mặc định: http://localhost:11434)
+        self.keep_alive = keep_alive
 
     def embed_documents(self, texts: List[str]) -> List[List[float]]:
         """
@@ -47,7 +54,12 @@ class OllamaBatchEmbeddings(Embeddings):
         # Vòng lặp chia danh sách texts thành các đợt (batches) nhúng vector theo sub_batch_size
         for i in range(0, len(texts), sub_batch_size): 
             chunk = texts[i:i + sub_batch_size]
-            data = json.dumps({"model": self.model, "input": chunk}).encode("utf-8")
+            payload = {
+                "model": self.model, 
+                "input": chunk,
+                "keep_alive": self.keep_alive
+            }
+            data = json.dumps(payload).encode("utf-8")
             req = urllib.request.Request(
                 f"{self.base_url}/api/embed",
                 data=data,
@@ -62,8 +74,14 @@ class OllamaBatchEmbeddings(Embeddings):
         """
         Nhúng một câu hỏi/câu truy vấn của người dùng qua Ollama /api/embed. 
         Thành 1 vector để mang đi so khớp khoảng cách trong cơ sở dữ liệu.
+        Có cờ keep_alive để giữ mô hình trong bộ nhớ, tránh bị unload khi gọi LLM.
         """
-        data = json.dumps({"model": self.model, "input": [text]}).encode("utf-8")
+        payload = {
+            "model": self.model, 
+            "input": [text],
+            "keep_alive": self.keep_alive
+        }
+        data = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(
             f"{self.base_url}/api/embed",
             data=data,
@@ -82,16 +100,19 @@ class VectorBuilder:
     def __init__(
         self, 
         persist_directory: str = "data/vectorstore", 
-        embedding_model_name: str = "vietnamese-embedding" # Tên model embedding được cài sẵn trong Ollama.
+        embedding_model_name: str = "vietnamese-embedding", # Tên model embedding được cài sẵn trong Ollama.
+        keep_alive: str = "10m"
     ):
         """
         Khởi tạo VectorBuilder.
         Args:
             persist_directory (str): Đường dẫn lưu trữ thư mục ChromaDB offline.
             embedding_model_name (str): Tên mô hình embedding trong Ollama (mặc định: vietnamese-embedding).
+            keep_alive (str): Giữ mô hình trong bộ nhớ tránh nạp xả liên tục.
         """
         self.persist_directory = persist_directory 
         self.embedding_model_name = embedding_model_name
+        self.keep_alive = keep_alive
         self.embeddings = None # Lưu trữ mô hình embedding
         self.vectorstore = None # Lưu trữ cơ sở dữ liệu vector
 
@@ -107,7 +128,8 @@ class VectorBuilder:
                 print(f"[THÔNG TIN] Đang kết nối mô hình nhúng Tiếng Việt '{self.embedding_model_name}' qua Ollama Batch API...")
                 self.embeddings = OllamaBatchEmbeddings(
                     model=self.embedding_model_name,
-                    base_url="http://localhost:11434" # URL của dịch vụ Ollama cục bộ. (Đây là địa chỉ mặc định)
+                    base_url="http://localhost:11434", # URL của dịch vụ Ollama cục bộ. (Đây là địa chỉ mặc định)
+                    keep_alive=self.keep_alive
                 )
                 print(f"[THÀNH CÔNG] Đã kết nối mô hình embedding '{self.embedding_model_name}' thành công.")
             except Exception as e:
