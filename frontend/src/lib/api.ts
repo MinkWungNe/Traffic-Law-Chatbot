@@ -1,15 +1,12 @@
 import { Citation, UserProfile, SessionItem, AuditLogItem } from "@/types/chat";
-import {
-  BenchmarkReportResponse,
-  BenchmarkSummaryResponse,
-  BenchmarkSamplesResponse,
-} from "@/types/benchmark";
-import { getAuthToken } from "@/stores/useAuthStore";
+import { BenchmarkReportResponse } from "@/types/benchmark";
+import { getAuthToken, useAuthStore } from "@/stores/useAuthStore";
 
 export const BACKEND_BASE_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8000";
 
-const DEFAULT_TIMEOUT_MS = Number(process.env.NEXT_PUBLIC_API_TIMEOUT_MS) || 60000;
+// Tăng thời gian chờ mặc định lên 180s (3 phút) cho suy luận chuỗi tư duy (CoT) trên CPU
+const DEFAULT_TIMEOUT_MS = Number(process.env.NEXT_PUBLIC_API_TIMEOUT_MS) || 180000;
 
 function getAuthHeaders(): Record<string, string> {
   const token = getAuthToken();
@@ -20,6 +17,20 @@ function getAuthHeaders(): Record<string, string> {
     headers["Authorization"] = `Bearer ${token}`;
   }
   return headers;
+}
+
+/**
+ * Xử lý tập trung mã lỗi HTTP (đặc biệt mã 401 Unauthorized khi JWT hết hạn).
+ */
+async function handleResponseError(res: Response, defaultMsg: string): Promise<never> {
+  if (res.status === 401) {
+    if (typeof window !== "undefined") {
+      useAuthStore.getState().clearAuth();
+    }
+    throw new Error("Phiên đăng nhập đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.");
+  }
+  const err = await res.json().catch(() => ({}));
+  throw new Error(err.detail || defaultMsg);
 }
 
 export interface BackendSource {
@@ -97,6 +108,12 @@ export async function queryChatApi(
       throw new DOMException("The operation was aborted", "AbortError");
     }
 
+    if (res.status === 401) {
+      if (typeof window !== "undefined") {
+        useAuthStore.getState().clearAuth();
+      }
+    }
+
     if (res.ok) {
       const data = await res.json();
       const sources: Citation[] = (data.sources || []).map((s: BackendSource) => ({
@@ -125,8 +142,8 @@ export async function queryChatApi(
         error: detailMsg,
       };
     }
-  } catch (err: any) {
-    if (signal?.aborted || err?.name === "AbortError") {
+  } catch (err: unknown) {
+    if (signal?.aborted || (err as { name?: string })?.name === "AbortError") {
       throw err;
     }
     console.warn("FastAPI backend offline or timeout, switching to offline fallback:", err);
@@ -153,8 +170,7 @@ export const authApi = {
       body: JSON.stringify({ email, password }),
     });
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || "Đăng ký không thành công.");
+      return handleResponseError(res, "Đăng ký không thành công.");
     }
     return res.json();
   },
@@ -166,8 +182,7 @@ export const authApi = {
       body: JSON.stringify({ email, password }),
     });
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || "Đăng nhập không thành công.");
+      return handleResponseError(res, "Đăng nhập không thành công.");
     }
     return res.json();
   },
@@ -178,7 +193,7 @@ export const authApi = {
       headers: getAuthHeaders(),
     });
     if (!res.ok) {
-      throw new Error("Không thể lấy thông tin người dùng.");
+      return handleResponseError(res, "Không thể lấy thông tin người dùng.");
     }
     return res.json();
   },
@@ -190,8 +205,7 @@ export const authApi = {
       body: JSON.stringify({ old_password: oldPassword, new_password: newPassword }),
     });
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || "Đổi mật khẩu không thành công.");
+      return handleResponseError(res, "Đổi mật khẩu không thành công.");
     }
     return res.json();
   },
@@ -201,17 +215,28 @@ export const authApi = {
 // CÁC HÀM QUẢN LÝ PHIÊN TRÒ CHUYỆN (SESSION API)
 // ==============================================================================
 export const sessionApi = {
-  async listSessions(): Promise<SessionItem[]> {
+  async listSessions(retryCount = 1): Promise<SessionItem[]> {
     try {
       const res = await fetch(`${BACKEND_BASE_URL}/api/sessions`, {
         method: "GET",
         headers: getAuthHeaders(),
       });
+      if (res.status === 401) {
+        if (typeof window !== "undefined") {
+          useAuthStore.getState().clearAuth();
+        }
+        return [];
+      }
       if (res.ok) {
         const data = await res.json();
         return data.sessions || [];
       }
-    } catch (e) {
+    } catch (e: unknown) {
+      if (retryCount > 0) {
+        // Chờ 1.5s và thử lại một lần nếu máy chủ đang trong tiến trình khởi động
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        return this.listSessions(retryCount - 1);
+      }
       console.warn("Không thể tải danh sách phiên từ backend:", e);
     }
     return [];
@@ -234,7 +259,7 @@ export const sessionApi = {
       headers: getAuthHeaders(),
     });
     if (!res.ok) {
-      throw new Error("Không thể tải chi tiết phiên trò chuyện.");
+      return handleResponseError(res, "Không thể tải chi tiết phiên trò chuyện.");
     }
     return res.json();
   },
@@ -249,7 +274,7 @@ export const sessionApi = {
       body: JSON.stringify(data),
     });
     if (!res.ok) {
-      throw new Error("Cập nhật phiên trò chuyện thất bại.");
+      return handleResponseError(res, "Cập nhật phiên trò chuyện thất bại.");
     }
     return res.json();
   },
@@ -260,7 +285,7 @@ export const sessionApi = {
       headers: getAuthHeaders(),
     });
     if (!res.ok) {
-      throw new Error("Xóa phiên trò chuyện thất bại.");
+      return handleResponseError(res, "Xóa phiên trò chuyện thất bại.");
     }
   },
 };
@@ -283,8 +308,7 @@ export const adminApi = {
       headers: getAuthHeaders(),
     });
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || "Không thể tải danh sách người dùng.");
+      return handleResponseError(res, "Không thể tải danh sách người dùng.");
     }
     return res.json();
   },
@@ -296,8 +320,7 @@ export const adminApi = {
       body: JSON.stringify({ is_active: isActive, reason }),
     });
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || "Cập nhật trạng thái người dùng thất bại.");
+      return handleResponseError(res, "Cập nhật trạng thái người dùng thất bại.");
     }
     return res.json();
   },
@@ -309,8 +332,7 @@ export const adminApi = {
       body: JSON.stringify({ new_password: newPassword }),
     });
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || "Đặt lại mật khẩu thất bại.");
+      return handleResponseError(res, "Đặt lại mật khẩu thất bại.");
     }
     return res.json();
   },
@@ -321,8 +343,7 @@ export const adminApi = {
       headers: getAuthHeaders(),
     });
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || "Xóa người dùng thất bại.");
+      return handleResponseError(res, "Xóa người dùng thất bại.");
     }
     return res.json();
   },
@@ -341,8 +362,7 @@ export const adminApi = {
       headers: getAuthHeaders(),
     });
     if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || "Không thể tải nhật ký kiểm toán.");
+      return handleResponseError(res, "Không thể tải nhật ký kiểm toán.");
     }
     return res.json();
   },
@@ -362,56 +382,7 @@ export const benchmarkApi = {
     });
 
     if (!res.ok) {
-      const errorData = await res.json().catch(() => ({}));
-      throw new Error(errorData.detail || `Lỗi khi tải dữ liệu benchmark (Mã: ${res.status})`);
-    }
-
-    return res.json();
-  },
-
-  /**
-   * Lấy nhanh chỉ số KPI tổng hợp và chất lượng RAGAS
-   */
-  async getLatest(): Promise<BenchmarkSummaryResponse> {
-    const res = await fetch(`${BACKEND_BASE_URL}/api/admin/benchmark/latest`, {
-      method: "GET",
-      headers: getAuthHeaders(),
-    });
-
-    if (!res.ok) {
-      const errorData = await res.json().catch(() => ({}));
-      throw new Error(errorData.detail || `Lỗi khi tải tóm tắt benchmark (Mã: ${res.status})`);
-    }
-
-    return res.json();
-  },
-
-  /**
-   * Lấy danh sách mẫu kiểm thử có phân trang và bộ lọc
-   */
-  async getSamples(
-    page = 1,
-    limit = 20,
-    status = "all",
-    search = ""
-  ): Promise<BenchmarkSamplesResponse> {
-    const query = new URLSearchParams({
-      page: page.toString(),
-      limit: limit.toString(),
-      status: status,
-    });
-    if (search.trim()) {
-      query.append("search", search.trim());
-    }
-
-    const res = await fetch(`${BACKEND_BASE_URL}/api/admin/benchmark/samples?${query.toString()}`, {
-      method: "GET",
-      headers: getAuthHeaders(),
-    });
-
-    if (!res.ok) {
-      const errorData = await res.json().catch(() => ({}));
-      throw new Error(errorData.detail || `Lỗi khi tải danh sách kiểm thử (Mã: ${res.status})`);
+      return handleResponseError(res, `Lỗi khi tải dữ liệu benchmark (Mã: ${res.status})`);
     }
 
     return res.json();
@@ -433,8 +404,7 @@ export const benchmarkApi = {
     );
 
     if (!res.ok) {
-      const errorData = await res.json().catch(() => ({}));
-      throw new Error(errorData.detail || `Lỗi khi thực thi benchmark (Mã: ${res.status})`);
+      return handleResponseError(res, `Lỗi khi thực thi benchmark (Mã: ${res.status})`);
     }
 
     return res.json();

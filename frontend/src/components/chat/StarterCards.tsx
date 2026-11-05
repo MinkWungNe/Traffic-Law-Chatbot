@@ -61,7 +61,7 @@ const STARTER_CARDS: StarterCardItem[] = [
 
 export const StarterCards: React.FC<StarterCardsProps> = ({ onSelectPrompt }) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-w-2xl mx-auto w-full mt-7">
+    <div className="grid grid-cols-2 gap-3.5 max-w-2xl mx-auto w-full mt-7">
       {STARTER_CARDS.map((card) => {
         const Icon = card.icon;
         return (

@@ -4,14 +4,13 @@ import React, { useState, useMemo, useEffect, useRef } from "react";
 import { useChatStore } from "@/stores/useChatStore";
 import { FAQ_ITEMS, FAQ_TOPICS } from "@/data/faqData";
 import {
-  Search,
+  Search, 
   X,
   Bot,
   Sparkles,
   Filter,
   RotateCcw,
-  ChevronDown,
-  ChevronUp,
+  ChevronDown, ChevronUp,
   AlertTriangle,
   ShieldAlert,
   Wine,
@@ -81,7 +80,7 @@ export const FAQView: React.FC = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Bộ lọc dữ liệu đa tiêu chí (Early return ngắt sớm tối ưu hiệu năng)
+  // Bộ lọc dữ liệu đa tiêu chí
   const filteredFaqs = useMemo(() => {
     const term = searchTerm.trim().toLowerCase();
     return FAQ_ITEMS.filter((item) => {
@@ -136,7 +135,7 @@ export const FAQView: React.FC = () => {
     <div className="absolute inset-0 w-full h-full overflow-hidden px-5 py-5 z-10 select-text flex flex-col">
       <div className="max-w-7xl w-full mx-auto flex flex-col gap-3 flex-1 min-h-0">
         {/* ========================================================================= */}
-        {/* HEADER CĂN GIỮA NGOÀI KHUNG (ĐỒNG BỘ DESIGN SYSTEM)                         */}
+        {/* HEADER CĂN GIỮA NGOÀI KHUNG                                               */}
         {/* ========================================================================= */}
         <header className="w-full text-center py-1 shrink-0 flex flex-col items-center">
           <h1 className="text-2xl font-extrabold text-primary-navy tracking-tight">
@@ -145,10 +144,10 @@ export const FAQView: React.FC = () => {
         </header>
 
         {/* ========================================================================= */}
-        {/* KHUNG HỢP NHẤT TOÀN DIỆN (UNIFIED WORKSPACE CONTAINER)                     */}
+        {/* KHUNG HỢP NHẤT TOÀN DIỆN                                                  */}
         {/* ========================================================================= */}
         <div className="w-full bg-white/70 rounded-2xl border border-slate-200/80 shadow-md p-4 flex flex-col gap-3.5 flex-1 min-h-0 overflow-hidden">
-          {/* THANH TÌM KIẾM SPOTLIGHT TOÀN PHẦN */}
+          {/* THANH TÌM KIẾM SPOTLIGHT */}
           <div className="flex items-center gap-2.5 shrink-0">
             <div className="spotlight-border relative flex-1 flex items-center bg-white rounded-lg border border-slate-200 focus-within:border-primary-navy/40 transition-colors [--glow-color:#94A3B8] [--glow-size:240px]">
               <Search size={17} className="absolute left-3.5 text-slate-400 pointer-events-none shrink-0" />
@@ -185,9 +184,9 @@ export const FAQView: React.FC = () => {
             )}
           </div>
 
-          {/* VÙNG LÀM VIỆC 2 CỘT (TOPIC INDEX RAIL + KNOWLEDGE FEED) */}
+          {/* VÙNG LÀM VIỆC 2 CỘT */}
           <div className="flex-1 flex gap-4 min-h-0 overflow-hidden">
-            {/* CỘT TRÁI (260px CỐ ĐỊNH): THANH ĐIỀU HƯỚNG CHUYÊN ĐỀ & BỘ LỌC CHẾ TÀI */}
+            {/* CỘT TRÁI: THANH ĐIỀU HƯỚNG CHUYÊN ĐỀ & BỘ LỌC CHẾ TÀI */}
             <aside className="w-[260px] shrink-0 flex flex-col gap-3.5 overflow-hidden border-r border-slate-200/80 pr-3">
               {/* PHẦN 1: DANH MỤC CHUYÊN ĐỀ PHÁP LUẬT */}
               <div className="flex-1 min-h-0 flex flex-col gap-1 overflow-hidden">
@@ -269,7 +268,7 @@ export const FAQView: React.FC = () => {
               </div>
             </aside>
 
-            {/* CỘT PHẢI (FLEX-1 CUỘN ĐỘC LẬP): FEED THẺ HỒ SƠ PHÁP LÝ (LEGAL FACT SHEETS) */}
+            {/* CỘT PHẢI: FEED THẺ HỒ SƠ PHÁP LÝ */}
             <main className="flex-1 flex flex-col min-h-0 overflow-hidden">
               {/* THANH TRẠNG THÁI FEED TRÊN CÙNG */}
               <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-200/60 shrink-0">
@@ -386,7 +385,7 @@ export const FAQView: React.FC = () => {
                             {faq.question}
                           </h2>
 
-                          {/* HÀNG 3: DẢI CHẾ TÀI CỐT LÕI (INLINE SPECS - GỌN GÀNG, KHÔNG LỒNG CARD, KHÔNG TRÙNG LẶP) */}
+                          {/* HÀNG 3: DẢI CHẾ TÀI CỐT LÕI */}
                           <div className="flex items-center gap-2 flex-wrap text-[11.5px] pt-0.5">
                             <span className="font-semibold text-slate-700">
                               Mức phạt: <span className="font-bold text-primary-navy">{faq.penaltyMoney}</span>
@@ -414,7 +413,7 @@ export const FAQView: React.FC = () => {
                           </div>
                         </div>
 
-                        {/* KHỐI NỘI DUNG CHI TIẾT (MỞ RỘNG ACCORDION MƯỢT MÀ) */}
+                        {/* KHỐI NỘI DUNG CHI TIẾT */}
                         <div
                           className={`grid transition-[grid-template-rows] duration-300 ease-out ${
                             isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
@@ -444,7 +443,7 @@ export const FAQView: React.FC = () => {
                             </div>
 
                             {/* 4. FOOTER MỞ RỘNG: GỢI Ý HỎI TIẾP VÀ NÚT HỎI SÂU CÙNG AI */}
-                            <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                            <div className="pt-2 border-t border-slate-100 flex items-center justify-between gap-2.5">
                               {faq.aiPrompts && faq.aiPrompts.length > 0 ? (
                                 <div className="flex items-center gap-1.5 flex-wrap flex-1 min-w-0">
                                   <span className="text-[11px] font-semibold text-slate-400 flex items-center gap-1 shrink-0">

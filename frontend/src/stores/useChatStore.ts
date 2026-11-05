@@ -222,12 +222,40 @@ export const useChatStore = create<ChatState>((set, get) => ({
         isLoading: false,
       }));
 
-      // Nếu đã lưu phiên trên backend, cập nhật lại danh sách sessions
+      // Cập nhật session nội bộ trong Zustand store (không cần gọi lại GET /api/sessions qua mạng)
       if (res.sessionId && useAuthStore.getState().isAuthenticated) {
-        get().loadSessions();
+        set((state) => {
+          const sid = res.sessionId!;
+          const existing = state.sessions.find((s) => s.id === sid);
+          if (existing) {
+            const updated: SessionItem = {
+              ...existing,
+              updated_at: new Date().toISOString(),
+              message_count: (existing.message_count || 0) + 2,
+            };
+            const others = state.sessions.filter((s) => s.id !== sid);
+            return {
+              sessions: updated.is_pinned
+                ? [updated, ...others]
+                : [...others.filter((s) => s.is_pinned), updated, ...others.filter((s) => !s.is_pinned)],
+            };
+          } else {
+            const newSessionItem: SessionItem = {
+              id: sid,
+              title: state.sessionTitle,
+              is_pinned: false,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+              message_count: 2,
+            };
+            return {
+              sessions: [newSessionItem, ...state.sessions],
+            };
+          }
+        });
       }
-    } catch (err: any) {
-      if (err?.name === "AbortError" || controller.signal.aborted) {
+    } catch (err: unknown) {
+      if ((err as { name?: string })?.name === "AbortError" || controller.signal.aborted) {
         // Yêu cầu đã được dừng bởi người dùng, stopGeneration đã hiển thị thông báo
         return;
       }

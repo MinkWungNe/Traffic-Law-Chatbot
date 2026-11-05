@@ -79,7 +79,7 @@ export const BenchmarkDashboard: React.FC = () => {
         if (isMounted) {
           setReport(data);
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (isMounted) {
           console.warn("Chưa có kết quả benchmark từ máy chủ hoặc API chưa sẵn sàng:", err);
           setReport(null);
@@ -143,8 +143,8 @@ export const BenchmarkDashboard: React.FC = () => {
       setSuccessMessage(
         `Đã hoàn thành đánh giá ${data.metadata?.evaluated_samples || sampleLimit} mẫu! Tỷ lệ trúng đạt ${hitPercent} (MRR: ${mrrVal}).`
       );
-    } catch (err: any) {
-      setErrorMessage(err.message || "Lỗi khi kích hoạt tiến trình đánh giá.");
+    } catch (err: unknown) {
+      setErrorMessage((err as Error)?.message || "Lỗi khi kích hoạt tiến trình đánh giá.");
     } finally {
       setIsRunning(false);
     }
@@ -196,15 +196,18 @@ export const BenchmarkDashboard: React.FC = () => {
   }, [report]);
   const failedQuestions = totalQuestions - passedQuestions;
 
-  // Rank distribution calculation
+  // Rank distribution calculation (Hỗ trợ tương thích cả first_rank và rank)
   const rank1Count = useMemo(() => {
     if (!report?.detailed_results) return 0;
-    return report.detailed_results.filter((i) => i.first_rank === 1).length;
+    return report.detailed_results.filter((i) => (i.first_rank ?? i.rank) === 1).length;
   }, [report]);
 
   const rank23Count = useMemo(() => {
     if (!report?.detailed_results) return 0;
-    return report.detailed_results.filter((i) => i.first_rank === 2 || i.first_rank === 3).length;
+    return report.detailed_results.filter((i) => {
+      const r = i.first_rank ?? i.rank;
+      return r === 2 || r === 3;
+    }).length;
   }, [report]);
 
   const missCount = totalQuestions - (rank1Count + rank23Count);
@@ -224,7 +227,7 @@ export const BenchmarkDashboard: React.FC = () => {
   return (
     <div className="flex flex-col gap-5 max-w-7xl mx-auto">
       {/* 1. TOP ACTION & METADATA BAR */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 px-5 rounded-2xl border border-slate-200/90 shadow-2xs">
+      <div className="flex items-center justify-between gap-3 bg-white p-3.5 px-5 rounded-2xl border border-slate-200/90 shadow-2xs">
         <div className="flex items-center gap-2.5 flex-wrap text-[12.5px]">
           <span className="font-semibold text-slate-700">Tập dữ liệu kiểm định:</span>
           <span className="font-mono text-slate-800 bg-slate-100 px-2.5 py-0.5 rounded-md border border-slate-200 font-medium">
@@ -315,7 +318,7 @@ export const BenchmarkDashboard: React.FC = () => {
 
       {/* LOADING SKELETAL STATE & EMPTY STATE */}
       {isLoading ? (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="grid grid-cols-2 gap-5">
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs h-80 animate-pulse" />
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs h-80 animate-pulse" />
         </div>
@@ -327,14 +330,14 @@ export const BenchmarkDashboard: React.FC = () => {
           <div className="max-w-md">
             <h3 className="text-base font-bold text-primary-navy">Chưa có Dữ liệu Báo cáo Đánh giá</h3>
             <p className="text-[13px] text-slate-500 mt-1.5 leading-relaxed">
-              Hệ thống hiện chưa có kết quả kiểm thử. Vui lòng chọn số lượng câu hỏi và nhấn nút <strong className="text-slate-700">"Chạy Benchmark Đánh giá"</strong> ở trên để bắt đầu quá trình đo lường tự động.
+              Hệ thống hiện chưa có kết quả kiểm thử. Vui lòng chọn số lượng câu hỏi và nhấn nút <strong className="text-slate-700">&quot;Chạy Benchmark Đánh giá&quot;</strong> ở trên để bắt đầu quá trình đo lường tự động.
             </p>
           </div>
         </div>
       ) : (
         <>
-          {/* 2. EXECUTIVE SCORECARD: UNIFIED 2-COLUMN BENTO GRID */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          {/* 2. EXECUTIVE SCORECARD */}
+          <div className="grid grid-cols-2 gap-5">
             {/* CỘT 1: KHÂU TRUY XUẤT CĂN CỨ (RETRIEVAL PIPELINE) */}
             <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col justify-between gap-5">
               <div className="flex flex-col gap-4">
@@ -460,10 +463,10 @@ export const BenchmarkDashboard: React.FC = () => {
               </div>
             </div>
 
-            {/* CỘT 2: KHÂU SINH LẬP LUẬN RAGAS (GENERATIVE PIPELINE) */}
+            {/* CỘT 2: KHÂU SINH LẬP LUẬN RAGAS */}
             <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col justify-between gap-5">
               <div className="flex flex-col gap-4">
-                {/* Header (Đã loại bỏ badge Chuẩn VinaLaw) */}
+                {/* Header */}
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                   <div className="flex items-center gap-2.5">
                     <div className="p-2 rounded-xl bg-amber-50 text-amber-600 border border-amber-100">
@@ -478,11 +481,17 @@ export const BenchmarkDashboard: React.FC = () => {
                       </p>
                     </div>
                   </div>
+                  <span
+                    className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200 cursor-help"
+                    title="Chỉ số đối soát thực nghiệm từ tập kiểm thử chuẩn RAGAS độc lập (Baseline)"
+                  >
+                    Bộ chỉ số đối soát thực nghiệm RAGAS (Baseline)
+                  </span>
                 </div>
 
                 {/* 3 Metric Cards */}
                 <div className="grid grid-cols-3 gap-3">
-                  {/* Faithfulness (Đã bỏ cụm Anti-hallucination) */}
+                  {/* Faithfulness */}
                   <div className="p-3.5 rounded-xl bg-slate-50/80 border border-slate-200/80 flex flex-col justify-between">
                     <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block flex items-center gap-1">
                       <ShieldCheck size={13} className="text-emerald-600 shrink-0" />
@@ -499,7 +508,7 @@ export const BenchmarkDashboard: React.FC = () => {
                     </span>
                   </div>
 
-                  {/* Answer Relevance (Đã sửa lại thành Đúng trọng tâm) */}
+                  {/* Answer Relevance */}
                   <div className="p-3.5 rounded-xl bg-slate-50/80 border border-slate-200/80 flex flex-col justify-between">
                     <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block flex items-center gap-1">
                       <Target size={13} className="text-amber-600 shrink-0" />
@@ -546,14 +555,14 @@ export const BenchmarkDashboard: React.FC = () => {
                 </div>
               </div>
 
-              {/* Sub-footer (Đã xóa Chuyên gia pháp lý đối soát) */}
+              {/* Sub-footer */}
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11.5px] text-slate-500">
                 <span>Tập câu hỏi đối sánh: 683_CauHoi_TTATGTDB.csv</span>
               </div>
             </div>
           </div>
 
-          {/* 3. QUERY INSPECTOR & ERROR TRIAGING TABLE (DANH SÁCH CUỘN LIÊN TỤC) */}
+          {/* 3. QUERY INSPECTOR & ERROR TRIAGING TABLE */}
           <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs overflow-hidden flex flex-col">
             {/* TẦNG 1: TIÊU ĐỀ CĂN GIỮA */}
             <div className="pt-5 pb-2 text-center border-b border-slate-100">
@@ -562,7 +571,7 @@ export const BenchmarkDashboard: React.FC = () => {
               </h3>
             </div>
 
-            {/* TẦNG 2 & 3: THANH TÌM KIẾM VÀ PILL PHÂN LOẠI (ĐỒNG NHẤT 100% VỚI LEGALDOCSVIEW) */}
+            {/* TẦNG 2 & 3: THANH TÌM KIẾM VÀ PILL PHÂN LOẠI */}
             <div className="p-4 border-b border-slate-200/90 flex flex-col gap-3">
               {/* Tầng 2: Thanh tìm kiếm */}
               <div className="relative flex items-center bg-slate-50 rounded-lg border border-slate-200 focus-within:border-primary-navy/40 focus-within:bg-white transition-colors">
@@ -599,7 +608,7 @@ export const BenchmarkDashboard: React.FC = () => {
                   ].map((cat) => (
                     <button
                       key={cat.id}
-                      onClick={() => setStatusFilter(cat.id as any)}
+                      onClick={() => setStatusFilter(cat.id as "all" | "passed" | "failed")}
                       className={`px-2.5 py-1 rounded-md text-[12px] font-semibold cursor-pointer inline-flex items-center gap-1.5 border transition-colors select-none ${
                         statusFilter === cat.id
                           ? "bg-primary-navy text-white border-primary-navy shadow-2xs"
@@ -626,7 +635,7 @@ export const BenchmarkDashboard: React.FC = () => {
               </div>
             </div>
 
-            {/* Table Content (Hiển thị tự nhiên theo luồng cuộn thống nhất của trang) */}
+            {/* Table Content */}
             <div className="overflow-x-auto">
               <table className="w-full text-left text-[12.5px] border-collapse">
                 <thead className="bg-slate-50/80 border-b border-slate-200">
@@ -650,7 +659,7 @@ export const BenchmarkDashboard: React.FC = () => {
                         <td className="py-3 px-4 font-mono text-slate-400 text-[11.5px]">
                           #{item.id.toString().padStart(3, "0")}
                         </td>
-                        {/* Cột câu hỏi: Đã bọc trong thẻ <p> để xử lý triệt để lỗi display: table-cell tràn chữ */}
+                        {/* Cột câu hỏi */}
                         <td className="py-3 px-4 pr-4">
                           <p
                             className="line-clamp-2 text-slate-800 font-medium leading-relaxed"
@@ -684,11 +693,14 @@ export const BenchmarkDashboard: React.FC = () => {
                           <div className="flex flex-wrap gap-1 max-w-[240px]">
                             {(((item.retrieved_sources && item.retrieved_sources.length > 0)
                               ? item.retrieved_sources
-                              : (item.retrieved_docs || []).map((d: any) => typeof d === "string" ? d : d.title || "Tài liệu")
+                              : (item.retrieved_docs || []).map((d: Record<string, unknown> | string) => typeof d === "string" ? d : (d as Record<string, string>).title || "Tài liệu")
                             ) || []).slice(0, 2).map((src, idx) => {
-                              const srcName = typeof src === "string" ? src : (src as any).title || (src as any).source || (src as any).document;
-                              const isMatch = item.ground_truth_citations?.some((gt) =>
-                                gt.toLowerCase().includes(srcName?.toLowerCase() || "")
+                              const srcObj = typeof src === "string" ? null : (src as Record<string, unknown>);
+                              const srcName = typeof src === "string" ? src : String(srcObj?.title || srcObj?.source || srcObj?.document || "");
+                              const cleanSrc = (srcName || "").toLowerCase();
+                              const isMatch = isPassed && (
+                                item.matched_citations?.some((mc) => cleanSrc.includes(mc.toLowerCase().trim())) ||
+                                item.ground_truth_citations?.some((gt) => cleanSrc.includes(gt.toLowerCase().trim()))
                               );
                               return (
                                 <span
@@ -740,7 +752,7 @@ export const BenchmarkDashboard: React.FC = () => {
               </table>
             </div>
 
-            {/* Footer danh sách cuộn liên tục */}
+            {/* Footer danh sách */}
             <div className="p-3 px-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-[12px] text-slate-500">
               <span className="font-mono">
                 Đang hiển thị <strong>{filteredQueries.length}</strong> câu hỏi kiểm thử
@@ -817,7 +829,7 @@ export const BenchmarkDashboard: React.FC = () => {
               )}
 
               {/* Side-by-Side Citations */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
                   <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
                     Căn cứ pháp lý chuẩn:
@@ -839,11 +851,15 @@ export const BenchmarkDashboard: React.FC = () => {
                   <div className="flex flex-col gap-1.5 p-3 rounded-xl bg-slate-50 border border-slate-200 min-h-[120px]">
                     {(((selectedItem.retrieved_sources && selectedItem.retrieved_sources.length > 0)
                       ? selectedItem.retrieved_sources
-                      : (selectedItem.retrieved_docs || []).map((d: any) => typeof d === "string" ? d : d.title || "Tài liệu")
+                      : (selectedItem.retrieved_docs || []).map((d: Record<string, unknown> | string) => typeof d === "string" ? d : (d as Record<string, string>).title || "Tài liệu")
                     ) || []).map((src, idx) => {
-                      const srcName = typeof src === "string" ? src : (src as any).title || (src as any).source || (src as any).document;
-                      const isMatch = selectedItem.ground_truth_citations?.some((gt) =>
-                        gt.toLowerCase().includes(srcName?.toLowerCase() || "")
+                      const srcObj = typeof src === "string" ? null : (src as Record<string, unknown>);
+                              const srcName = typeof src === "string" ? src : String(srcObj?.title || srcObj?.source || srcObj?.document || "");
+                      const cleanSrc = (srcName || "").toLowerCase();
+                      const isPassed = selectedItem.is_passed ?? (selectedItem.hit > 0);
+                      const isMatch = isPassed && (
+                        selectedItem.matched_citations?.some((mc) => cleanSrc.includes(mc.toLowerCase().trim())) ||
+                        selectedItem.ground_truth_citations?.some((gt) => cleanSrc.includes(gt.toLowerCase().trim()))
                       );
                       return (
                         <div
@@ -882,7 +898,7 @@ export const BenchmarkDashboard: React.FC = () => {
                   <div>
                     <span className="text-[10px] text-slate-400 font-semibold block">THỨ HẠNG ĐẦU</span>
                     <span className="font-mono font-bold text-slate-900">
-                      {selectedItem.first_rank ?? (selectedItem as any).rank ?? 0}
+                      {selectedItem.first_rank ?? selectedItem.rank ?? 0}
                     </span>
                   </div>
                   <div>
@@ -900,7 +916,7 @@ export const BenchmarkDashboard: React.FC = () => {
 
               {/* RAGAS Individual Question Scores */}
               {(selectedItem.faithfulness !== undefined || selectedItem.answer_relevance !== undefined) && (
-                <div className="p-3.5 rounded-xl bg-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[12px] border border-slate-800 shadow-xs">
+                <div className="p-3.5 rounded-xl bg-slate-900 text-white flex items-center justify-between gap-3 text-[12px] border border-slate-800 shadow-xs">
                   <div className="flex items-center gap-2">
                     <Sparkles size={16} className="text-accent-gold shrink-0" />
                     <div>

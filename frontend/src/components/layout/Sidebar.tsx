@@ -23,8 +23,7 @@ import {
 
 export const Sidebar: React.FC = () => {
   const {
-    activeTab,
-    setActiveTab,
+    activeTab, setActiveTab,
     sessionTitle,
     currentSessionId,
     sessions,
@@ -210,7 +209,7 @@ export const Sidebar: React.FC = () => {
           </nav>
         </div>
 
-        {/* PHẦN GIỮA: LỊCH SỬ TRÒ CHUYỆN (MULTI-SESSION) */}
+        {/* PHẦN GIỮA: LỊCH SỬ TRÒ CHUYỆN */}
         <div className="flex-1 flex flex-col min-h-0 px-3 pb-2 overflow-hidden relative z-10">
           <div
             onClick={() => {
@@ -270,7 +269,7 @@ export const Sidebar: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                /* Nếu là Thành viên đã đăng nhập (Multi-Session Cloud List) */
+                /* Nếu là Thành viên đã đăng nhập */
                 <>
                   {sessions.length === 0 ? (
                     <div className="py-4 text-center text-[12px] text-slate-400">

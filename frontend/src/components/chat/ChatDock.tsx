@@ -23,7 +23,7 @@ export const ChatDock: React.FC = () => {
 
   const hasText = inputText.trim().length > 0;
 
-  const adjustTextareaHeight = () => {
+  const adjustTextareaHeight = React.useCallback(() => {
     const el = textareaRef.current;
     if (!el) return;
 
@@ -47,11 +47,11 @@ export const ChatDock: React.FC = () => {
     } else {
       el.style.height = "32px";
     }
-  };
+  }, [inputText]);
 
   useEffect(() => {
     adjustTextareaHeight();
-  }, [inputText]);
+  }, [inputText, adjustTextareaHeight]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

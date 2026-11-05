@@ -24,8 +24,8 @@ export default function Home() {
   }
 
   return (
-    <main className="flex h-screen w-screen overflow-hidden bg-canvas select-none">
-      {/* Cột Trái: Sidebar 270px cố định */}
+    <main className="flex h-screen w-screen overflow-hidden bg-canvas">
+      {/* Cột Trái: Sidebar 270px cố định Desktop */}
       <Sidebar />
 
       {/* Cột Phải: Viewport chính với kiến trúc 3 tầng xếp lớp (3-Layer Viewport Stacking) */}

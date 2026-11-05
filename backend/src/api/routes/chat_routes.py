@@ -7,11 +7,12 @@ Hỗ trợ lưu trữ lịch sử mã hóa AES-256-GCM khi người dùng đã �
 import time
 import json
 import uuid
-import csv
+import asyncio
 import logging
 from pathlib import Path
 from datetime import datetime, timezone
 from typing import Dict, Any, Tuple, List, Optional
+from collections import OrderedDict
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -21,11 +22,6 @@ from ..schemas.chat_schema import (
     ChatResponse,
     HealthResponse,
     SourceDocument,
-    SearchRequest,
-    SearchResponse,
-    RelatedDocItem,
-    LegalDocItem,
-    LegalDocsListResponse,
 )
 from ...rag.rag_pipeline import LegalRAGPipeline
 from ...db.database import get_db
@@ -40,29 +36,12 @@ router = APIRouter(prefix="/api", tags=["Chat & Search"])
 rag_pipeline = LegalRAGPipeline()
 SERVER_START_TIME = time.time()
 
-# In-Memory Cache cho các câu hỏi phổ biến
+# In-Memory Cache cho các câu hỏi phổ biến (Sử dụng OrderedDict để dọn dẹp O(1))
 _CACHE_TTL_SECONDS = 600  # 10 phút
 _MAX_CACHE_ENTRIES = 200
-_query_cache: Dict[str, Tuple[float, Dict[str, Any]]] = {}
-
-LEGAL_DOCS_JSON_PATH = Path("data/legal_documents.json")
+_query_cache: OrderedDict[str, Tuple[float, Dict[str, Any]]] = OrderedDict()
 
 
-def load_legal_documents() -> List[LegalDocItem]:
-    """
-    Đọc danh mục văn bản quy phạm pháp luật và quan hệ văn bản hợp nhất từ tệp JSON cấu trúc.
-    """
-    if not LEGAL_DOCS_JSON_PATH.exists():
-        logger.warning(f"Không tìm thấy file {LEGAL_DOCS_JSON_PATH}. Trả về danh sách rỗng.")
-        return []
-
-    try:
-        with open(LEGAL_DOCS_JSON_PATH, mode="r", encoding="utf-8") as f:
-            data = json.load(f)
-            return [LegalDocItem(**item) for item in data]
-    except Exception as e:
-        logger.error(f"Lỗi khi đọc file JSON văn bản pháp luật: {e}")
-        return []
 
 
 def _get_cache_key(query: str, top_k: int, temperature: float) -> str:
@@ -112,15 +91,17 @@ async def handle_chat_query(
             answer_text = cached_data["answer"]
             sources = [SourceDocument(**s) for s in cached_data["sources"]]
             is_cached = True
+            _query_cache.move_to_end(cache_key)
             logger.info(f"Cache HIT for query: '{req.query}'")
 
-    # 2. Xử lý qua RAG Pipeline nếu chưa có cache
+    # 2. Xử lý qua RAG Pipeline nếu chưa có cache (Đẩy sang Threadpool để không nghẽn Event Loop)
     if not is_cached:
         try:
-            result = rag_pipeline.answer_question(
+            result = await asyncio.to_thread(
+                rag_pipeline.answer_question,
                 query=req.query,
-                top_k=req.top_k,
-                temperature=req.temperature
+                top_k=req.top_k or 3,
+                temperature=req.temperature or 0.2
             )
 
             answer_text = result["answer"]
@@ -133,10 +114,9 @@ async def handle_chat_query(
                 for s in result.get("sources", [])
             ]
 
-            # Lưu vào Cache
+            # Lưu vào Cache với O(1) eviction
             if len(_query_cache) >= _MAX_CACHE_ENTRIES:
-                oldest_key = min(_query_cache, key=lambda k: _query_cache[k][0])
-                _query_cache.pop(oldest_key, None)
+                _query_cache.popitem(last=False)
 
             _query_cache[cache_key] = (
                 current_time,
@@ -216,41 +196,4 @@ async def handle_chat_query(
         session_id=final_session_id,
         cached=is_cached,
         execution_time_ms=elapsed_ms
-    )
-
-
-@router.post("/search", response_model=SearchResponse)
-def search_legal_sources(req: SearchRequest):
-    """
-    Truy xuất nhanh các điều khoản và căn cứ pháp lý liên quan từ cơ sở tri thức (không sinh câu trả lời LLM).
-    """
-    try:
-        raw_sources = rag_pipeline.retrieve_context(query=req.query, top_k=req.top_k or 3)
-        sources = [
-            SourceDocument(
-                title=s["title"],
-                snippet=s["snippet"],
-                score=s.get("score")
-            )
-            for s in raw_sources
-        ]
-        return SearchResponse(
-            query=req.query,
-            total=len(sources),
-            sources=sources
-        )
-    except Exception as e:
-        logger.error(f"Error retrieving sources: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Lỗi truy xuất căn cứ pháp lý: {str(e)}")
-
-
-@router.get("/documents", response_model=LegalDocsListResponse)
-def get_legal_documents():
-    """
-    Trả về danh mục toàn bộ văn bản quy phạm pháp luật giao thông được nạp từ tệp CSV tập trung.
-    """
-    docs = load_legal_documents()
-    return LegalDocsListResponse(
-        total=len(docs),
-        documents=docs
     )

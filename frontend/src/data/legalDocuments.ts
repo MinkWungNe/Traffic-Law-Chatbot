@@ -1,3 +1,12 @@
+/**
+ * ==============================================================================
+ * NOTE KIẾN TRÚC ĐỒ ÁN (ARCHITECTURAL DECISION):
+ * Danh mục 22 văn bản pháp luật giao thông đường bộ được nạp tĩnh tại Client (Frontend)
+ * nhằm tối ưu tốc độ phản hồi tức thì (Zero Latency) và giữ kiến trúc phân hệ tinh gọn,
+ * tập trung toàn bộ tài nguyên Backend cho RAG Core, Vector DB và suy luận AI Chatbot.
+ * ==============================================================================
+ */
+
 export interface RelatedDocItem {
   relationType: "goc" | "sua_doi";
   title: string;

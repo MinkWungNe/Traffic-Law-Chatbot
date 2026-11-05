@@ -42,54 +42,6 @@ class HealthResponse(BaseModel):
     """
     status: str = Field(default="ok", description="Trạng thái hệ thống")
     message: str = Field(default="Hệ thống AI Chatbot An toàn Giao thông đang hoạt động ổn định")
-    version: Optional[str] = Field(default="1.0.0", description="Phiên bản API hiện tại")
+    version: Optional[str] = Field(default="2.0.0", description="Phiên bản API hiện tại")
     uptime_seconds: Optional[float] = Field(default=None, description="Thời gian máy chủ đã chạy (giây)")
     timestamp: Optional[str] = Field(default=None, description="Thời điểm phản hồi theo chuẩn ISO")
-
-class SearchRequest(BaseModel):
-    """
-    Cấu trúc truy vấn tìm kiếm nhanh căn cứ pháp lý (chỉ trích xuất, không sinh câu trả lời).
-    """
-    query: str = Field(..., description="Từ khóa hoặc câu hỏi cần tra cứu trích dẫn", min_length=2)
-    top_k: Optional[int] = Field(default=3, description="Số lượng trích dẫn", ge=1, le=10)
-
-class SearchResponse(BaseModel):
-    """
-    Kết quả trả về danh sách căn cứ pháp lý liên quan.
-    """
-    query: str = Field(..., description="Từ khóa tìm kiếm")
-    total: int = Field(default=0, description="Tổng số trích dẫn tìm thấy")
-    sources: List[SourceDocument] = Field(default=[], description="Danh sách các đoạn luật trích xuất")
-
-class RelatedDocItem(BaseModel):
-    """
-    Thông tin văn bản thành phần trong văn bản hợp nhất (văn bản gốc hoặc văn bản sửa đổi, bổ sung).
-    """
-    relation_type: str = Field(..., description="Loại quan hệ: 'goc' (Văn bản gốc) hoặc 'sua_doi' (Văn bản sửa đổi, bổ sung)")
-    relation_label: str = Field(..., description="Nhãn hiển thị, ví dụ: 'Văn bản gốc', 'Văn bản sửa đổi, bổ sung'")
-    title: str = Field(..., description="Tên văn bản")
-    number: str = Field(..., description="Số hiệu văn bản")
-    source_url: str = Field(..., description="Đường dẫn tra cứu trên vbpl.vn")
-
-class LegalDocItem(BaseModel):
-    """
-    Cấu trúc mô tả một văn bản quy phạm pháp luật trong cơ sở dữ liệu.
-    """
-    id: str = Field(..., description="Mã định danh văn bản")
-    category: str = Field(..., description="Phân loại: luat, nghi-dinh, thong-tu, quy-chuan")
-    type_label: str = Field(..., description="Tên loại văn bản hiển thị")
-    title: str = Field(..., description="Tiêu đề chính của văn bản")
-    number: str = Field(..., description="Số hiệu văn bản")
-    date: str = Field(..., description="Ngày ban hành hoặc có hiệu lực")
-    status: str = Field(..., description="Tình trạng hiệu lực")
-    desc: str = Field(..., description="Mô tả tóm tắt nội dung quy định")
-    source_url: Optional[str] = Field(default="", description="Đường dẫn trực tiếp đến văn bản trên vbpl.vn")
-    is_consolidated: bool = Field(default=False, description="Đánh dấu là văn bản hợp nhất")
-    related_docs: List[RelatedDocItem] = Field(default=[], description="Danh sách văn bản gốc và văn bản sửa đổi, bổ sung")
-
-class LegalDocsListResponse(BaseModel):
-    """
-    Danh mục toàn bộ văn bản pháp luật hiện có trong hệ thống.
-    """
-    total: int = Field(default=0, description="Tổng số văn bản")
-    documents: List[LegalDocItem] = Field(default=[], description="Danh sách các văn bản luật")

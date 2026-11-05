@@ -44,7 +44,7 @@ export interface AuditLogItem {
   action: string;
   target_id?: string | null;
   target_email?: string | null;
-  details?: Record<string, any> | null;
+  details?: Record<string, unknown> | null;
   ip_address?: string | null;
   user_agent?: string | null;
   created_at: string;

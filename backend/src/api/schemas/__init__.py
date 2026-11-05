@@ -7,10 +7,6 @@ from .chat_schema import (
     ChatResponse,
     SourceDocument,
     HealthResponse,
-    SearchRequest,
-    SearchResponse,
-    LegalDocItem,
-    LegalDocsListResponse,
 )
 
 __all__ = [
@@ -18,8 +14,4 @@ __all__ = [
     "ChatResponse",
     "SourceDocument",
     "HealthResponse",
-    "SearchRequest",
-    "SearchResponse",
-    "LegalDocItem",
-    "LegalDocsListResponse",
 ]
